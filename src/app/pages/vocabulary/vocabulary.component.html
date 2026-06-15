@@ -1,0 +1,152 @@
+<!-- VOCABULARY PAGE — content only, sidebar lives in MainLayout -->
+
+<div class="vocab-page">
+
+  <!-- TOPBAR -->
+  <header class="vocab-topbar">
+    <div class="vocab-topbar__left">
+      <h1>Từ Vựng IELTS</h1>
+      <p>{{ filteredWords.length }} từ trong bộ lọc · {{ savedWords.size }} đã lưu</p>
+    </div>
+    <div class="vocab-topbar__right">
+      <div class="vocab-progress-pill">
+        <div class="vocab-progress-pill__bar" [style.width.%]="learnedPercent"></div>
+        <span>{{ learnedPercent }}% đã thuộc</span>
+      </div>
+      <button class="btn-mode" (click)="toggleFlashcard()">
+        {{ flashcardMode ? '📋 Danh sách' : '🃏 Flashcard' }}
+      </button>
+    </div>
+  </header>
+
+  <!-- FILTERS -->
+  <div class="vocab-filters">
+    <!-- Topic -->
+    <div class="vocab-filter-row">
+      <span class="vocab-filter-label">Chủ đề</span>
+      <div class="vocab-chips">
+        <button class="vocab-chip" [class.active]="selectedTopic === ''" (click)="selectTopic('')">Tất cả</button>
+        <button
+          *ngFor="let topic of topics"
+          class="vocab-chip"
+          [class.active]="selectedTopic === topic.id"
+          (click)="selectTopic(topic.id)">
+          {{ topic.icon }} {{ topic.name }}
+        </button>
+      </div>
+    </div>
+    <!-- Band -->
+    <div class="vocab-filter-row">
+      <span class="vocab-filter-label">Band</span>
+      <div class="vocab-chips">
+        <button class="vocab-chip" [class.active]="selectedBand === ''" (click)="selectBand('')">Tất cả</button>
+        <button
+          *ngFor="let b of bands"
+          class="vocab-chip vocab-chip--band"
+          [class.active]="selectedBand === b"
+          (click)="selectBand(b)">
+          {{ b }}+
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FLASHCARD MODE ========== -->
+  <ng-container *ngIf="flashcardMode && filteredWords.length">
+    <div class="flashcard-wrap">
+      <div class="flashcard" [class.flipped]="cardFlipped" (click)="flipCard()">
+        <div class="flashcard__inner">
+          <div class="flashcard__front">
+            <span class="flashcard__band">Band {{ currentCard.band }}+</span>
+            <h2>{{ currentCard.word }}</h2>
+            <p class="flashcard__phonetic">{{ currentCard.phonetic }}</p>
+            <p class="flashcard__hint">Nhấn để xem nghĩa</p>
+          </div>
+          <div class="flashcard__back">
+            <span class="flashcard__pos">{{ currentCard.pos }}</span>
+            <h3 class="flashcard__vi">{{ currentCard.defVi }}</h3>
+            <p class="flashcard__en">{{ currentCard.defEn }}</p>
+            <p class="flashcard__example">"{{ currentCard.example }}"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-nav">
+        <button class="fc-nav-btn" (click)="prevCard()">←</button>
+        <span class="fc-counter">{{ currentCardIndex + 1 }} / {{ filteredWords.length }}</span>
+        <button class="fc-nav-btn" (click)="nextCard()">→</button>
+      </div>
+
+      <div class="flashcard-actions">
+        <button class="fc-btn fc-btn--skip" (click)="nextCard()">Bỏ qua</button>
+        <button
+          class="fc-btn fc-btn--save"
+          [class.saved]="savedWords.has(currentCard.word)"
+          (click)="toggleSave(currentCard.word)">
+          {{ savedWords.has(currentCard.word) ? '❤️ Đã lưu' : '🤍 Lưu từ' }}
+        </button>
+        <button
+          class="fc-btn fc-btn--ok"
+          [class.learned]="learnedWords.has(currentCard.word)"
+          (click)="toggleLearned(currentCard.word); nextCard()">
+          {{ learnedWords.has(currentCard.word) ? '✅ Thuộc rồi' : '✓ Thuộc rồi!' }}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- ========== LIST MODE ========== -->
+  <ng-container *ngIf="!flashcardMode">
+    <div class="word-grid" *ngIf="filteredWords.length; else emptyState">
+      <article
+        class="word-card"
+        *ngFor="let word of filteredWords"
+        [class.learned]="learnedWords.has(word.word)">
+
+        <div class="word-card__top">
+          <div>
+            <h3 class="word-card__word">{{ word.word }}</h3>
+            <span class="word-card__phonetic">{{ word.phonetic }}</span>
+          </div>
+          <div class="word-card__tags">
+            <span class="word-card__pos">{{ word.pos }}</span>
+            <span class="word-card__band">B{{ word.band }}</span>
+          </div>
+        </div>
+
+        <p class="word-card__vi">{{ word.defVi }}</p>
+        <p class="word-card__en">{{ word.defEn }}</p>
+        <p class="word-card__example">"{{ word.example }}"</p>
+
+        <div class="word-card__footer">
+          <span class="word-card__topic">{{ getTopicLabel(word.topic) }}</span>
+          <div class="word-card__actions">
+            <button
+              class="word-btn"
+              [class.active]="savedWords.has(word.word)"
+              (click)="toggleSave(word.word)"
+              title="Lưu từ">
+              {{ savedWords.has(word.word) ? '❤️' : '🤍' }}
+            </button>
+            <button
+              class="word-btn"
+              [class.active]="learnedWords.has(word.word)"
+              (click)="toggleLearned(word.word)"
+              title="Thuộc rồi">
+              {{ learnedWords.has(word.word) ? '✅' : '○' }}
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="vocab-empty">
+        <p class="vocab-empty__icon">📭</p>
+        <p class="vocab-empty__title">Không tìm thấy từ vựng</p>
+        <p class="vocab-empty__sub">Thử chọn chủ đề khác hoặc bỏ bộ lọc band.</p>
+      </div>
+    </ng-template>
+  </ng-container>
+
+</div>

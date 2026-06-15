@@ -1,0 +1,127 @@
+<!-- DICTIONARY PAGE — content only, sidebar lives in MainLayout -->
+
+<div class="dict-page">
+
+  <!-- TOPBAR -->
+  <header class="dict-topbar">
+    <div>
+      <h1>Từ Điển IELTS</h1>
+      <p>Tra từ, collocation và ví dụ theo ngữ cảnh IELTS</p>
+    </div>
+  </header>
+
+  <!-- SEARCH BOX -->
+  <div class="dict-search-wrap">
+    <div class="dict-search-box">
+      <svg class="dict-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        class="dict-search-input"
+        type="text"
+        placeholder="Nhập từ cần tra (vd: sustainable, innovation...)"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        (keydown.enter)="onSearch()" />
+      <button *ngIf="searchQuery" class="dict-search-clear" (click)="clearSearch()">✕</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="dict-content" *ngIf="result; else noResult">
+    <div class="dict-result">
+      <!-- Word header -->
+      <div class="dict-result__header">
+        <div class="dict-result__word-info">
+          <h2 class="dict-result__word">{{ result.word }}</h2>
+          <span class="dict-result__phonetic">{{ result.phonetic }}</span>
+          <span class="dict-result__pos">{{ result.pos }}</span>
+        </div>
+        <div class="dict-result__actions">
+          <button class="dict-btn" (click)="playPronunciation(result.word)" title="Phát âm">🔊</button>
+          <button
+            class="dict-btn"
+            [class.active]="savedWords.has(result.word)"
+            (click)="toggleSave(result.word)"
+            title="Lưu từ">
+            {{ savedWords.has(result.word) ? '❤️' : '🤍' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Definitions -->
+      <div class="dict-section">
+        <h3 class="dict-section__title">Nghĩa</h3>
+        <div class="dict-def">
+          <p class="dict-def__vi">{{ result.defVi }}</p>
+          <p class="dict-def__en">{{ result.defEn }}</p>
+        </div>
+      </div>
+
+      <!-- Example -->
+      <div class="dict-section">
+        <h3 class="dict-section__title">Ví dụ IELTS</h3>
+        <blockquote class="dict-example">{{ result.example }}</blockquote>
+      </div>
+
+      <!-- Collocations -->
+      <div class="dict-section" *ngIf="result.collocations?.length">
+        <h3 class="dict-section__title">Collocations thường gặp</h3>
+        <div class="dict-collocs">
+          <span class="dict-colloc" *ngFor="let c of result.collocations">{{ c }}</span>
+        </div>
+      </div>
+
+      <!-- Word family -->
+      <div class="dict-section" *ngIf="result.wordFamily?.length">
+        <h3 class="dict-section__title">Word family</h3>
+        <div class="dict-family">
+          <div class="dict-family-item" *ngFor="let f of result.wordFamily">
+            <span class="dict-family-item__pos">{{ f.pos }}</span>
+            <strong>{{ f.word }}</strong>
+            <span class="dict-family-item__def">{{ f.def }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IELTS usage note -->
+      <div class="dict-note" *ngIf="result.ieltsNote">
+        <span class="dict-note__label">💡 Mẹo IELTS</span>
+        <p>{{ result.ieltsNote }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO RESULT / EMPTY STATE -->
+  <ng-template #noResult>
+    <div class="dict-empty" *ngIf="searched; else defaultState">
+      <p class="dict-empty__icon">🔍</p>
+      <p class="dict-empty__title">Không tìm thấy "{{ searchQuery }}"</p>
+      <p class="dict-empty__sub">Thử từ khác hoặc kiểm tra lại chính tả.</p>
+    </div>
+
+    <ng-template #defaultState>
+      <!-- Suggested words -->
+      <div class="dict-suggestions">
+        <p class="dict-suggestions__label">Từ phổ biến trong IELTS</p>
+        <div class="dict-suggestion-grid">
+          <button
+            class="dict-suggestion-chip"
+            *ngFor="let w of suggestions"
+            (click)="searchWord(w)">
+            {{ w }}
+          </button>
+        </div>
+
+        <div class="dict-feature-cards">
+          <div class="dict-feature-card" *ngFor="let f of features">
+            <span class="dict-feature-card__icon">{{ f.icon }}</span>
+            <h4>{{ f.title }}</h4>
+            <p>{{ f.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+
+</div>

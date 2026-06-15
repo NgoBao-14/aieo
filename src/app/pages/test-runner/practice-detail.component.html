@@ -1,0 +1,92 @@
+<div class="engineContainer" *ngIf="!loading; else loadingState">
+  <header class="topBar">
+    <div class="barLeft">
+      <div class="brandIcon">9s</div>
+      <div class="testInfo">
+        <span class="testTitle">{{ test?.title || (isListeningTest ? 'IELTS Listening' : 'IELTS Reading') }}</span>
+        <span class="testSubTitle">{{ test?.skill }} • {{ test?.source }}</span>
+      </div>
+    </div>
+
+    <div class="timer" [class.timeWarning]="timeLeft < 600">
+      <span class="timeVal">{{ formatTime(timeLeft) }}</span>
+      <span class="timerSub">Time Left</span>
+    </div>
+
+    <div class="barRight">
+      <button class="finishBtn" type="button" (click)="submit()">Finish Test</button>
+    </div>
+  </header>
+
+  <main class="mainLayout">
+    <div
+      *ngIf="enableReadingAssist && showHighlightMenu && menuPos"
+      class="highlightMenu"
+      [style.top.px]="menuPos.y"
+      [style.left.px]="menuPos.x"
+    >
+      <button type="button" class="menuItem" (mousedown)="$event.preventDefault(); applyHighlight('#fff3cd')">Highlight</button>
+      <button type="button" class="menuItemNote" (mousedown)="$event.preventDefault(); applyHighlight('#ffe0b2')">Note</button>
+      <button type="button" class="menuItemRemove" (mousedown)="$event.preventDefault(); applyHighlight('transparent')">Remove</button>
+    </div>
+
+    <app-listening-detail-shell
+      *ngIf="isListeningTest; else readingShell"
+      [test]="test"
+      [activePart]="activePart"
+      [activePartIndex]="activePartIndex"
+      [activeGroups]="activeGroups"
+      [answers]="answers"
+      [renderedPassageHtml]="renderedPassageHtml"
+      [currentQId]="currentQId"
+      [allQuestionIds]="allQuestionIds"
+      [partRanges]="partRanges"
+      [partProgress]="partProgress"
+      [canGoPrevious]="canGoToPreviousQuestion()"
+      [canGoNext]="canGoToNextQuestion()"
+      (partChange)="setActivePart($event)"
+      (answerChange)="setAnswer($event.id, $event.value)"
+      (questionNavigate)="scrollToQuestion($event)"
+      (previousQuestion)="goToPreviousQuestion()"
+      (nextQuestion)="goToNextQuestion()"
+      (submitRequested)="submit()"
+    ></app-listening-detail-shell>
+
+    <ng-template #readingShell>
+      <app-reading-detail-shell
+        [test]="test"
+        [activePart]="activePart"
+        [activePartIndex]="activePartIndex"
+        [activeGroups]="activeGroups"
+        [answers]="answers"
+        [renderedPassageHtml]="renderedPassageHtml"
+        [leftWidth]="leftWidth"
+        [currentQId]="currentQId"
+        [allQuestionIds]="allQuestionIds"
+        [partRanges]="partRanges"
+        [partProgress]="partProgress"
+        [canGoPrevious]="canGoToPreviousQuestion()"
+        [canGoNext]="canGoToNextQuestion()"
+        (partChange)="setActivePart($event)"
+        (answerChange)="setAnswer($event.id, $event.value)"
+        (questionNavigate)="scrollToQuestion($event)"
+        (resizeStart)="beginResize($event)"
+        (passageMouseUp)="onPassageMouseUp()"
+        (passageDragOver)="onPassageDragOver($event)"
+        (passageDragLeave)="onPassageDragLeave($event)"
+        (passageDrop)="onPassageDrop($event)"
+        (passageClick)="handlePassageClick($event)"
+        (hideHighlight)="hideHighlightMenu()"
+        (dragValueStart)="setCurrentDraggedValue($event)"
+        (dragValueEnd)="handleReadingDragEnd($event)"
+        (previousQuestion)="goToPreviousQuestion()"
+        (nextQuestion)="goToNextQuestion()"
+        (submitRequested)="submit()"
+      ></app-reading-detail-shell>
+    </ng-template>
+  </main>
+</div>
+
+<ng-template #loadingState>
+  <div class="loadingState">Đang chuẩn bị bài luyện...</div>
+</ng-template>

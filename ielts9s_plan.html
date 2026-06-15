@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS9S — Business Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1A237E; --blue-l:#E8EAF6; --blue-m:#3949AB; --blue-d:#0D1557;
+  --gold:#FFB800; --gold-l:#FFF8E1; --gold-d:#B37A00;
+  --tx:#1A1A2E; --mu:#6B7280; --bd:#E5E7EB; --bg:#F9FAFB; --w:#fff;
+  --gn:#047857; --gnl:#D1FAE5; --rd:#B91C1C; --rdl:#FEE2E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Be Vietnam Pro',sans-serif;font-size:15px;color:var(--tx);background:var(--bg);line-height:1.6}
+.hdr{background:var(--blue-d);color:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.hdr-t{font-size:17px;font-weight:700}.hdr-t em{color:var(--gold);font-style:normal}
+.hdr-s{font-size:11px;opacity:.55;margin-top:2px}
+.hdr-b{background:rgba(255,184,0,.15);border:1px solid rgba(255,184,0,.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--gold)}
+.nav{display:flex;background:var(--w);border-bottom:1px solid var(--bd);padding:0 28px;position:sticky;top:60px;z-index:99;overflow-x:auto}
+.tab{padding:10px 15px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;color:var(--mu);transition:.15s}
+.tab:hover{color:var(--blue)}.tab.on{color:var(--blue);border-bottom-color:var(--gold)}
+.main{padding:22px 28px;max-width:1080px;margin:0 auto}
+.sec{display:none}.sec.on{display:block}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.card{background:var(--w);border:1px solid var(--bd);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+.ct{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--blue);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.st{background:var(--w);border:1px solid var(--bd);border-radius:8px;padding:14px;text-align:center}
+.sl{font-size:10px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.sv{font-size:22px;font-weight:700;color:var(--blue);margin:5px 0 2px}
+.sv.gd{color:var(--gold-d)}.ss{font-size:10px;color:var(--mu)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--bg);padding:7px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);border-bottom:1px solid var(--bd)}
+td{padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.trb td{background:var(--blue-l)!important}
+.trg td{background:var(--gold-l)!important}
+.trgn td{background:var(--gnl)!important}
+.b{font-weight:600}
+.bc{color:var(--blue);font-weight:700}.gc{color:var(--gold-d);font-weight:700}
+.gnc{color:var(--gn);font-weight:600}.rdc{color:var(--rd)}
+.mu{color:var(--mu);font-size:11px}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tb{background:var(--blue-l);color:var(--blue)}.tg{background:var(--gold-l);color:var(--gold-d)}
+.tgn{background:var(--gnl);color:var(--gn)}.trd{background:var(--rdl);color:var(--rd)}
+.slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--mu);margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.note{background:var(--blue-l);border:1px solid #9FA8DA;border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;color:var(--blue);margin-bottom:14px}
+.noteg{background:var(--gold-l);border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;color:var(--gold-d);margin-bottom:14px}
+.notew{background:var(--rdl);border:1px solid #FCA5A5;border-radius:8px;padding:10px 14px;font-size:12px;font-weight:600;color:var(--rd);margin-bottom:14px}
+.hero{background:var(--blue-d);color:#fff;border-radius:12px;padding:22px 26px;margin-bottom:16px}
+.ht{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:8px}
+.hb{font-size:12px;line-height:1.9;opacity:.9}.hb strong{color:var(--gold)}
+/* Direction cards */
+.dir{border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:var(--w);margin-bottom:16px}
+.dir-h{padding:14px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.dir-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.dir-sub{font-size:11px;opacity:.8}
+.dir-pct{font-size:24px;font-weight:700;min-width:55px;text-align:right}
+.dir-body{padding:14px 18px;border-top:1px solid var(--bd)}
+.dir-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--bd)}
+.df{padding:10px 12px;text-align:center;border-right:1px solid var(--bd)}
+.df:last-child{border-right:none}
+.df-l{font-size:9px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.df-v{font-size:12px;font-weight:700;margin-top:3px}
+.bar-w{background:var(--bd);border-radius:4px;height:5px;margin-top:4px;overflow:hidden}
+.bar-f{height:100%;border-radius:4px;background:var(--gold)}
+/* Roadmap */
+.qcard{border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:16px;background:var(--w)}
+.q-head{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--gold)}
+.q-title{font-size:14px;font-weight:700}
+.q-sub{font-size:11px;color:var(--mu);margin-top:2px}
+.q-inner{padding:16px 18px}
+.rm-section{margin-bottom:16px}
+.rm-st{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:5px 10px;border-radius:4px;margin-bottom:8px;display:inline-block}
+.rst-product{background:var(--blue-l);color:var(--blue)}
+.rst-mkt{background:var(--gold-l);color:var(--gold-d)}
+.rst-content{background:var(--gnl);color:var(--gn)}
+.rst-hr{background:var(--rdl);color:var(--rd)}
+.feat{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd)}
+.feat:last-child{border-bottom:none}
+.pdot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px}
+.p0{background:var(--rdl);color:var(--rd)}.p1{background:var(--gold-l);color:var(--gold-d)}.p2{background:var(--blue-l);color:var(--blue)}
+.feat-t{font-weight:600;font-size:12px;margin-bottom:2px}
+.feat-d{color:var(--mu);font-size:11px;line-height:1.55}
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 0}
+.ki{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.kv{font-size:16px;font-weight:700;color:var(--blue)}
+.kv.gd{color:var(--gold-d)}.kl{font-size:10px;color:var(--mu);margin-top:2px}
+/* Content roadmap */
+.cont-row{display:grid;grid-template-columns:120px 1fr 80px;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:12px;align-items:start}
+.cont-row:last-child{border-bottom:none}
+/* MKT table */
+.mkt-row{display:grid;grid-template-columns:100px 1fr 1fr 80px;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px;align-items:start}
+.mkt-row:last-child{border-bottom:none}
+.mkt-head{display:grid;grid-template-columns:100px 1fr 1fr 80px;gap:8px;padding:5px 0 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);border-bottom:2px solid var(--bd)}
+/* Flywheel */
+.fly{display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding:10px 0}
+.fb{background:var(--blue-l);border-radius:8px;padding:9px 12px;text-align:center;flex:1;min-width:90px}
+.fb .n{font-size:12px;font-weight:700;color:var(--blue)}
+.fb .l{font-size:9px;color:var(--mu);font-weight:600;text-transform:uppercase;margin-top:2px}
+.fb.hl{background:var(--gold-l)}.fb.hl .n{color:var(--gold-d)}
+.fa{font-size:16px;color:var(--bd)}
+/* Vision */
+.vbox{background:var(--blue-d);border-radius:12px;padding:18px;color:#fff;text-align:center}
+.vbig{font-size:36px;font-weight:700;color:var(--gold)}
+.vsub{font-size:12px;opacity:.85;margin-top:4px}
+.vnote{font-size:10px;opacity:.55;margin-top:5px}
+@media(max-width:680px){
+  .g3,.g4{grid-template-columns:1fr 1fr}
+  .g2{grid-template-columns:1fr}
+  .dir-foot{grid-template-columns:1fr 1fr}
+  .kgrid{grid-template-columns:1fr 1fr}
+  .main{padding:16px}
+  .cont-row,.mkt-row,.mkt-head{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-t">IELTS<em>9S</em> — Business Plan</div>
+    <div class="hdr-s">4 hướng · Roadmap chi tiết · MKT + Content · Target 200–300tr/tháng</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <span class="hdr-b">Gom 20% GV IELTS VN</span>
+    <span class="hdr-b">5% HV cả nước</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="tab on" onclick="go('tq')">Tổng quan</div>
+  <div class="tab" onclick="go('hd')">Bussiness Model</div>
+  <div class="tab" onclick="go('dt')">Doanh thu</div>
+  <div class="tab" onclick="go('sp')">Sản phẩm</div>
+  <div class="tab" onclick="go('rm')">Roadmap</div>
+</nav>
+
+<div class="main">
+
+<!-- ===== TỔNG QUAN ===== -->
+<div class="sec on" id="tab-tq">
+
+  <div class="hero">
+    <div class="ht">IELTS9S là gì?</div>
+    <div class="hb">
+      Nền tảng luyện IELTS với <strong>kho bài tập lớn nhất chia theo từng dạng câu hỏi</strong> — không phải thêm một web đề thi nữa.<br><br>
+      Giáo viên dạy IELTS nhỏ lẻ khắp cả nước đang quản lý lớp qua Zalo, Google Form, Excel. <strong>IELTS9S cho họ một LMS đầy đủ tính năng, miễn phí.</strong> Khi GV vào, học viên của họ vào theo. Đó là hướng chính.
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:16px">
+    <div class="vbox">
+      <div class="vbig">20%</div>
+      <div class="vsub">GV IELTS nhỏ lẻ toàn quốc</div>
+      <div class="vnote">~8.000 GV IELTS tại VN · 20% = 1.600 GV · Mỗi GV kéo 20–40 HV</div>
+    </div>
+    <div class="vbox">
+      <div class="vbig">5%</div>
+      <div class="vsub">Học viên đang luyện IELTS cả nước</div>
+      <div class="vnote">Ước tính 600k–800k người đang luyện · 5% = 30k–40k HV trả tiền</div>
+    </div>
+  </div>
+
+  <div class="g4">
+    <div class="st"><div class="sl">Mục tiêu T12</div><div class="sv">150tr</div><div class="ss">3 hướng ổn định</div></div>
+    <div class="st"><div class="sl">Mục tiêu T18</div><div class="sv">250tr</div><div class="ss">4 hướng đủ</div></div>
+    <div class="st"><div class="sl">Lợi nhuận biên</div><div class="sv gd">82%</div><div class="ss">Chi phí cận biên thấp</div></div>
+    <div class="st"><div class="sl">Kịch bản 60%</div><div class="sv" style="font-size:18px">150tr T18</div><div class="ss">Vẫn bền vững</div></div>
+  </div>
+
+  <div class="slbl">Thu hút</div>
+  <div class="card">
+    <div class="fly">
+      <div class="fb hl"><div class="n">GV dùng LMS miễn phí</div><div class="l">Thay Zalo · Google Form</div></div>
+      <div class="fa">→</div>
+      <div class="fb"><div class="n">GV mua tk cho HV</div><div class="l">HV vào platform</div></div>
+      <div class="fa">→</div>
+      <div class="fb"><div class="n">HV tự học cũng vào</div><div class="l">SEO · TikTok · Referral</div></div>
+      <div class="fa">→</div>
+      <div class="fb hl"><div class="n">Marketplace mở</div><div class="l">Writing · Tutoring</div></div>
+      <div class="fa">→</div>
+      <div class="fb"><div class="n">GV khác nghe tiếng vào</div><div class="l">Word of mouth</div></div>
+    </div>
+    <div class="mu" style="margin-top:4px">Ưu tiên GV trước. 1 GV mang 20–40 HV, chi phí acquisition ≈ 0.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">3 hướng doanh thu</div>
+    <table>
+      <tr><th>#</th><th>Hướng</th><th>Thu từ ai</th><th>Bắt đầu</th><th>% DT T18</th></tr>
+      <tr class="trb"><td><span class="tag tb">H1</span></td><td class="b bc">GV mua tài khoản cho HV — LMS đầy đủ</td><td>Giáo viên IELTS</td><td>T1</td><td class="bc">45%</td></tr>
+      <tr><td><span class="tag tb">H2</span></td><td class="b bc">Học viên tự đăng ký</td><td>Học viên</td><td>T1</td><td class="bc">35%</td></tr>
+      <tr><td><span class="tag tg">H3</span></td><td class="b gc">Skill Marketplace — HV book GV chữa bài (Writing, Speaking)</td><td>HV trả · GV nhận · Platform %</td><td>T7</td><td class="gc">15%</td></tr>
+      <tr class="trb"><td><span class="tag tb">H4</span></td><td class="b bc">B2B — Trường ĐH, công ty</td><td>Tổ chức</td><td>T9</td><td class="bc">5%</td></tr>
+    </table>
+    <div class="mu" style="margin-top:8px">H3 là phần platform giữ sau khi trả GV. Gross thực tế cao hơn 3–4x.</div>
+  </div>
+
+</div>
+
+<!-- ===== 4 HƯỚNG ===== -->
+<div class="sec" id="tab-hd">
+
+  <div class="noteg">Mở từng hướng theo thứ tự. H1+H2 ổn định → mở H3 → H3 chạy được</div>
+
+  <!-- H1 -->
+  <div class="dir">
+    <div class="dir-h" style="background:var(--blue-l)">
+      <div>
+        <div class="dir-title bc">H1 — GV mở lớp · Nâng cấp tài khoản cho học viên <span class="tag tb">Trọng tâm · T1</span></div>
+        <div class="dir-sub" style="color:var(--blue)">LMS đầy đủ tính năng, miễn phí cho GV. GV mở lớp, thêm HV, mua tài khoản cho HV để HV dùng đầy đủ.</div>
+      </div>
+      <div><div class="dir-pct bc">45%</div><div class="mu" style="text-align:right">DT T18</div></div>
+    </div>
+    <div class="dir-body">
+      <div class="g2">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;margin-bottom:8px">GV được gì (miễn phí)</div>
+          <div style="font-size:12px;line-height:1.9">
+            · Tạo nhiều lớp học, thêm học viên<br>
+            · Giao bài từ kho có sẵn — không cần soạn tay<br>
+            · Xem tiến độ từng học viên real-time<br>
+            · Theo dõi ai làm bài, ai chưa, điểm từng người<br>
+            · Báo cáo chia sẻ với phụ huynh qua link<br>
+            · Thời khóa biểu, nhắc nhở tự động
+          </div>
+          <div style="margin-top:10px;padding:8px 10px;background:var(--gold-l);border-radius:6px;font-size:11px;font-weight:600;color:var(--gold-d)">
+            Mọi tính năng LMS đều free. GV chỉ trả khi muốn HV có tài khoản đầy đủ.
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;margin-bottom:8px">Giá GV mua cho HV</div>
+          <table>
+            <tr><th>Gói</th><th>Giá/HV</th><th>So với lẻ</th></tr>
+            <tr class="trg"><td class="gc b">★ 6 tháng</td><td class="gc">280.000đ</td><td class="gnc">−55%</td></tr>
+            <tr><td class="b">12 tháng</td><td class="b">480.000đ</td><td class="gnc">−52%</td></tr>
+          </table>
+          <div style="margin-top:10px">
+            <table>
+              <tr><th>Số HV</th><th>GV bỏ ra</th><th>ROI</th></tr>
+              <tr><td>15 HV</td><td>4.2tr</td><td class="gnc">970%+</td></tr>
+              <tr class="trb"><td>25 HV</td><td>7tr</td><td class="bc">970%+</td></tr>
+              <tr><td>40 HV</td><td>11.2tr</td><td class="gnc">970%+</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dir-foot">
+      <div class="df"><div class="df-l">Khả thi</div><div class="df-v bc">Cao</div><div class="bar-w"><div class="bar-f" style="width:88%"></div></div></div>
+      <div class="df"><div class="df-l">Chi phí mở</div><div class="df-v gnc">Gần 0</div><div class="mu" style="margin-top:3px">DM trực tiếp</div></div>
+      <div class="df"><div class="df-l">Thấy tiền</div><div class="df-v">T1–T2</div></div>
+      <div class="df"><div class="df-l">Rủi ro</div><div class="df-v rdc" style="font-size:11px">GV bỏ đi</div><div class="mu" style="margin-top:2px">Giữ bằng nội dung tốt</div></div>
+    </div>
+  </div>
+
+  <!-- H2 -->
+  <div class="dir">
+    <div class="dir-h" style="background:var(--blue-l)">
+      <div>
+        <div class="dir-title bc">H2 — Học viên tự đăng ký (B2C) <span class="tag tb">T1</span></div>
+        <div class="dir-sub" style="color:var(--blue)">HV tự tìm đến qua SEO, TikTok, GV giới thiệu. Mua subscription tự học.</div>
+      </div>
+      <div><div class="dir-pct bc">35%</div><div class="mu" style="text-align:right">DT T18</div></div>
+    </div>
+    <div class="dir-body">
+      <div class="g2">
+        <div>
+          <table>
+            <tr><th>Gói</th><th>Giá</th><th>Quy ra/tháng</th></tr>
+            <tr><td>1 tháng (thử)</td><td>169.000đ</td><td class="mu">169k</td></tr>
+            <tr class="trg"><td class="gc b">★ 6 tháng</td><td class="gc">620.000đ</td><td class="gc">~103k</td></tr>
+            <tr><td class="b">12 tháng</td><td class="b">1.100.000đ</td><td class="mu">~92k</td></tr>
+          </table>
+          <div style="margin-top:8px;padding:8px;background:var(--blue-l);border-radius:6px;font-size:11px;font-weight:600;color:var(--blue)">
+            Freemium: Mock test 1 lần/tuần miễn phí. Muốn luyện theo lộ trình đầy đủ → nâng cấp.
+          </div>
+        </div>
+        <div style="font-size:12px;line-height:1.85">
+          <strong>Kênh kiếm HV:</strong><br>
+          · GV giới thiệu HV của họ → miễn phí<br>
+          · TikTok: tips IELTS theo từng dạng bài<br>
+          · SEO: "luyện matching headings ielts", "note completion tips"<br>
+          · Facebook Ads retarget (bắt đầu T5)<br>
+          · Referral: HV giới thiệu HV → +1 tháng free cả 2
+        </div>
+      </div>
+    </div>
+    <div class="dir-foot">
+      <div class="df"><div class="df-l">Khả thi</div><div class="df-v bc">Cao</div><div class="bar-w"><div class="bar-f" style="width:80%"></div></div></div>
+      <div class="df"><div class="df-l">Chi phí mở</div><div class="df-v">Thấp → TB</div><div class="mu" style="margin-top:3px">T1 organic · T5 Ads</div></div>
+      <div class="df"><div class="df-l">Thấy tiền</div><div class="df-v">T1–T3</div></div>
+      <div class="df"><div class="df-l">Rủi ro</div><div class="df-v rdc" style="font-size:11px">SEO chậm</div><div class="mu" style="margin-top:2px">3–6 tháng có traffic</div></div>
+    </div>
+  </div>
+
+  <!-- H4 MỚI -->
+  <div class="dir" style="border:2px solid var(--gold)">
+    <div class="dir-h" style="background:var(--gold-l)">
+      <div>
+        <div class="dir-title gc">H3 — 1:1 Tutoring Marketplace <span class="tag tg">★ Mới · Mở T7</span></div>
+        <div class="dir-sub" style="color:var(--gold-d)">HV book buổi học riêng 1:1 với GV verified trên platform. Toàn bộ 4 kỹ năng, học live qua Zoom/Meet.</div>
+      </div>
+      <div><div class="dir-pct gc">15%</div><div class="mu" style="text-align:right">DT T18 (net)</div></div>
+    </div>
+    <div class="dir-body">
+      <div class="g2">
+        <div>
+            <table>
+                <tr><th>Dịch vụ</th><th>HV trả</th><th>GV 65%</th><th>Platform 35%</th></tr>
+                <tr class="trg"><td class="b">Writing Task 2</td><td class="gc">120.000đ</td><td class="gnc">78k</td><td class="bc">42k</td></tr>
+                <tr><td class="b">Writing Task 1</td><td class="gc">80.000đ</td><td class="gnc">52k</td><td class="bc">28k</td></tr>
+                <tr class="trg"><td class="b">Combo 5 bài T2</td><td class="gc">550.000đ</td><td class="gnc">357k</td><td class="bc">193k</td></tr>
+              </table>
+          <table>
+            <tr><th>Loại session</th><th>Giá/buổi</th><th>GV nhận 80%</th><th>Platform 20%</th></tr>
+            <tr class="trg"><td class="b">45 phút (1 kỹ năng)</td><td class="gc">200.000đ</td><td class="gnc">160k</td><td class="bc">40k</td></tr>
+            <tr><td class="b">60 phút (tổng quát)</td><td class="gc">280.000đ</td><td class="gnc">224k</td><td class="bc">56k</td></tr>
+            <tr class="trg"><td class="b">Gói 5 buổi</td><td class="gc">900.000đ</td><td class="gnc">720k</td><td class="bc">180k</td></tr>
+            <tr><td class="b">Mock test + review 60'</td><td class="gc">350.000đ</td><td class="gnc">280k</td><td class="bc">70k</td></tr>
+          </table>
+        </div>
+        <div style="font-size:12px;line-height:1.85">
+          <strong>Tại sao H4 là cơ hội tốt từ platform đang có?</strong><br>
+          · GV đã verified qua H1 + H3 — không cần review lại<br>
+          · HV đã quen dùng platform từ H2 — tìm GV ngay trong app<br>
+          · Platform xử lý lịch + thanh toán + Zoom link tự tạo<br>
+          · GV không cần tự marketing, tự thu tiền<br><br>
+          <strong>GV nhận 80%</strong> thay vì 65% (H3) vì GV bỏ thêm thời gian live nhiều hơn.<br><br>
+          <strong>Mục tiêu T12:</strong> 20 GV tutor active · 80 buổi/tháng → platform ~3.5tr/tháng
+        </div>
+      </div>
+    </div>
+    <div class="dir-foot">
+      <div class="df"><div class="df-l">Khả thi</div><div class="df-v gc">Trung bình</div><div class="bar-w"><div class="bar-f" style="width:55%"></div></div></div>
+      <div class="df"><div class="df-l">Chi phí mở</div><div class="df-v">Thấp</div><div class="mu" style="margin-top:3px">GV + HV sẵn có</div></div>
+      <div class="df"><div class="df-l">Thấy tiền</div><div class="df-v">T7–T8</div></div>
+      <div class="df"><div class="df-l">Rủi ro</div><div class="df-v rdc" style="font-size:11px">GV no-show</div><div class="mu" style="margin-top:2px">Cần cancellation policy</div></div>
+    </div>
+  </div>
+
+  <!-- H5 -->
+  <div class="dir">
+    <div class="dir-h" style="background:var(--blue-l)">
+      <div>
+        <div class="dir-title bc">H4 — B2B Tổ chức <span class="tag tb">Mở T9</span></div>
+        <div class="dir-sub" style="color:var(--blue)">Trường ĐH, công ty ký hợp đồng mua tài khoản theo lô.</div>
+      </div>
+      <div><div class="dir-pct bc">5%</div><div class="mu" style="text-align:right">DT T18</div></div>
+    </div>
+    <div class="dir-body">
+      <table>
+        <tr><th>Đối tượng</th><th>Nhu cầu</th><th>Gói/năm</th></tr>
+        <tr class="trb"><td class="b">Trường ĐH</td><td class="mu">SV cần đạt IELTS để tốt nghiệp</td><td class="gc b">15–50tr</td></tr>
+        <tr><td class="b">Công ty outsourcing</td><td class="mu">NV cần IELTS làm việc với đối tác ngoài</td><td class="gc b">8–25tr</td></tr>
+        <tr class="trb"><td class="b">Trung tâm Anh ngữ</td><td class="mu">Cần nội dung + LMS IELTS</td><td class="gc b">7–15tr</td></tr>
+      </table>
+      <div class="mu" style="margin-top:8px">Không làm sớm — chu kỳ bán 3–6 tháng, cần uy tín platform. Chỉ tiếp cận sau khi có 500+ HV active và 50+ GV.</div>
+    </div>
+    <div class="dir-foot">
+      <div class="df"><div class="df-l">Khả thi</div><div class="df-v rdc">Thấp–TB</div><div class="bar-w"><div class="bar-f" style="width:40%"></div></div></div>
+      <div class="df"><div class="df-l">Chi phí mở</div><div class="df-v">Cao hơn</div><div class="mu" style="margin-top:3px">Sales B2B riêng</div></div>
+      <div class="df"><div class="df-l">Thấy tiền</div><div class="df-v">T10–T12</div></div>
+      <div class="df"><div class="df-l">Rủi ro</div><div class="df-v rdc" style="font-size:11px">Quyết định chậm</div><div class="mu" style="margin-top:2px">Nhiều cấp phê duyệt</div></div>
+    </div>
+  </div>
+
+  <div class="slbl">So sánh 5 hướng</div>
+  <div class="card">
+    <table>
+      <tr><th>Hướng</th><th>% DT T18</th><th>Khả thi</th><th>Chi phí mở</th><th>Khi thấy tiền</th><th>Ưu tiên</th></tr>
+      <tr class="trb"><td class="bc b">H1 · GV + LMS</td><td class="bc">43%</td><td class="gnc">Cao 88%</td><td class="gnc">Gần 0</td><td>T1</td><td><span class="tag tb">Trọng tâm</span></td></tr>
+      <tr><td class="bc b">H2 · B2C</td><td class="bc">35%</td><td class="gnc">Cao 80%</td><td>Thấp</td><td>T1</td><td><span class="tag tb">Song song H1</span></td></tr>
+      <tr class="trg"><td class="gc b">H3 · Writing Mkt</td><td class="gc">12%</td><td>TB 62%</td><td class="gnc">Thấp</td><td>T4</td><td><span class="tag tg">Sau T3</span></td></tr>
+      <tr class="trg"><td class="gc b">H4 · Tutoring</td><td class="gc">15%</td><td>TB 55%</td><td class="gnc">Thấp</td><td>T7</td><td><span class="tag tg">Sau T6</span></td></tr>
+      <tr class="trb"><td class="bc b">H5 · B2B</td><td class="bc">5%</td><td class="rdc">Thấp 40%</td><td>Cao</td><td>T10</td><td><span class="tag tb">Sau T9</span></td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ===== DOANH THU ===== -->
+<div class="sec" id="tab-dt">
+
+    <div class="g4">
+      <div class="st"><div class="sl">Tháng 3</div><div class="sv">20tr</div><div class="ss">H1+H2 · 15 GV</div></div>
+      <div class="st"><div class="sl">Tháng 6</div><div class="sv">55tr</div><div class="ss">+H3 · 38 GV</div></div>
+      <div class="st"><div class="sl">Tháng 12</div><div class="sv">150tr</div><div class="ss">4 hướng · 100 GV</div></div>
+      <div class="st"><div class="sl">Tháng 18</div><div class="sv gd">250tr</div><div class="ss">4 hướng · 220 GV</div></div>
+    </div>
+  
+    <div class="card">
+      <div class="ct">Doanh thu theo tháng (triệu VNĐ · platform revenue)</div>
+      <table>
+        <tr>
+          <th>Tháng</th>
+          <th style="color:var(--blue)">H1 GV</th>
+          <th style="color:var(--blue)">H2 B2C</th>
+          <th style="color:var(--gold-d)">H3 Tutoring Marketplace </th>
+          <th style="color:var(--blue)">H4 B2B</th>
+          <th>Tổng</th>
+          <th>LN ước</th>
+        </tr>
+        <tr><td>T1</td><td class="bc">3.5tr</td><td class="bc">4tr</td><td class="mu">—</td><td class="mu">—</td><td class="b">7.5tr</td><td class="gnc">6tr</td></tr>
+        <tr><td>T2</td><td class="bc">6tr</td><td class="bc">7tr</td><td class="mu">—</td><td class="mu">—</td><td class="b">13tr</td><td class="gnc">10.5tr</td></tr>
+        <tr class="trb"><td>T3</td><td class="bc">8.5tr</td><td class="bc">10tr</td><td class="mu">—</td><td class="mu">—</td><td class="b bc">20tr ✓</td><td class="gnc">16tr</td></tr>
+        <tr><td>T4</td><td class="bc">12tr</td><td class="bc">14tr</td><td class="gc">2tr</td><td class="mu">—</td><td class="b">28tr</td><td class="gnc">22.5tr</td></tr>
+        <tr><td>T5</td><td class="bc">16tr</td><td class="bc">19tr</td><td class="gc">4tr</td><td class="mu">—</td><td class="b">39tr</td><td class="gnc">31.5tr</td></tr>
+        <tr class="trg"><td>T6</td><td class="bc">21tr</td><td class="bc">26tr</td><td class="gc">6tr</td><td class="mu">—</td><td class="b gc">55tr ✓</td><td class="gnc">44.5tr</td></tr>
+        <tr><td>T7</td><td class="bc">27tr</td><td class="bc">33tr</td><td class="gc">9.5tr</td><td class="mu">—</td><td class="b">70tr</td><td class="gnc">57tr</td></tr>
+        <tr><td>T8</td><td class="bc">34tr</td><td class="bc">41tr</td><td class="gc">12.5tr</td><td class="mu">—</td><td class="b">88tr</td><td class="gnc">72tr</td></tr>
+        <tr class="trb"><td>T9</td><td class="bc">42tr</td><td class="bc">50tr</td><td class="gc">15.5tr</td><td class="bc">3tr</td><td class="b bc">111tr ✓</td><td class="gnc">91tr</td></tr>
+        <tr><td>T10</td><td class="bc">52tr</td><td class="bc">59tr</td><td class="gc">18tr</td><td class="bc">6tr</td><td class="b">135tr</td><td class="gnc">111tr</td></tr>
+        <tr><td>T11</td><td class="bc">56tr</td><td class="bc">62tr</td><td class="gc">20.5tr</td><td class="bc">7tr</td><td class="b">146tr</td><td class="gnc">120tr</td></tr>
+        <tr class="trg"><td>T12</td><td class="bc">60tr</td><td class="bc">67tr</td><td class="gc">14tr</td><td class="bc">8tr</td><td class="b gc">150tr 🔥</td><td class="gnc">123tr</td></tr>
+        <tr style="background:var(--blue-l)">
+          <td class="b">T18</td><td class="bc">108tr</td><td class="bc">80tr</td><td class="gc">48tr</td><td class="bc">14tr</td><td class="b gc">250tr 🎯</td><td class="gnc">205tr</td>
+        </tr>
+      </table>
+      <div class="mu" style="margin-top:8px">⚠ Kịch bản 60%: T12 ≈ 90tr · T18 ≈ 150tr · Lợi nhuận vẫn tốt.</div>
+    </div>
+  
+  </div>
+
+<!-- ===== SẢN PHẨM ===== -->
+<div class="sec" id="tab-sp">
+
+  <div class="slbl">Kho nội dung — rào cản cạnh tranh thực sự</div>
+  <div class="card">
+    <table>
+      <tr><th>Kỹ năng</th><th>Dạng bài có trong kho</th><th>Điểm khác web thông thường</th><th>Build Q</th></tr>
+      <tr class="trb"><td class="bc b">Reading</td><td>Matching Headings · T/F/NG · Multiple Choice · Sentence Completion · Short Answer · Diagram</td><td>Bài luyện riêng từng dạng + giải thích "tại sao sai" + nhận diện paraphrase. Web khác chỉ có full passage.</td><td><span class="tag tb">Q1</span></td></tr>
+      <tr><td class="bc b">Listening</td><td>Note completion · Form · Map labelling · Multiple Choice · Matching · Section 1→4</td><td>Clip 3–5 phút luyện từng kỹ năng con: nghe số, nghe tên, nghe ý chính. Không phải nghe bài 30 phút.</td><td><span class="tag tb">Q1</span></td></tr>
+      <tr class="trb"><td class="bc b">Vocabulary</td><td>10 chủ đề IELTS: Environment · Technology · Health · Education · Society · Economy · Science · Culture · Urban · Global</td><td>Từ học trong câu IELTS thật, fill-in-the-blank có ngữ cảnh. Không phải flashcard rời.</td><td><span class="tag tb">Q2</span></td></tr>
+      <tr><td class="bc b">Writing structure</td><td>Task 1: Charts/Graphs/Maps/Processes · Task 2: Opinion/Discussion/Problem-Solution/Adv-Disadv</td><td>Bài tập viết từng đoạn + sentence builders + checklist tự đánh giá — không cần AI chấm vẫn học được.</td><td><span class="tag tg">Q3</span></td></tr>
+      <tr class="trb"><td class="bc b">Mock Test</td><td>Full R+L theo chuẩn IELTS, chấm tự động</td><td>Sau thi: gợi ý dạng bài yếu + gắn thẳng vào bài luyện cụ thể trong kho.</td><td><span class="tag tb">Q2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="slbl">Trải nghiệm học viên</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Lộ trình theo band mục tiêu</div>
+      <table>
+        <tr><th>Band mục tiêu</th><th>Lộ trình tự động</th></tr>
+        <tr class="trb"><td class="b">→ 5.5 / 6.0</td><td class="mu">Listening S1–2 · T/F/NG · Vocab cơ bản</td></tr>
+        <tr><td class="b">→ 6.5</td><td class="mu">+ Listening S3 · Matching Headings · Paraphrase</td></tr>
+        <tr class="trb"><td class="b">→ 7.0+</td><td class="mu">+ MC nâng cao · S4 · Academic Vocab</td></tr>
+      </table>
+      <div class="mu" style="margin-top:8px">HV setup band + ngày thi → lộ trình tự tạo. Nhắc luyện hàng ngày.</div>
+    </div>
+    <div class="card">
+      <div class="ct">Giữ HV quay lại</div>
+      <div style="font-size:12px;line-height:1.85">
+        · <strong>Streak:</strong> Luyện mỗi ngày giữ streak. Mất ngày → làm bài bù.<br>
+        · <strong>Leaderboard lớp:</strong> HV trong lớp GV thấy điểm cả lớp.<br>
+        · <strong>Huy hiệu kỹ năng:</strong> Hoàn thành module → badge.<br>
+        · <strong>Tiến độ band:</strong> "Bạn đang ở ~5.8, cần thêm 20 bài để ước đạt 6.0."<br>
+        · <strong>Weekly report:</strong> Email tóm tắt tuần — tiến bộ, dạng bài còn yếu.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== ROADMAP ===== -->
+<div class="sec" id="tab-rm">
+
+  <div class="note">P0 = Bắt buộc · P1 = Nên có · P2 = Nếu còn thời gian · KPI đo cuối mỗi quý.</div>
+
+  <!-- T0 PRE-LAUNCH -->
+  <div class="qcard">
+    <div class="q-head" style="background:var(--blue-d)">
+      <div>
+        <div class="q-title" style="color:var(--gold)">T0 · Trước khi ra mắt · Chuẩn bị</div>
+        <div class="q-sub" style="color:rgba(255,255,255,.6)">Cần xong trước ngày mở cửa T1. Không có cái này, T1 không thể bắt đầu.</div>
+      </div>
+    </div>
+    <div class="q-inner">
+
+      <div class="rm-section">
+        <div class="rm-st rst-product">Sản phẩm</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Reading 5 dạng bài — ít nhất 20 bài mỗi loại đã sẵn</div><div class="feat-d">Matching Headings · T/F/NG · MC · Sentence Completion · Short Answer. Mỗi bài có đáp án và giải thích. Đây là core content T1.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Listening Section 1+2 — 15 clip đã upload, có transcript</div><div class="feat-d">Note completion · Form filling · MC. Audio chất lượng rõ. Script xem được sau khi nộp.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">LMS GV: tạo lớp · thêm HV · giao bài · xem tiến độ — đã test kỹ</div><div class="feat-d">Thử với 3–5 GV beta. Ghi nhận bug. Sửa hết trước T1. Đặc biệt: flow thanh toán phải chạy trơn.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Thanh toán PayOS — test 20 lần với thẻ thật</div><div class="feat-d">Mọi trường hợp: GV mua sỉ · HV mua subscription · Thanh toán lỗi → refund. Đừng để T1 bị lỗi thanh toán.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Video demo 5 phút cho GV — đã quay, đã upload</div><div class="feat-d">Walkthrough: đăng ký → tạo lớp → giao bài đầu tiên. GV xem xong là làm được ngay.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-mkt">Marketing — Chuẩn bị trước T1</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">DM script cho GV — 3 phiên bản đã viết và test</div><div class="feat-d">Tin 1 (ngày 1) · Tin 2 (ngày 4 nếu chưa reply) · Tin 3 (ngày 9 lần cuối). Test với 10 GV thật trước T1, đo tỷ lệ reply.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Danh sách 500 GV IELTS để DM ngay T1</div><div class="feat-d">Tìm qua: Facebook tìm "dạy IELTS" + nhóm GV tiếng Anh + Instagram #toeicteacher · Lọc: đang dạy, có class, có tương tác. Lưu vào sheet với tên, link profile, kênh liên hệ.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">TikTok account đã setup · 2 video đầu đã đăng</div><div class="feat-d">Account tên IELTS9S · Bio rõ ràng · 2 video test: 1 tips dạng bài, 1 quiz. Xem cái nào reach tốt hơn để định hướng content T1.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Landing page GV và landing page HV — 2 trang riêng</div><div class="feat-d">Trang GV: nhấn vào lợi ích tiết kiệm thời gian. Trang HV: nhấn vào lộ trình và band mục tiêu. Cần có trước khi chạy Ads T5.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-content">Nội dung (Content plan)</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Phân công rõ ai làm gì trong team</div><div class="feat-d">Co-founder IELTS teacher: làm bài tập Reading + Listening + chấm bài marketplace khi cần. Dev: build tính năng theo priority. Mỗi tuần review tiến độ content — không để T1 ra mắt mà content thiếu.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Quy trình kiểm tra chất lượng bài tập</div><div class="feat-d">Mỗi bài phải có: câu hỏi đúng ngữ pháp · đáp án đã verify · giải thích rõ ràng · khó độ phân tầng (Easy/Medium/Hard). Người làm → người review → upload.</div></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="qcard">
+    <div class="q-head" style="background:var(--blue-l)">
+      <div>
+        <div class="q-title bc">Q1 · Tháng 1–3 · Foundation</div>
+        <div class="q-sub">Mục tiêu: 15 GV trả tiền · 150 HV B2C · 20tr/tháng T3</div>
+      </div>
+      <div style="display:flex;gap:6px"><span class="tag tb">H1</span><span class="tag tb">H2</span></div>
+    </div>
+    <div class="q-inner">
+
+      <div class="rm-section">
+        <div class="rm-st rst-product">Sản phẩm</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Bổ sung Reading lên 40+ bài mỗi dạng · Listening S1+2 lên 30 clip</div><div class="feat-d">Ưu tiên dạng bài HV làm nhiều nhất (dựa trên data tuần đầu). Mỗi tuần thêm ít nhất 10 bài mới.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Freemium gate — mock test 1 lần/tuần miễn phí</div><div class="feat-d">HV vào không cần trả tiền. Giới hạn rõ. Trigger nâng cấp xuất hiện đúng lúc HV muốn luyện thêm.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Lộ trình theo band + nhắc hàng ngày</div><div class="feat-d">HV setup band mục tiêu + ngày thi → hệ thống tạo lộ trình. Push notification nhắc luyện mỗi ngày 20:00.</div></div></div>
+        <div class="feat"><div class="pdot p2">P2</div><div><div class="feat-t">Streak + huy hiệu cơ bản</div><div class="feat-d">Đủ để HV có lý do mở app mỗi ngày. Không cần phức tạp.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-mkt">Marketing</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">DM GV: 15–20 tin/ngày · 5 ngày/tuần · Không nghỉ</div><div class="feat-d">Ưu tiên GV đang dạy IELTS, có lớp, có tương tác Facebook/Zalo. Theo dõi trong sheet: đã nhắn · reply · xem demo · dùng thử · trả tiền. Review script mỗi 2 tuần dựa trên tỷ lệ reply thực tế.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">TikTok: 3 video/tuần · Đăng 12h–13h hoặc 20h–22h</div><div class="feat-d">Dạng 1: Quiz 15 giây — "Câu này 80% người làm sai, đáp án là gì?" · Dạng 2: Tips nhanh 1 dạng bài cụ thể · Dạng 3: Thử thách. Hook trong 1.5 giây đầu. Luôn có text overlay.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">1 bài blog SEO/2 tuần · Chủ đề từ khoá dài</div><div class="feat-d">Tháng 1–2: "Cách làm Matching Headings IELTS không bị lừa bẫy", "Note completion IELTS: lỗi sai phổ biến nhất". Không cần viết nhiều — viết sâu 1 bài hơn viết nông 10 bài.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Facebook group GV IELTS — tạo và seeding nội dung tuần đầu</div><div class="feat-d">Tạo group "GV IELTS Việt Nam — Chia sẻ tài nguyên". Post 3 lần/tuần: tips dạy, đề lạ hay gặp, hỏi cộng đồng. Không pitch sản phẩm trực tiếp trong 1 tháng đầu.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-content">Nội dung</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Vocabulary 3 chủ đề đầu: Environment · Technology · Health</div><div class="feat-d">Mỗi chủ đề: 60 từ trong câu IELTS thật · fill-in-the-blank · ví dụ ứng dụng vào Reading/Listening. Xong T2.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Bank đề Mock Test đầu tiên — 2 đề hoàn chỉnh R+L</div><div class="feat-d">Chấm tự động · Kết quả gợi ý dạng bài yếu. Cần xong trước T3.</div></div></div>
+      </div>
+
+      <div style="padding:10px 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu)">KPIs cuối Q1</div>
+      <div class="kgrid">
+        <div class="ki"><div class="kv">15</div><div class="kl">GV trả tiền</div></div>
+        <div class="ki"><div class="kv">150</div><div class="kl">HV B2C trả tiền</div></div>
+        <div class="ki"><div class="kv">20tr</div><div class="kl">Doanh thu T3</div></div>
+        <div class="ki"><div class="kv">≥25%</div><div class="kl">GV reply DM</div></div>
+        <div class="ki"><div class="kv">≥3</div><div class="kl">Session HV/tuần</div></div>
+        <div class="ki"><div class="kv">≤15%</div><div class="kl">GV bỏ đi/quý</div></div>
+      </div>
+      <div style="padding:8px 10px;background:var(--rdl);border-radius:6px;font-size:11px;font-weight:600;color:var(--rd);margin-top:8px">⛔ Go/No-go T3: Dưới 10 GV trả tiền → dừng, interview tìm nguyên nhân, không scale tiếp.</div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qcard">
+    <div class="q-head" style="background:var(--gold-l)">
+      <div>
+        <div class="q-title gc">Q2 · Tháng 4–6 · Scale + Marketplace</div>
+        <div class="q-sub">38 GV · 330 HV B2C · Writing Marketplace · Bật Ads · 55tr T6</div>
+      </div>
+      <div style="display:flex;gap:6px"><span class="tag tb">H1 H2 scale</span><span class="tag tg">H3 launch</span></div>
+    </div>
+    <div class="q-inner">
+
+      <div class="rm-section">
+        <div class="rm-st rst-product">Sản phẩm</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Writing Marketplace MVP</div><div class="feat-d">HV upload bài → chọn Task 1 hoặc Task 2 → thanh toán → hệ thống phân công GV reviewer → GV trả feedback 4 tiêu chí (TA/CC/LR/GRA) trong 48h → HV rating. Tuyển 15 reviewer đầu từ GV H1.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Listening Section 3+4 · Full Mock Test R+L</div><div class="feat-d">Full mock test 4 phần · Chấm tự động · Sau thi gợi ý ngay: "Luyện thêm Note Completion và Matching Headings" — gắn link thẳng vào bài.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Vocabulary 7 chủ đề còn lại</div><div class="feat-d">Education · Society · Economy · Science · Culture · Urban · Global Issues. Xong T5.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Báo cáo GV nâng cao — cả lớp yếu dạng bài nào</div><div class="feat-d">GV xem được: tuần này cả lớp đang yếu gì → giao bài đúng điểm yếu đó.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-mkt">Marketing</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Facebook Ads — bật T5 · 3tr/tháng · 2 campaign</div><div class="feat-d">Campaign 1: nhắm GV tiếng Anh 25–45t · interest teaching · lead gen demo. Campaign 2: retarget HV đã vào web/app → subscription. Target: CAC ≤300k GV · ≤100k HV.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">TikTok tăng lên 4–5 video/tuần · Thêm dạng "Before vs After"</div><div class="feat-d">Dạng mới: "Điểm Reading trước 5.5 → sau 7.0 làm gì khác?". Tập trung 2–3 dạng video hoạt động tốt từ Q1, không thử quá nhiều format.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">1 KOL GV IELTS có 5.000+ followers review platform · T4</div><div class="feat-d">Cho dùng free + 1–2tr. Ưu tiên KOL có HV thật, không phải chỉ có view.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Referral program HV — bật T5</div><div class="feat-d">HV giới thiệu HV → cả 2 được +1 tháng free. Tracking link tự động. Thông báo cho HV hiện tại qua email + in-app.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Blog SEO: 2 bài/tháng · Từ khoá trung bình cạnh tranh</div><div class="feat-d">T4: "lộ trình ielts 6.5 tự học 3 tháng" · T5: "tại sao matching headings khó và cách làm" · T6: "ielts writing task 2 dạng discuss both views". Mỗi bài 1.500+ chữ, có ảnh minh họa.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-hr">Tuyển dụng</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Sales/CS bán thời gian — tuyển T4 khi đạt 30tr/tháng</div><div class="feat-d">5–7tr + 3% hoa hồng GV mới. Chịu trách nhiệm: DM GV hàng ngày · demo · onboarding · check-in ngày 3. Giải phóng founder khỏi việc này.</div></div></div>
+      </div>
+
+      <div style="padding:10px 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu)">KPIs cuối Q2</div>
+      <div class="kgrid">
+        <div class="ki"><div class="kv">38</div><div class="kl">GV trả tiền</div></div>
+        <div class="ki"><div class="kv">330</div><div class="kl">HV B2C</div></div>
+        <div class="ki"><div class="kv gc">55tr</div><div class="kl">Doanh thu T6</div></div>
+        <div class="ki"><div class="kv">15+</div><div class="kl">GV reviewer active</div></div>
+        <div class="ki"><div class="kv">80+</div><div class="kl">Bài chữa/tháng</div></div>
+        <div class="ki"><div class="kv">≤100k</div><div class="kl">CAC HV qua Ads</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qcard">
+    <div class="q-head" style="background:var(--blue-l)">
+      <div>
+        <div class="q-title bc">Q3 · Tháng 7–9 · Tutoring + Scale</div>
+        <div class="q-sub">72 GV · 620 HV B2C · Mở 1:1 Tutoring · Sales full-time · 111tr T9</div>
+      </div>
+      <div style="display:flex;gap:6px"><span class="tag tb">H1–H3 tăng tốc</span><span class="tag tg">H4 launch</span><span class="tag tb">H5 prep</span></div>
+    </div>
+    <div class="q-inner">
+
+      <div class="rm-section">
+        <div class="rm-st rst-product">Sản phẩm</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">1:1 Tutoring Marketplace</div><div class="feat-d">GV tạo profile tutor · đặt giá/buổi · lịch available · chuyên môn (4 kỹ năng). HV tìm kiếm lọc theo kỹ năng + giá + rating → book · thanh toán → Zoom link tự tạo → buổi học → rating sau. Cancellation policy rõ ràng.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Writing structure bài tập — Task 1 + Task 2</div><div class="feat-d">Task 2: bài tập viết intro/body/conclusion riêng · sentence builders · paraphrase practice · checklist 4 tiêu chí tự đánh giá. Task 1: mô tả biểu đồ theo template có điền sẵn.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Speaking practice — câu hỏi Part 1+2 với framework trả lời</div><div class="feat-d">HV kéo câu hỏi ngẫu nhiên · xem framework (không phải mẫu đọc thuộc) · ghi âm bản thân · nghe lại. Chuẩn bị cho Speaking marketplace T11+.</div></div></div>
+        <div class="feat"><div class="pdot p2">P2</div><div><div class="feat-t">PWA — cài app trên điện thoại không cần App Store</div><div class="feat-d">Push notification nhắc luyện. Offline mode cho bài đã tải. Quan trọng vì 70%+ HV học trên mobile.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-mkt">Marketing</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Tăng Ads lên 5tr/tháng · Thêm campaign Tutoring</div><div class="feat-d">Campaign mới: "Book 1 buổi học thử với GV IELTS verified". Nhắm HV đang dùng app (custom audience) và lookalike. Budget: 40% GV · 40% HV · 20% Tutoring.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">TikTok: thêm dạng video GV review platform</div><div class="feat-d">1 video/tháng: GV X chia sẻ dùng IELTS9S thay đổi cách dạy như thế nào. Authentic, không kịch bản cứng. GV nói bằng lời của họ.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Referral GV — bật T7</div><div class="feat-d">GV giới thiệu GV mới có ≥5 HV trả tiền → thưởng 700k tín dụng. Thông báo cho toàn bộ GV hiện tại.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">B2B landing page + outreach trường ĐH từ T8</div><div class="feat-d">Trang riêng cho tổ chức. Outreach 10 trường ĐH có khoa tiếng Anh. Mục tiêu: 3 buổi demo trước T9.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-content">Nội dung</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Bổ sung 60+ bài Writing structure exercises</div><div class="feat-d">Task 2: 8 dạng đề × 5 bài tập viết từng đoạn. Task 1: 4 loại chart × 5 bài. Xong T8.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Blog SEO: tăng lên 3 bài/tháng</div><div class="feat-d">Thêm chủ đề: "cách học IELTS Listening cho người mất gốc" · "ielts writing task 1 map how to" · "ielts speaking part 2 describe a person".</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-hr">Tuyển dụng</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Sales/CS full-time — tuyển T7 khi đạt 65tr/tháng</div><div class="feat-d">8–11tr + 3% hoa hồng. KPI: 15+ GV mới/tháng · churn &lt;10%/quý. Bàn giao toàn bộ quy trình DM từ founder.</div></div></div>
+      </div>
+
+      <div style="padding:10px 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu)">KPIs cuối Q3</div>
+      <div class="kgrid">
+        <div class="ki"><div class="kv">72</div><div class="kl">GV trả tiền</div></div>
+        <div class="ki"><div class="kv">620</div><div class="kl">HV B2C</div></div>
+        <div class="ki"><div class="kv bc">111tr</div><div class="kl">Doanh thu T9</div></div>
+        <div class="ki"><div class="kv">20+</div><div class="kl">GV tutor active</div></div>
+        <div class="ki"><div class="kv">200+</div><div class="kl">Bài Writing/tháng</div></div>
+        <div class="ki"><div class="kv">3+</div><div class="kl">B2B lead đang đàm</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qcard">
+    <div class="q-head" style="background:var(--gold-l)">
+      <div>
+        <div class="q-title gc">Q4 · Tháng 10–12 · Optimize + B2B</div>
+        <div class="q-sub">100 GV · 900 HV · Ký B2B đầu tiên · Giảm churn · 150tr T12</div>
+      </div>
+      <div style="display:flex;gap:6px"><span class="tag tg">5 hướng</span><span class="tag tb">H5 live</span></div>
+    </div>
+    <div class="q-inner">
+
+      <div class="rm-section">
+        <div class="rm-st rst-product">Sản phẩm</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">B2B portal — Admin cho tổ chức</div><div class="feat-d">Tạo user hàng loạt · báo cáo tổng hợp toàn bộ NV/SV · xuất PDF · lộ trình theo yêu cầu riêng.</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Retention system — alert user sắp bỏ đi</div><div class="feat-d">HV không login 7 ngày → email + push "Bạn còn X ngày streak". GV không giao bài 2 tuần → CS check-in. Mục tiêu: churn &lt;10%/quý.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Speaking Marketplace — book session nói chuyện với GV</div><div class="feat-d">Mở rộng từ Tutoring (H4): HV book 30' speaking mock riêng · 200k/session · lịch linh hoạt hơn. Tập trung vào HV sắp thi trong 2–4 tuần.</div></div></div>
+        <div class="feat"><div class="pdot p2">P2</div><div><div class="feat-t">Thử nghiệm AI feedback Writing — pilot 50 HV</div><div class="feat-d">AI cho instant feedback sau khi nộp bài — trước khi GV reviewer đọc. Đo: HV có hài lòng không? Có giảm nhu cầu human reviewer không? Quyết định scale sau.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-mkt">Marketing</div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Tăng Ads lên 7tr/tháng · Scale campaign hoạt động tốt</div><div class="feat-d">Scale campaign có ROAS tốt từ Q2–Q3. Tắt campaign hiệu quả kém. Thêm Google Ads thử nghiệm: từ khoá "luyện ielts online", "ielts writing correction".</div></div></div>
+        <div class="feat"><div class="pdot p0">P0</div><div><div class="feat-t">Case study GV — 2 câu chuyện thành công dạng bài viết + video</div><div class="feat-d">GV A: từ 20 HV/tháng lên 45 HV/tháng sau 6 tháng dùng IELTS9S. GV B: tiết kiệm X giờ soạn bài mỗi tuần. Đăng Facebook + TikTok + blog.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">B2B outreach mở rộng — công ty outsourcing + logistics</div><div class="feat-d">Sau trường ĐH, mở rộng sang công ty. Liên hệ HR/L&D trực tiếp qua LinkedIn. Chuẩn bị proposal mẫu + pricing.</div></div></div>
+      </div>
+
+      <div class="rm-section">
+        <div class="rm-st rst-hr">Tuyển dụng</div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Developer junior — tuyển T9 khi đạt 100tr/tháng</div><div class="feat-d">12–18tr. KPI: ship đúng sprint · &lt;2 bug production/tháng. Ưu tiên người biết Firebase + React/Angular.</div></div></div>
+        <div class="feat"><div class="pdot p1">P1</div><div><div class="feat-t">Content writer — tuyển T11 khi đạt 130tr/tháng</div><div class="feat-d">8–12tr. KPI: 100+ bài tập mới/tháng · 3 blog SEO/tháng. Ưu tiên người có nền IELTS teaching hoặc đã luyện thi IELTS.</div></div></div>
+      </div>
+
+      <div style="padding:10px 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu)">KPIs cuối Q4 (T12)</div>
+      <div class="kgrid">
+        <div class="ki"><div class="kv">100</div><div class="kl">GV trả tiền</div></div>
+        <div class="ki"><div class="kv">900</div><div class="kl">HV B2C</div></div>
+        <div class="ki"><div class="kv gd">150tr</div><div class="kl">Doanh thu T12</div></div>
+        <div class="ki"><div class="kv">1–2</div><div class="kl">Hợp đồng B2B</div></div>
+        <div class="ki"><div class="kv">300+</div><div class="kl">Bài Writing/tháng</div></div>
+        <div class="ki"><div class="kv">&lt;10%</div><div class="kl">Churn GV/quý</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly metrics -->
+  <div class="slbl">Chỉ số theo dõi hàng tuần</div>
+  <div class="card">
+    <table>
+      <tr><th>Chỉ số</th><th>T1–T3</th><th>T4–T6</th><th>T7–T9</th><th>T10–T12</th></tr>
+      <tr class="trb"><td class="b bc">DM GV/tuần</td><td>70+</td><td>100+</td><td>140+</td><td>150+</td></tr>
+      <tr><td class="b">GV mới trả tiền/tuần</td><td>3+</td><td>5+</td><td>8+</td><td>10+</td></tr>
+      <tr class="trb"><td class="b bc">HV B2C mới/tuần</td><td>10+</td><td>20+</td><td>35+</td><td>45+</td></tr>
+      <tr><td class="b">HV active (≥3 buổi/tuần)</td><td>≥40%</td><td>≥45%</td><td>≥50%</td><td>≥55%</td></tr>
+      <tr class="trg"><td class="b gc">Bài Writing chữa/tuần</td><td>—</td><td>15+</td><td>40+</td><td>65+</td></tr>
+      <tr class="trg"><td class="b gc">Buổi Tutoring/tuần</td><td>—</td><td>—</td><td>10+</td><td>20+</td></tr>
+      <tr class="trb"><td class="b bc">New MRR/tuần</td><td>1.5tr+</td><td>4tr+</td><td>7tr+</td><td>10tr+</td></tr>
+      <tr><td class="b">Churn GV/tháng</td><td>&lt;5%</td><td>&lt;5%</td><td>&lt;4%</td><td>&lt;3%</td></tr>
+      <tr class="trb"><td class="b bc">Video TikTok/tuần</td><td>3</td><td>4–5</td><td>4–5</td><td>4–5</td></tr>
+      <tr><td class="b">Bài blog SEO/tháng</td><td>2</td><td>2</td><td>3</td><td>3–4</td></tr>
+    </table>
+  </div>
+
+  <div class="noteg">★ Mốc quan trọng nhất: T3 — 15 GV trả tiền. Đây là bằng chứng duy nhất platform đang đi đúng hướng. Chưa đạt → không mở H3, không tuyển người, không tăng Ads. Dừng lại và tìm hiểu tại sao.</div>
+
+</div>
+
+</div>
+
+<script>
+const tabs=['tq','hd','dt','sp','rm'];
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('tab-'+id).classList.add('on');
+  document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!-- EXERCISE HUB — content only, sidebar lives in MainLayout -->
+
+<div class="hub-page">
+
+  <!-- TOPBAR -->
+  <header class="hub-topbar">
+    <div class="hub-topbar__left">
+      <h1>Kho Dạng Bài</h1>
+      <p>Luyện từng dạng câu hỏi Reading & Listening</p>
+    </div>
+    <span class="hub-topbar__badge" *ngIf="!loading">
+      {{ totalQuestions }} câu · {{ totalTypes }} dạng
+    </span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hub-hero">
+    <div class="hub-hero__text">
+      <h2>Chinh phục từng dạng bài — tiến bộ rõ ràng hơn</h2>
+      <p>Thay vì làm cả đề, hãy tập trung vào đúng điểm yếu. Mỗi dạng câu hỏi có chiến lược riêng — luyện đúng trọng tâm, tăng điểm nhanh hơn.</p>
+    </div>
+    <div class="hub-stats">
+      <div class="hub-stat">
+        <span class="hub-stat__num">{{ totalQuestions }}</span>
+        <span class="hub-stat__label">Câu hỏi</span>
+      </div>
+      <div class="hub-stat-div"></div>
+      <div class="hub-stat">
+        <span class="hub-stat__num">{{ totalTypes }}</span>
+        <span class="hub-stat__label">Dạng bài</span>
+      </div>
+      <div class="hub-stat-div"></div>
+      <div class="hub-stat">
+        <span class="hub-stat__num">{{ totalSources }}</span>
+        <span class="hub-stat__label">Đề nguồn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILL TABS -->
+  <div class="hub-tabs">
+    <button class="hub-tab" [class.active]="selectedSkill === ''"         (click)="setSkill('')">Tất cả</button>
+    <button class="hub-tab hub-tab--r" [class.active]="selectedSkill === 'Reading'"   (click)="setSkill('Reading')">📖 Reading</button>
+    <button class="hub-tab hub-tab--l" [class.active]="selectedSkill === 'Listening'" (click)="setSkill('Listening')">🎧 Listening</button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="hub-loading" *ngIf="loading">
+    <div class="hub-spinner"></div>
+    <p>Đang tải dạng bài...</p>
+  </div>
+
+  <ng-container *ngIf="!loading">
+
+    <!-- READING — live catalog -->
+    <section class="hub-section" *ngIf="readingCatalog.length && selectedSkill !== 'Listening'">
+      <div class="hub-section__head">
+        <div class="hub-section__title">
+          <span class="skill-pill skill-pill--reading">Reading</span>
+          <h2>Reading — Dạng bài sẵn sàng</h2>
+        </div>
+        <span class="hub-section__count">{{ readingCatalog.length }} dạng</span>
+      </div>
+      <div class="exercise-grid">
+        <article
+          class="exercise-card"
+          *ngFor="let item of readingCatalog"
+          (click)="goToExercise(item)"
+          role="button" tabindex="0"
+          (keydown.enter)="goToExercise(item)">
+          <div class="exercise-card__top">
+            <span class="skill-pill skill-pill--reading">Reading</span>
+            <span class="exercise-card__count">{{ item.questionCount }} câu</span>
+          </div>
+          <h3 class="exercise-card__title">{{ item.type }}</h3>
+          <p class="exercise-card__desc">{{ getTypeDescription(item.type) }}</p>
+          <div class="exercise-card__foot">
+            <span class="exercise-card__sources">{{ item.testCount }} đề nguồn</span>
+            <span class="exercise-card__cta">Luyện ngay →</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- READING — coming soon -->
+    <section class="hub-section" *ngIf="selectedSkill !== 'Listening'">
+      <div class="hub-section__head">
+        <div class="hub-section__title">
+          <span class="hub-coming-badge">Sắp có</span>
+          <h2>Reading — Đang chuẩn bị</h2>
+        </div>
+      </div>
+      <div class="exercise-grid">
+        <article class="exercise-card exercise-card--locked" *ngFor="let t of readingComingSoon">
+          <div class="exercise-card__top">
+            <span class="skill-pill skill-pill--reading">Reading</span>
+          </div>
+          <h3 class="exercise-card__title">{{ t.type }}</h3>
+          <p class="exercise-card__desc">{{ t.desc }}</p>
+          <div class="exercise-card__foot">
+            <span class="exercise-card__locked">🔒 Đang chuẩn bị</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- LISTENING — live catalog -->
+    <section class="hub-section" *ngIf="listeningCatalog.length && selectedSkill !== 'Reading'">
+      <div class="hub-section__head">
+        <div class="hub-section__title">
+          <span class="skill-pill skill-pill--listening">Listening</span>
+          <h2>Listening — Dạng bài sẵn sàng</h2>
+        </div>
+        <span class="hub-section__count">{{ listeningCatalog.length }} dạng</span>
+      </div>
+      <div class="exercise-grid">
+        <article
+          class="exercise-card"
+          *ngFor="let item of listeningCatalog"
+          (click)="goToExercise(item)"
+          role="button" tabindex="0"
+          (keydown.enter)="goToExercise(item)">
+          <div class="exercise-card__top">
+            <span class="skill-pill skill-pill--listening">Listening</span>
+            <span class="exercise-card__count">{{ item.questionCount }} câu</span>
+          </div>
+          <h3 class="exercise-card__title">{{ item.type }}</h3>
+          <p class="exercise-card__desc">{{ getTypeDescription(item.type) }}</p>
+          <div class="exercise-card__foot">
+            <span class="exercise-card__sources">{{ item.testCount }} đề nguồn</span>
+            <span class="exercise-card__cta">Luyện ngay →</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- LISTENING — coming soon -->
+    <section class="hub-section" *ngIf="selectedSkill !== 'Reading'">
+      <div class="hub-section__head">
+        <div class="hub-section__title">
+          <span class="hub-coming-badge">Sắp có</span>
+          <h2>Listening — Đang chuẩn bị</h2>
+        </div>
+      </div>
+      <div class="exercise-grid">
+        <article class="exercise-card exercise-card--locked" *ngFor="let t of listeningComingSoon">
+          <div class="exercise-card__top">
+            <span class="skill-pill skill-pill--listening">Listening</span>
+          </div>
+          <h3 class="exercise-card__title">{{ t.type }}</h3>
+          <p class="exercise-card__desc">{{ t.desc }}</p>
+          <div class="exercise-card__foot">
+            <span class="exercise-card__locked">🔒 Đang chuẩn bị</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </ng-container>
+
+</div>

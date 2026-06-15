@@ -1,0 +1,242 @@
+<!-- EXERCISE PRACTICE PAGE -->
+
+<div class="practice-page">
+
+  <!-- TOPBAR -->
+  <header class="practice-topbar">
+    <button class="back-btn" (click)="backToHub()">
+      ← Dạng bài
+    </button>
+    <div class="practice-topbar__center">
+      <span class="practice-topbar__skill"
+        [class.reading]="skill === 'Reading'"
+        [class.listening]="skill === 'Listening'">
+        {{ skill }}
+      </span>
+      <span class="practice-topbar__type">{{ typeName }}</span>
+    </div>
+    <div class="practice-topbar__right">
+      <span class="practice-topbar__progress" *ngIf="!submitted && totalQ">
+        {{ answered }}/{{ totalQ }} đã điền
+      </span>
+      <button
+        class="submit-btn"
+        *ngIf="!submitted && totalQ"
+        (click)="submit()"
+        [disabled]="!answered">
+        Nộp bài
+      </button>
+    </div>
+  </header>
+
+  <!-- LOADING -->
+  <div class="practice-loading" *ngIf="loading">
+    <div class="practice-spinner"></div>
+    <p>Đang tải bài tập...</p>
+  </div>
+
+  <!-- EMPTY -->
+  <div class="practice-empty" *ngIf="!loading && !totalQ">
+    <p class="practice-empty__icon">📂</p>
+    <p class="practice-empty__title">Chưa có câu hỏi cho dạng này</p>
+    <p class="practice-empty__sub">Admin đang nhập thêm bài tập. Thử dạng khác hoặc quay lại sau.</p>
+    <button class="back-btn-lg" (click)="backToHub()">← Quay lại kho dạng bài</button>
+  </div>
+
+  <!-- ============================================================
+       PRACTICE MODE (chưa nộp)
+       ============================================================ -->
+  <div class="practice-body" *ngIf="!loading && totalQ && !submitted">
+
+    <!-- LEFT: passage / audio -->
+    <div class="practice-left" *ngIf="currentQ?.passageHtml || currentQ?.audioUrl">
+
+      <!-- Audio player for Listening -->
+      <div class="practice-audio" *ngIf="currentQ?.audioUrl">
+        <div class="practice-audio__label">🎧 Nghe audio bài thi</div>
+        <audio controls [src]="currentQ!.audioUrl" class="practice-audio__player"></audio>
+        <p class="practice-audio__tip">Nghe 1 lần và làm luôn — không nghe lại trong thi thật.</p>
+      </div>
+
+      <!-- Reading passage -->
+      <div class="practice-passage" *ngIf="currentQ?.passageHtml">
+        <div class="practice-passage__label">📖 {{ currentQ?.partTitle }}</div>
+        <div class="practice-passage__body" [innerHTML]="currentQ!.passageHtml"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: question + nav -->
+    <div class="practice-right">
+
+      <!-- Question nav dots -->
+      <div class="q-nav">
+        <button
+          *ngFor="let q of questions; let i = index"
+          class="q-dot"
+          [class.active]="i === currentIndex"
+          [class.answered]="answers[q.id] !== undefined"
+          (click)="goTo(i)">
+          {{ q.id }}
+        </button>
+      </div>
+
+      <!-- Instructions -->
+      <div class="q-instructions" *ngIf="currentQ">
+        <span class="q-type-tag"
+          [class.reading]="skill === 'Reading'"
+          [class.listening]="skill === 'Listening'">
+          {{ currentQ.groupType }}
+        </span>
+        <p>{{ currentQ.groupInstructions }}</p>
+      </div>
+
+      <!-- QUESTION BODY -->
+      <div class="q-card" *ngIf="currentQ">
+        <div class="q-num">Câu {{ currentIndex + 1 }}</div>
+
+        <!-- Multiple Choice / True-False-NG / Yes-No-NG -->
+        <ng-container *ngIf="currentQ.options?.length">
+          <p class="q-text" *ngIf="currentQ.text">{{ currentQ.text }}</p>
+          <div class="q-options">
+            <label
+              class="q-option"
+              *ngFor="let opt of currentQ.options"
+              [class.selected]="getAnswer(currentQ.id) === opt">
+              <input
+                type="radio"
+                [name]="'q' + currentQ.id"
+                [value]="opt"
+                [checked]="getAnswer(currentQ.id) === opt"
+                (change)="setAnswer(currentQ.id, opt)" />
+              <span class="q-option__label">{{ opt }}</span>
+            </label>
+          </div>
+        </ng-container>
+
+        <!-- Fill in blank (Note/Form/Sentence/Summary Completion) -->
+        <ng-container *ngIf="!currentQ.options?.length">
+          <p class="q-text" *ngIf="currentQ.text">{{ currentQ.text }}</p>
+          <div class="q-fill" *ngIf="!currentQ.text">
+            <label class="q-fill__label">Question {{ currentQ.id }}</label>
+            <input
+              class="q-fill__input"
+              type="text"
+              placeholder="Nhập đáp án..."
+              [value]="getAnswer(currentQ.id)"
+              (input)="setAnswer(currentQ.id, $any($event.target).value)" />
+          </div>
+          <div class="q-fill" *ngIf="currentQ.text">
+            <input
+              class="q-fill__input"
+              type="text"
+              placeholder="Nhập đáp án..."
+              [value]="getAnswer(currentQ.id)"
+              (input)="setAnswer(currentQ.id, $any($event.target).value)" />
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- PREV / NEXT -->
+      <div class="q-footer">
+        <button class="q-nav-btn q-nav-btn--prev" (click)="prev()" [disabled]="currentIndex === 0">
+          ← Câu trước
+        </button>
+        <span class="q-counter">{{ currentIndex + 1 }} / {{ totalQ }}</span>
+        <button
+          *ngIf="currentIndex < totalQ - 1"
+          class="q-nav-btn q-nav-btn--next"
+          (click)="next()">
+          Câu sau →
+        </button>
+        <button
+          *ngIf="currentIndex === totalQ - 1"
+          class="q-nav-btn q-nav-btn--submit"
+          (click)="submit()"
+          [disabled]="!answered">
+          Nộp bài ✓
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RESULT MODE (sau khi nộp)
+       ============================================================ -->
+  <div class="result-page" *ngIf="submitted">
+
+    <!-- Score summary -->
+    <div class="result-summary">
+      <div class="result-score-ring">
+        <svg viewBox="0 0 80 80" class="result-ring-svg">
+          <circle cx="40" cy="40" r="34" fill="none" stroke="#E5E7EB" stroke-width="8"/>
+          <circle
+            cx="40" cy="40" r="34"
+            fill="none"
+            [attr.stroke]="percent >= 70 ? '#10B981' : percent >= 50 ? '#F59E0B' : '#EF4444'"
+            stroke-width="8"
+            stroke-linecap="round"
+            stroke-dasharray="213.6"
+            [attr.stroke-dashoffset]="213.6 - (213.6 * percent / 100)"
+            transform="rotate(-90 40 40)"/>
+        </svg>
+        <div class="result-ring-center">
+          <span class="result-ring-score">{{ score }}/{{ totalQ }}</span>
+          <span class="result-ring-pct">{{ percent }}%</span>
+        </div>
+      </div>
+
+      <div class="result-summary__info">
+        <div class="result-band">
+          <span class="result-band__label">Band ước tính</span>
+          <span class="result-band__score">{{ bandEstimate }}</span>
+        </div>
+        <p class="result-summary__desc">
+          <span *ngIf="percent >= 70">Tốt lắm! Tiếp tục luyện để cố định kỹ năng này.</span>
+          <span *ngIf="percent >= 50 && percent < 70">Khá ổn — xem lại đáp án sai bên dưới để hiểu lý do.</span>
+          <span *ngIf="percent < 50">Cần luyện thêm dạng này. Đọc kỹ giải thích từng câu sai.</span>
+        </p>
+        <div class="result-actions">
+          <button class="result-btn result-btn--retry" (click)="retry()">🔄 Làm lại</button>
+          <button class="result-btn result-btn--hub"   (click)="backToHub()">← Dạng bài khác</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question by question review -->
+    <div class="result-review">
+      <h2 class="result-review__title">Xem lại từng câu</h2>
+
+      <div class="result-item" *ngFor="let res of results; let i = index">
+        <div class="result-item__header">
+          <span class="result-item__num">Câu {{ res.questionId }}</span>
+          <span class="result-item__badge" [class.correct]="res.correct" [class.wrong]="!res.correct">
+            {{ res.correct ? '✓ Đúng' : '✗ Sai' }}
+          </span>
+        </div>
+
+        <p class="result-item__question" *ngIf="questions[i]?.text">
+          {{ questions[i].text }}
+        </p>
+
+        <div class="result-item__answers">
+          <div class="result-item__answer" [class.user-correct]="res.correct" [class.user-wrong]="!res.correct">
+            <span class="result-item__answer-label">Bạn trả lời:</span>
+            <strong>{{ res.userAnswer || '(bỏ trống)' }}</strong>
+          </div>
+          <div class="result-item__answer result-item__answer--correct" *ngIf="!res.correct">
+            <span class="result-item__answer-label">Đáp án đúng:</span>
+            <strong>{{ res.correctAnswer }}</strong>
+          </div>
+        </div>
+
+        <div class="result-item__explanation" *ngIf="res.explanation">
+          <span class="result-item__exp-icon">💡</span>
+          <p>{{ res.explanation }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

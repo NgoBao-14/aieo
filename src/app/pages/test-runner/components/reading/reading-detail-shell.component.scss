@@ -1,0 +1,41 @@
+.readingShell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.readingShell .floatingQuestionRail {
+  right: 18px;
+  bottom: 92px;
+  padding: 0;
+  gap: 12px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  flex-direction: row;
+  align-items: center;
+}
+
+.readingShell .footerPagerBtn {
+  width: 68px;
+  height: 68px;
+  border: none;
+  border-radius: 8px;
+  background: #5a5a5a;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.readingShell .footerPagerBtn:last-child {
+  background: #000;
+}
+
+.readingShell .footerPagerBtn:hover:not(:disabled) {
+  border-color: transparent;
+  filter: brightness(0.95);
+}
+
+.readingShell .footerPagerStatus {
+  display: none;
+}

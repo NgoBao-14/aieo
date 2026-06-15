@@ -1,0 +1,414 @@
+/* ============================================================
+   HOME PAGE — for IELTS beginners
+   ============================================================ */
+
+/* shared section header */
+.home-section-header {
+  text-align: center;
+  margin-bottom: 36px;
+
+  &__eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--secondary-dark);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+
+  p { font-size: 14px; color: var(--text-muted); }
+}
+
+/* shared buttons */
+.btn-primary-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(26,35,126,0.28);
+  transition: background 0.15s, transform 0.15s;
+  &:hover { background: var(--primary-mid); transform: translateY(-2px); }
+}
+
+.btn-ghost-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.15s;
+  &:hover { border-color: var(--primary); color: var(--primary); }
+}
+
+.btn-ghost-lg-light {
+  @extend .btn-ghost-lg;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+  &:hover { background: var(--primary-light); }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.home-hero {
+  padding: 56px 40px 48px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 40%;
+    background: linear-gradient(135deg, #EEF2FF 0%, #FFF8E1 100%);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+    pointer-events: none;
+  }
+}
+
+.home-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  border: 1px solid #C7D2FE;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.2px;
+  position: relative;
+}
+
+.home-hero__title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 16px;
+  max-width: 18ch;
+  position: relative;
+}
+
+.home-hero__accent {
+  color: var(--primary);
+}
+
+.home-hero__sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 44ch;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.home-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+/* Trust strip */
+.home-trust {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.home-trust__item {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ============================================================
+   WHAT IS IELTS
+   ============================================================ */
+.home-explain {
+  padding: 52px 40px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.home-explain__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-explain__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--primary-mid);
+  margin-bottom: 10px;
+}
+
+.home-explain__text {
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+  p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+}
+
+.home-band {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+
+  &:last-child { border-bottom: none; }
+
+  strong { display: block; font-size: 14px; font-weight: 700; }
+  p { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+}
+
+.home-band__score {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   LEARNING PATHS
+   ============================================================ */
+.home-paths {
+  padding: 52px 40px;
+}
+
+.home-paths__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-path-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 10px 0 8px;
+  }
+
+  p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+}
+
+.home-path-card--1 { background: linear-gradient(145deg, #E8EAF6 0%, #fff 60%); }
+.home-path-card--2 { background: linear-gradient(145deg, #FFF8E1 0%, #fff 60%); }
+.home-path-card--3 { background: linear-gradient(145deg, #E8F5E9 0%, #fff 60%); }
+
+.home-path-card__step {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.home-path-card__icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.home-path-card__cta {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* ============================================================
+   QUESTION TYPES
+   ============================================================ */
+.home-types {
+  padding: 52px 40px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.home-types__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+}
+
+.home-type-card {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+
+  h4 {
+    font-size: 14px;
+    font-weight: 800;
+    margin: 8px 0 6px;
+  }
+
+  p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+}
+
+.home-type-card__skill {
+  display: inline-flex;
+  height: 20px;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+
+  &.reading   { background: var(--reading-light);   color: var(--reading-color); }
+  &.listening { background: var(--listening-light); color: var(--listening-color); }
+}
+
+.home-types__cta {
+  text-align: center;
+}
+
+/* ============================================================
+   CTA BANNER
+   ============================================================ */
+.home-cta-banner {
+  padding: 52px 40px;
+  background: var(--primary-light);
+  border-top: 1px solid #C7D2FE;
+  text-align: center;
+}
+
+.home-cta-banner__content {
+  max-width: 540px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    color: var(--primary-dark);
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+}
+
+.home-cta-banner__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .home-hero,
+  .home-explain,
+  .home-paths,
+  .home-types,
+  .home-cta-banner { padding: 36px 20px; }
+
+  .home-explain__inner,
+  .home-paths__grid,
+  .home-types__grid { grid-template-columns: 1fr; }
+
+  .home-hero__title { font-size: 1.6rem; }
+}

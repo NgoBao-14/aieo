@@ -1,0 +1,356 @@
+[
+  {
+    "id": "ielts-reading-full-01",
+    "title": "IELTS Academic Reading - Practice Test 1",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 1024,
+    "parts": [
+      {
+        "id": "full-01-p1",
+        "number": 1,
+        "title": "THE STORY OF SILK",
+        "passageHtml": "<div class='passage-section'><span class='p-label'>Paragraph A</span><p>Silk is a fine, strong, soft lustrous fibre produced by silkworms in making cocoons and collected to make thread and fabric. According to legend, it was Lei Zu (also known as Hsi-Ling-Shih), the wife of the mythical Yellow Emperor, who discovered the process around 3000 BC. She was supposedly sitting under a mulberry tree when a cocoon fell into her <strong>tea</strong>, and as she picked it out, a long thread began to unravel. She became so fascinated that she took to studying the silkworm. She also developed the silk <strong>reel</strong> and loom. The art of raising silkworms is called sericulture.</p></div><div class='passage-section'><span class='p-label'>Paragraph B</span><p>For about 3,000 years, the Chinese kept the secret of silk entirely to themselves. It was the most zealously guarded secret in history. Anyone caught smuggling silkworm eggs or cocoons out of China was punished by death. Only <strong>women</strong> were entrusted with the labourious tasks of raising the silkworms and weaving the fabric. Only members of <strong>royalty</strong> were allowed to wear silk garments. The fabric was so prized that it was used as a form of <strong>currency</strong> — farmers paid their taxes in silk, and the Emperor rewarded his ministers with silk.</p></div><div class='passage-section'><span class='p-label'>Paragraph C</span><p>Silk was used for many purposes beyond clothing. Evidence found near Changsha, China showed that <strong>paper</strong> was made from silk as early as 168 AD. Silk was used for musical instruments, fishing lines, bowstrings, and even <strong>money</strong>. The Chinese also made luxury items from silk, including fans, wall hangings, and paintings.</p></div><div class='passage-section'><span class='p-label'>Paragraph D</span><p>The Silk Road — the ancient network of trade routes linking China to the Mediterranean — got its name because silk was the major commodity carried westward. Merchants would bring silk to the west and take back <strong>wool</strong>, gold, and precious metals to China. By the first century BC, the Romans had developed a passion for silk. Wealthy Romans wore it to show off their riches. Silk was literally worth its weight in gold.</p></div><div class='passage-section'><span class='p-label'>Paragraph E</span><p>The secret of silk finally left China around 550 AD when, according to the Byzantine historian Procopius, two <strong>monks</strong> succeeded in smuggling silkworm eggs out of China. The Emperor Justinian I had sent them to China as spies. They hid silkworm eggs inside hollow bamboo <strong>canes</strong> and brought them to Constantinople. This marked the beginning of the silk industry in the Western world.</p></div><div class='passage-section'><span class='p-label'>Paragraph F</span><p>The invention of artificial fibres like <strong>nylon</strong> in the 20th century led to a decline in natural silk production. However, silk remains a luxury item globally and continues to be highly valued. China remains the world's leading producer of silk, followed by India. The global silk industry is worth billions of dollars annually, and natural silk is still preferred for high-end fashion and medical applications.</p></div>",
+        "questionTypes": [
+          "Note Completion",
+          "True - False - Not Given"
+        ],
+        "questionGroups": [
+          {
+            "id": "p1-g1",
+            "type": "Note Completion",
+            "range": "1-8",
+            "instructions": "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer. Write your answers in boxes 1–8 on your answer sheet.",
+            "template": "<h3>Early silk production in China</h3><ul><li>Around 3000 BC — Emperor's wife discovered silk when a cocoon fell into her ((1))</li><li>She developed the silk ((2)) and loom</li><li>Only ((3)) were permitted to raise silkworms and weave the fabric</li><li>Only ((4)) were allowed to wear silk garments</li><li>Silk used as a form of ((5)) — e.g. farmers paid taxes in silk</li><li>Evidence found that ((6)) was made from silk as early as 168 AD</li></ul><h3>Silk reaches the rest of the world</h3><ul><li>Merchants on the Silk Road took silk westward and returned with ((7)) and precious metals</li><li>Around 550 AD — two ((8)) smuggled silkworm eggs out of China hidden in bamboo canes</li></ul>",
+            "questions": [
+              { "id": 1 },
+              { "id": 2 },
+              { "id": 3 },
+              { "id": 4 },
+              { "id": 5 },
+              { "id": 6 },
+              { "id": 7 },
+              { "id": 8 }
+            ]
+          },
+          {
+            "id": "p1-g2",
+            "type": "True - False - Not Given",
+            "range": "9-13",
+            "instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN in boxes 9–13 on your answer sheet.",
+            "questions": [
+              {
+                "id": 9,
+                "text": "The Chinese penalty for revealing the secret of silk was execution.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 10,
+                "text": "Gold was the most valuable material transported along the Silk Road.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 11,
+                "text": "Roman women wore more silk than Roman men.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 12,
+                "text": "The monks who took silk to Constantinople were sent by Emperor Justinian I.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 13,
+                "text": "Natural silk is still used today in medical applications.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-01-p2",
+        "number": 2,
+        "title": "THE PSYCHOLOGY OF PROCRASTINATION",
+        "passageHtml": "<p>Procrastination — the act of delaying or postponing tasks...</p>",
+        "questionTypes": [
+          "Matching Information",
+          "Matching Sentence Endings",
+          "Multiple Choice",
+          "Note Completion"
+        ],
+        "questionGroups": [
+          {
+            "id": "p2-g1",
+            "type": "Matching Information",
+            "range": "14-16",
+            "instructions": "Reading Passage 2 has six paragraphs, A–F. Which paragraph contains the following information?",
+            "renderType": "grid",
+            "columns": ["A", "B", "C", "D", "E", "F"],
+            "questions": [
+              {
+                "id": 14,
+                "text": "neurological evidence of a link between procrastination and emotion"
+              },
+              {
+                "id": 15,
+                "text": "mention of false assumptions about why people procrastinate"
+              },
+              {
+                "id": 16,
+                "text": "reference to the realisation that others also procrastinate"
+              }
+            ]
+          },
+          {
+            "id": "p2-g2",
+            "type": "Matching Sentence Endings",
+            "range": "17-20",
+            "instructions": "Complete each sentence with the correct ending, A–G, below.",
+            "inputType": "pills",
+            "template": "<p>Pychyl and Flett's research found that frequent procrastinators at work ((17))</p><p>One effective strategy to reduce procrastination is to make ((18))</p><p>People who procrastinate because they fear failure are likely to ((19))</p><p>Societies that value long-term planning tend to ((20))</p>",
+            "options": [
+              "A. have very high personal standards.",
+              "B. report lower job satisfaction.",
+              "C. experience increased levels of wellbeing.",
+              "D. show fewer symptoms of emotional avoidance.",
+              "E. specific plans about when and how to act.",
+              "F. have lower reported rates of procrastination.",
+              "G. produce work of consistently lower quality."
+            ],
+            "questions": [
+              { "id": 17 },
+              { "id": 18 },
+              { "id": 19 },
+              { "id": 20 }
+            ]
+          },
+          {
+            "id": "p2-g3",
+            "type": "Multiple Choice",
+            "range": "21-22",
+            "instructions": "Choose TWO letters, A–E. Which TWO of the following are stated in the passage about chronic procrastinators?",
+            "options": [
+              "A. They are unable to produce high-quality work.",
+              "B. They are often motivated by very high personal standards.",
+              "C. They tend to have a smaller amygdala than non-procrastinators.",
+              "D. They experience greater stress in achieving results.",
+              "E. They have stronger prefrontal cortex activity."
+            ],
+            "questions": [
+              { "id": 21 },
+              { "id": 22 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-01-p3",
+        "number": 3,
+        "title": "REWILDING: RESTORING NATURE'S BALANCE",
+        "passageHtml": "<p>The concept of rewilding...</p>",
+        "questionTypes": [
+          "Matching Headings"
+        ],
+        "questionGroups": [
+          {
+            "id": "p3-g1",
+            "type": "Matching Headings",
+            "range": "27-32",
+            "instructions": "Reading Passage 3 has six paragraphs, A–F. Choose the correct heading for each paragraph.",
+            "headings": [
+              "i. The economic case for rewilding",
+              "ii. A radical experiment that divided opinion",
+              "iii. Opposition from local communities",
+              "iv. An introduction to the rewilding philosophy",
+              "v. The surprising effects of reintroducing a predator",
+              "vi. Benefits of rewilding in aquatic environments"
+            ],
+            "questions": [
+              { "id": 27, "text": "Paragraph A" },
+              { "id": 28, "text": "Paragraph B" },
+              { "id": 29, "text": "Paragraph C" },
+              { "id": 30, "text": "Paragraph D" },
+              { "id": 31, "text": "Paragraph E" },
+              { "id": 32, "text": "Paragraph F" }
+            ]
+          }
+        ]
+      }
+    ],
+    "answerKey": {
+      "1": "tea", "2": "reel", "3": "women", "4": "royalty", "5": "currency", "6": "paper", "7": "wool", "8": "monks",
+      "9": "TRUE", "10": "NOT GIVEN", "11": "NOT GIVEN", "12": "TRUE", "13": "TRUE",
+      "14": "B", "15": "C", "16": "C",
+      "17": "B", "18": "E", "19": "A", "20": "F",
+      "21": "B", "22": "D",
+      "27": "iv", "28": "v", "29": "iii", "30": "ii", "31": "vi", "32": "i"
+    }
+  },
+  {
+    "id": "ielts-reading-full-02",
+    "title": "IELTS Academic Reading - Practice Test 2",
+    "skill": "Reading",
+    "source": "IELTS9s Mock",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "full-02-p1",
+        "number": 1,
+        "title": "THE HISTORY OF COFFEE",
+        "passageHtml": "<p>Coffee is a beverage loved worldwide...</p>",
+        "questionGroups": [
+          {
+            "id": "full-02-p1-g1",
+            "type": "Yes - No - Not Given",
+            "range": "41-43",
+            "instructions": "Do the statements agree with the view of the writer?",
+            "questions": [
+              {
+                "id": 41,
+                "text": "Coffee was originally discovered in South America.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 42,
+                "text": "Arabica coffee has a sweeter taste than Robusta.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 43,
+                "text": "All coffee beans are hand-picked today.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              }
+            ]
+          },
+          {
+            "id": "full-02-p1-g2",
+            "type": "Short Answer Questions",
+            "range": "44-45",
+            "instructions": "Answer the questions below using NO MORE THAN TWO WORDS.",
+            "questions": [
+              { "id": 44, "text": "Which continent produces the most coffee today?" },
+              { "id": 45, "text": "What chemical in coffee acts as a central nervous system stimulant?" }
+            ]
+          },
+          {
+            "id": "full-02-p1-g3",
+            "type": "Matching Features",
+            "range": "46-48",
+            "instructions": "Match the features with the coffee types.",
+            "renderType": "grid",
+            "columns": ["Coffee Arabica", "Coffee Robusta", "Both"],
+            "questions": [
+              { "id": 46, "text": "Grows best at high altitudes" },
+              { "id": 47, "text": "Contains higher caffeine content" },
+              { "id": 48, "text": "Popular beverage choice globally" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-02-p2",
+        "number": 2,
+        "title": "BIOMIMETICS IN MODERN DESIGN",
+        "passageHtml": "<p>Biomimetic design borrows from natural elements...</p>",
+        "questionGroups": [
+          {
+            "id": "full-02-p2-g1",
+            "type": "Multiple Choice (Multiple Answers)",
+            "range": "49-50",
+            "instructions": "Choose TWO letters, A–E.",
+            "options": [
+              "A. Shark skin reduces drag in water.",
+              "B. Lotus leaves attract dirt particles.",
+              "C. Termite mounds maintain stable interior temperatures.",
+              "D. Bird feathers repel water completely.",
+              "E. Spiders use sonar to spin webs."
+            ],
+            "questions": [
+              { "id": 49 },
+              { "id": 50 }
+            ]
+          },
+          {
+            "id": "full-02-p2-g2",
+            "type": "Sentence Completion",
+            "range": "51-53",
+            "instructions": "Complete the sentences below using ONE WORD ONLY.",
+            "template": "<p>Designing structures inspired by nature is called ((51)). Velcro was created after studying plant ((52)) sticking to clothing. Shark skin inspired coating for ((53)) to decrease resistance.</p>",
+            "questions": [
+              { "id": 51 },
+              { "id": 52 },
+              { "id": 53 }
+            ]
+          },
+          {
+            "id": "full-02-p2-g3",
+            "type": "Table Completion",
+            "range": "54-56",
+            "instructions": "Complete the table below.",
+            "renderType": "grid",
+            "columns": ["Nature Source", "Feature", "Human Design"],
+            "questions": [
+              { "id": 54, "text": "Termite mounds -> Air flow channels -> ((54)) ventilation systems" },
+              { "id": 55, "text": "Lotus leaf -> Hydrophobic surface -> Self-cleaning ((55))" },
+              { "id": 56, "text": "Kingfisher beak -> Aerodynamic shape -> ((56)) train design" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-02-p3",
+        "number": 3,
+        "title": "THE WATER CYCLE AND LANDSCAPES",
+        "passageHtml": "<p>The water cycle moves water across the globe...</p>",
+        "questionGroups": [
+          {
+            "id": "full-02-p3-g1",
+            "type": "Summary Completion",
+            "range": "57-59",
+            "instructions": "Complete the summary using words from the box.",
+            "template": "<p>Solar heat causes liquid water to turn into ((57)). This rise forms clouds in the process of ((58)). Eventually, water returns to Earth as ((59)).</p>",
+            "questions": [
+              { "id": 57 },
+              { "id": 58 },
+              { "id": 59 }
+            ]
+          },
+          {
+            "id": "full-02-p3-g2",
+            "type": "Flow-chart Completion",
+            "range": "60-61",
+            "instructions": "Complete the flowchart.",
+            "template": "<p>Evaporation -> Cooling -> ((60)) -> Precipitation -> ((61))</p>",
+            "questions": [
+              { "id": 60 },
+              { "id": 61 }
+            ]
+          },
+          {
+            "id": "full-02-p3-g3",
+            "type": "Diagram Labeling",
+            "range": "62-63",
+            "instructions": "Label the diagram.",
+            "template": "<p>Top layer of cloud: ((62)), Bottom layer: ((63))</p>",
+            "questions": [
+              { "id": 62 },
+              { "id": 63 }
+            ]
+          }
+        ]
+      }
+    ],
+    "answerKey": {
+      "41": "NO", "42": "YES", "43": "NO",
+      "44": "South America", "45": "caffeine",
+      "46": "Coffee Arabica", "47": "Coffee Robusta", "48": "Both",
+      "49": "A", "50": "C",
+      "51": "biomimetic", "52": "seeds", "53": "submarines",
+      "54": "building", "55": "paint", "56": "bullet",
+      "57": "vapor", "58": "condensation", "59": "rain",
+      "60": "clouds", "61": "runoff",
+      "62": "ice", "63": "water droplets"
+    }
+  }
+]
