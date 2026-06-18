@@ -1,0 +1,50 @@
+.groupList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.qGroup {
+  margin-bottom: 10px;
+  padding: 0 8px 16px;
+  border-bottom: none;
+}
+
+.groupHeader {
+  position: static;
+  padding: 0 0 10px;
+  margin-bottom: 6px;
+}
+
+.instructionBox {
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.instructionMeta {
+  display: block;
+}
+
+.instructionRange {
+  margin-bottom: 10px;
+  font-size: 2rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #111827;
+}
+
+.instructionType {
+  display: none;
+}
+
+.instructionText {
+  font-size: 0.98rem;
+  color: #111827;
+  margin: 0;
+}
+
+.qBlock {
+  padding-top: 6px;
+}

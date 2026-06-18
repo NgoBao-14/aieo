@@ -1,29 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PreparedGroup } from '../../practice-detail.models';
+import { PreparedGroup } from '../../../practice-detail.models';
 
 @Component({
   selector: 'app-reading-headings-group',
-  template: `
-    <div class="matchingHeadingsWrapper">
-      <div class="headingsList">
-        <div class="headingsListTitle">List of Headings</div>
-        <p class="instructions">Drag each heading pill into the matching blank in the passage on the left.</p>
-        <div class="optionsPills">
-        <div
-          *ngFor="let heading of group.headingChoices; trackBy: trackByHeading"
-          class="draggablePill"
-          draggable="true"
-          role="button"
-          tabindex="0"
-          (dragstart)="startDrag($event, heading.value)"
-          (dragend)="dragValueEnd.emit($event)"
-        >
-          {{ heading.value }}. {{ heading.text }}
-        </div>
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './reading-headings-group.component.html',
+  styleUrls: ['./reading-headings-group.component.scss']
 })
 export class ReadingHeadingsGroupComponent {
   @Input() group!: PreparedGroup;

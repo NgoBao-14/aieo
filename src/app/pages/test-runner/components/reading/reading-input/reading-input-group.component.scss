@@ -1,0 +1,71 @@
+.questionItemStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.questionItem {
+  padding-bottom: 8px;
+}
+
+.qHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.gapCircle {
+  width: 24px;
+  height: 24px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.75rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.qText {
+  font-size: 0.93rem;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.inputContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.inputContainerBlock {
+  display: flex;
+  width: 100%;
+}
+
+.inlineInput {
+  border: none;
+  border-bottom: 2.5px solid #e0e0e0;
+  background: transparent;
+  padding: 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  outline: none;
+  transition: border-color 0.2s;
+  height: 28px;
+}
+
+.inlineInput:focus {
+  border-color: #2a3a5f;
+}
+
+.blockInput {
+  width: min(100%, 360px);
+}

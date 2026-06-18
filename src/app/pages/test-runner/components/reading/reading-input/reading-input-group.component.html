@@ -1,0 +1,17 @@
+<div class="questionItemStack">
+    <div class="questionItem" *ngFor="let question of group.raw.questions; trackBy: trackByQuestion" [id]="'q-box-' + question.id">
+        <div class="qHeaderRow">
+            <span class="gapCircle">{{ question.id }}</span>
+            <p class="qText">{{ question.text || ('Question ' + question.id) }}</p>
+        </div>
+
+        <div class="inputContainer inputContainerBlock">
+            <input
+                type="text"
+                class="inlineInput blockInput"
+                [ngModel]="answers['' + question.id] || ''"
+                (ngModelChange)="answerChange.emit({ id: question.id, value: $event })"
+            />
+        </div>
+    </div>
+</div>

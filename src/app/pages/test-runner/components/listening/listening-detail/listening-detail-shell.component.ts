@@ -1,21 +1,20 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { Test, TestPart } from '../../../../models/app.models';
-import { PreparedGroup } from '../../practice-detail.models';
+import { Test, TestPart } from '../../../../../models/app.models';
+import { PreparedGroup } from '../../../practice-detail.models';
 
 @Component({
-  selector: 'app-reading-detail-shell',
-  templateUrl: './reading-detail-shell.component.html',
-  styleUrls: ['./reading-detail-shell.component.scss'],
+  selector: 'app-listening-detail-shell',
+  templateUrl: './listening-detail-shell.component.html',
+  styleUrls: ['./listening-detail-shell.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ReadingDetailShellComponent {
+export class ListeningDetailShellComponent {
   @Input() test: Test | null = null;
   @Input() activePart: TestPart | null = null;
   @Input() activePartIndex = 0;
   @Input() activeGroups: PreparedGroup[] = [];
   @Input() answers: Record<string, string> = {};
   @Input() renderedPassageHtml = '';
-  @Input() leftWidth = 52;
   @Input() currentQId = 1;
   @Input() allQuestionIds: number[] = [];
   @Input() partRanges: Array<{ min: number; max: number; total: number }> = [];
@@ -26,15 +25,6 @@ export class ReadingDetailShellComponent {
   @Output() partChange = new EventEmitter<number>();
   @Output() answerChange = new EventEmitter<{ id: number; value: string }>();
   @Output() questionNavigate = new EventEmitter<number>();
-  @Output() resizeStart = new EventEmitter<MouseEvent | TouchEvent>();
-  @Output() passageMouseUp = new EventEmitter<void>();
-  @Output() passageDragOver = new EventEmitter<DragEvent>();
-  @Output() passageDragLeave = new EventEmitter<DragEvent>();
-  @Output() passageDrop = new EventEmitter<DragEvent>();
-  @Output() passageClick = new EventEmitter<MouseEvent>();
-  @Output() hideHighlight = new EventEmitter<void>();
-  @Output() dragValueStart = new EventEmitter<string>();
-  @Output() dragValueEnd = new EventEmitter<DragEvent>();
   @Output() previousQuestion = new EventEmitter<void>();
   @Output() nextQuestion = new EventEmitter<void>();
   @Output() submitRequested = new EventEmitter<void>();
@@ -45,11 +35,7 @@ export class ReadingDetailShellComponent {
       return '';
     }
 
-    return `Read the text and answer questions ${range.min}-${range.max}`;
-  }
-
-  getPaneTitle(): string {
-    return `Reading Passage ${this.activePart?.number ?? 1}`;
+    return `Listen and answer questions ${range.min}-${range.max}`;
   }
 
   getFilledCount(part: TestPart): number {
@@ -67,10 +53,6 @@ export class ReadingDetailShellComponent {
     }
 
     return this.allQuestionIds.filter((value) => value >= range.min && value <= range.max);
-  }
-
-  getAnswer(questionId: number): string {
-    return this.answers[String(questionId)] ?? '';
   }
 
   trackByPart(_: number, part: TestPart): string {

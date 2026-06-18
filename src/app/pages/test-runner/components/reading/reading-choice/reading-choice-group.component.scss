@@ -1,0 +1,124 @@
+.questionItemStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.questionItem {
+  padding-bottom: 8px;
+}
+
+.qHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.gapCircle {
+  width: 24px;
+  height: 24px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.75rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.qText {
+  font-size: 0.93rem;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.tfngRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  margin-left: 36px;
+}
+
+.tfngBtn {
+  padding: 7px 18px;
+  border: 1.5px solid #d0d7e6;
+  border-radius: 8px;
+  background: #f8f9fb;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #555;
+}
+
+.tfngBtnActive {
+  background: #2a3a5f !important;
+  color: #fff !important;
+  border-color: #2a3a5f !important;
+}
+
+.mcqOptionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mcqOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 16px;
+  border: 1.5px solid #e8ecf0;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #444;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  user-select: none;
+  width: 100%;
+  background: #fff;
+  text-align: left;
+}
+
+.mcqOption:hover {
+  border-color: #c9d3e6;
+  background: #fafcff;
+}
+
+.mcqOptionSelected {
+  background: #ebf2ff !important;
+  border-color: #2a3a5f !important;
+  color: #1a2b50 !important;
+}
+
+.mcqLetter {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.mcqLetterSelected {
+  background: #2a3a5f;
+  border-color: #2a3a5f;
+  color: #fff;
+}
+
+.mcqText {
+  flex: 1;
+  font-weight: 400;
+}

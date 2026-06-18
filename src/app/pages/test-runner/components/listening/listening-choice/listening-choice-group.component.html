@@ -1,0 +1,29 @@
+<div class="questionItemStack">
+    <div class="questionItem" *ngFor="let question of group.raw.questions; trackBy: trackByQuestion"
+        [id]="'q-box-' + question.id">
+        <div class="qHeaderRow">
+            <span class="gapCircle">{{ question.id }}</span>
+            <p class="qText">{{ question.text || ('Question ' + question.id) }}</p>
+        </div>
+
+        <div class="tfngRow" *ngIf="useCompactButtons(question)">
+            <button *ngFor="let option of getOptions(question); let i = index; trackBy: trackByOption" type="button"
+                class="tfngBtn" [class.tfngBtnActive]="isSelected(question.id, option, i)"
+                (click)="answerChange.emit({ id: question.id, value: getChoiceValue(option, i) })">
+                {{ option }}
+            </button>
+        </div>
+
+        <div class="mcqOptionsList" *ngIf="!useCompactButtons(question)">
+            <button type="button" class="mcqOption"
+                *ngFor="let option of getOptions(question); let i = index; trackBy: trackByOption"
+                [class.mcqOptionSelected]="isSelected(question.id, option, i)"
+                (click)="answerChange.emit({ id: question.id, value: getChoiceValue(option, i) })">
+                <div class="mcqLetter" [class.mcqLetterSelected]="isSelected(question.id, option, i)">
+                    {{ getOptionLetter(option, i) }}
+                </div>
+                <span class="mcqText">{{ getOptionText(option) }}</span>
+            </button>
+        </div>
+    </div>
+</div>

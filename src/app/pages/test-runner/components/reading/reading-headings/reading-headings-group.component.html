@@ -1,0 +1,13 @@
+<div class="matchingHeadingsWrapper">
+    <div class="headingsList">
+        <div class="headingsListTitle">List of Headings</div>
+        <p class="instructions">Drag each heading pill into the matching blank in the passage on the left.</p>
+        <div class="optionsPills">
+            <div *ngFor="let heading of group.headingChoices; trackBy: trackByHeading" class="draggablePill"
+                draggable="true" role="button" tabindex="0" (dragstart)="startDrag($event, heading.value)"
+                (dragend)="dragValueEnd.emit($event)">
+                {{ heading.value }}. {{ heading.text }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,62 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { QuestionGroup } from '../../../../models/app.models';
-import { PreparedGroup } from '../../practice-detail.models';
+import { QuestionGroup } from '../../../../../models/app.models';
+import { PreparedGroup } from '../../../practice-detail.models';
 
 @Component({
   selector: 'app-reading-template-group',
-  template: `
-    <div class="templateBlock">
-      <ng-container *ngFor="let segment of group.segments">
-        <span *ngIf="segment.kind === 'html'" [innerHTML]="segment.value"></span>
-        <span *ngIf="segment.kind === 'blank'" class="inlineGapWrapper" [attr.data-gap-id]="segment.value">
-          <span class="gapCircle">{{ segment.value }}</span>
-
-          <ng-container *ngIf="isDragDrop(group.raw); else textInput">
-            <span
-              class="dropZone embeddedDropZone"
-              (dragover)="allowDrop($event)"
-              (drop)="onDrop($event, +segment.value)"
-            >
-              <span class="dropPlaceholder">{{ getDisplay(+segment.value) }}</span>
-              <button
-                type="button"
-                class="removeBtn embeddedRemoveBtn"
-                *ngIf="getAnswer(+segment.value)"
-                (click)="answerChange.emit({ id: +segment.value, value: '' })"
-              >
-                ×
-              </button>
-            </span>
-          </ng-container>
-
-          <ng-template #textInput>
-            <div class="inputContainer">
-              <input
-                type="text"
-                class="inlineInput"
-                [ngModel]="getAnswer(+segment.value)"
-                (ngModelChange)="answerChange.emit({ id: +segment.value, value: $event })"
-              />
-            </div>
-          </ng-template>
-        </span>
-      </ng-container>
-
-      <div class="optionsPills" *ngIf="isDragDrop(group.raw) && group.raw.options?.length">
-        <div
-          *ngFor="let option of group.raw.options; let i = index; trackBy: trackByOption"
-          class="pillBtn draggablePill"
-          draggable="true"
-          role="button"
-          tabindex="0"
-          (dragstart)="startDrag($event, getChoiceValue(option, i))"
-          (dragend)="dragValueEnd.emit($event)"
-        >
-          {{ option }}
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './reading-template-group.component.html',
+  styleUrls: ['./reading-template-group.component.scss']
 })
 export class ReadingTemplateGroupComponent {
   @Input() group!: PreparedGroup;

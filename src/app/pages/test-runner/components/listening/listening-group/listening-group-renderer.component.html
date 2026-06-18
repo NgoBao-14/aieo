@@ -1,0 +1,30 @@
+<div class="groupList">
+    <section class="qGroup" *ngFor="let group of groups; trackBy: trackByGroup">
+        <div class="groupHeader">
+            <div class="instructionBox">
+                <div class="instructionMeta">
+                    <div class="instructionRange">Questions {{ group.raw.range }}</div>
+                    <div class="instructionType">{{ group.raw.type }}</div>
+                </div>
+                <p class="instructionText">{{ group.raw.instructions }}</p>
+            </div>
+        </div>
+
+        <div class="qBlock">
+            <app-listening-template-group *ngIf="group.mode === 'template'" [group]="group" [answers]="answers"
+                (answerChange)="answerChange.emit($event)"></app-listening-template-group>
+
+            <app-listening-grid-group *ngIf="group.mode === 'grid'" [group]="group" [answers]="answers"
+                (answerChange)="answerChange.emit($event)"></app-listening-grid-group>
+
+            <app-listening-multi-select-group *ngIf="group.mode === 'multi-select'" [group]="group" [answers]="answers"
+                (answerChange)="answerChange.emit($event)"></app-listening-multi-select-group>
+
+            <app-listening-choice-group *ngIf="group.mode === 'choice'" [group]="group" [answers]="answers"
+                (answerChange)="answerChange.emit($event)"></app-listening-choice-group>
+
+            <app-listening-input-group *ngIf="group.mode === 'input'" [group]="group" [answers]="answers"
+                (answerChange)="answerChange.emit($event)"></app-listening-input-group>
+        </div>
+    </section>
+</div>

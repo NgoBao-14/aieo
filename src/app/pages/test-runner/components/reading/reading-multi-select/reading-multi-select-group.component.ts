@@ -1,30 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PreparedGroup } from '../../practice-detail.models';
+import { PreparedGroup } from '../../../practice-detail.models';
 
 @Component({
   selector: 'app-reading-multi-select-group',
-  template: `
-    <div class="questionItemStack">
-      <div class="questionPrompt" *ngIf="group.raw.text || group.raw.questions[0].text">
-        {{ group.raw.text || group.raw.questions[0].text }}
-      </div>
-
-      <div class="multiSelectNumbers">
-        <span class="gapCircle" *ngFor="let question of group.raw.questions; trackBy: trackByQuestion">{{ question.id }}</span>
-      </div>
-
-      <button
-        type="button"
-        class="mcqOption"
-        *ngFor="let option of group.raw.options; let i = index; trackBy: trackByOption"
-        [class.mcqOptionSelected]="isSelected(getChoiceValue(option, i))"
-        (click)="toggleOption(getChoiceValue(option, i))"
-      >
-        <span class="mcqMarker" [class.mcqMarkerSelected]="isSelected(getChoiceValue(option, i))"></span>
-        <span class="mcqText">{{ getOptionText(option) }}</span>
-      </button>
-    </div>
-  `
+  templateUrl: './reading-multi-select-group.component.html',
+  styleUrls: ['./reading-multi-select-group.component.scss']
 })
 export class ReadingMultiSelectGroupComponent {
   @Input() group!: PreparedGroup;

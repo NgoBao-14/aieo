@@ -1,0 +1,65 @@
+.groupList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.qGroup {
+  margin-bottom: 20px;
+  padding: 0 32px 32px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.groupHeader {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 20px 0 16px;
+  margin-bottom: 20px;
+  z-index: 5;
+}
+
+.instructionBox {
+  border: 1px solid #c8cfe0;
+  padding: 12px 16px;
+  background: #f7f8fb;
+  border-radius: 4px;
+}
+
+.instructionMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.instructionRange {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #74809a;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.instructionType {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #eaf1ff;
+  color: #2a3a5f;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.instructionText {
+  margin: 0;
+  color: #31415f;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.qBlock {
+  padding-top: 6px;
+}
