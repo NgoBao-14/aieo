@@ -2,6 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 10px 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.questionItemStack.qItemActive {
+  border-color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.04);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
 }
 
 .questionPrompt {

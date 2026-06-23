@@ -42,6 +42,9 @@ export class PracticeListComponent implements OnInit {
   }
 
   getQuestionTypes(test: Test): string[] {
+    if (test.questionTypes) {
+      return test.questionTypes;
+    }
     const order = EXERCISE_TYPES_BY_SKILL[test.skill] ?? [];
     const types = [...new Set(
       test.parts.flatMap(p => (p.questionGroups ?? []).map(g => g.type))
@@ -54,6 +57,9 @@ export class PracticeListComponent implements OnInit {
   }
 
   getQuestionCount(test: Test): number {
+    if (test.questionCount !== undefined) {
+      return test.questionCount;
+    }
     return test.parts.reduce(
       (sum, p) => sum + p.questionGroups.reduce((s, g) => s + g.questions.length, 0), 0
     );
@@ -73,13 +79,19 @@ export class PracticeListComponent implements OnInit {
   }
 
   async seedDemoTests(): Promise<void> {
-    if (this.seeding) return;
+    console.log('seedDemoTests button clicked!');
+    if (this.seeding) {
+      console.log('Already seeding, ignoring.');
+      return;
+    }
     this.seeding = true;
     try {
+      console.log('Calling testDataService.seedDemoTestsToFirebase...');
       await this.testDataService.seedDemoTestsToFirebase();
+      console.log('Seed completed successfully! Reloading tests...');
       this.loadTests();
     } catch (err) {
-      console.error('Seed failed:', err);
+      console.error('Seed failed in component:', err);
     } finally {
       this.seeding = false;
     }
@@ -88,7 +100,7 @@ export class PracticeListComponent implements OnInit {
   private loadTests(): void {
     this.loading = true;
     this.testDataService.getTests().subscribe(tests => {
-      this.tests = tests.filter(t => t.parts.some(p => (p.questionGroups ?? []).length > 0));
+      this.tests = tests.filter(t => t.partsCount === undefined || t.partsCount > 0 || t.parts.some(p => (p.questionGroups ?? []).length > 0));
       this.applyFilter(this.route.snapshot.queryParamMap.get('skill') ?? '');
       this.loading = false;
     });

@@ -8,6 +8,20 @@
   display: inline-flex;
   align-items: center;
   margin: 0 8px;
+  padding: 2px 6px;
+  border: 1.5px solid transparent;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.inlineGapWrapper.gapActive {
+  border-color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.05);
+}
+
+.inlineGapWrapper.gapActive .gapCircle {
+  background: #1976d2;
+  color: #fff;
 }
 
 .gapCircle {

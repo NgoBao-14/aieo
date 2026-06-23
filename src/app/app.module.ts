@@ -34,6 +34,8 @@ import { ExerciseHubComponent } from './pages/exercises/exercise-hub.component';
 import { ExercisePracticeComponent } from './pages/exercises/practice/exercise-practice.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
+import { PracticeResultComponent } from './pages/test-runner/components/practice-result/practice-result.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
     DashboardComponent,
     PracticeListComponent,
     PracticeDetailComponent,
+    PracticeResultComponent,
     ReadingDetailShellComponent,
     ReadingGroupRendererComponent,
     ReadingTemplateGroupComponent,

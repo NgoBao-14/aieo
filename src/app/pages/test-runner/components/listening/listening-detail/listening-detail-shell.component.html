@@ -10,11 +10,8 @@
         <div class="passageContent listeningPassageContent" [innerHTML]="renderedPassageHtml"></div>
       </div>
 
-      <app-listening-group-renderer
-        [groups]="activeGroups"
-        [answers]="answers"
-        (answerChange)="answerChange.emit($event)"
-      ></app-listening-group-renderer>
+      <app-listening-group-renderer [groups]="activeGroups" [answers]="answers" [currentQId]="currentQId"
+        (answerChange)="answerChange.emit($event)"></app-listening-group-renderer>
     </section>
   </div>
 
@@ -24,16 +21,24 @@
       <span class="listeningAudioLabel">Section {{ part.number }} audio</span>
     </div>
     <audio class="audioPlayer listeningDockPlayer" [src]="part.audioUrl" controls controlsList="nodownload"></audio>
+
+    <div class="audioPagerWrap" *ngIf="allQuestionIds.length">
+      <button type="button" class="footerPagerBtn footerPagerBtnListening" [disabled]="!canGoPrevious"
+        (click)="previousQuestion.emit()" aria-label="Previous question">
+        &lt;
+      </button>
+      <button type="button" class="footerPagerBtn footerPagerBtnListening" [disabled]="!canGoNext"
+        (click)="nextQuestion.emit()" aria-label="Next question">
+        &gt;
+      </button>
+    </div>
   </div>
 
   <footer class="bottomBar bottomBarListening">
     <div class="footerSegments">
-      <div
-        *ngFor="let item of test?.parts; let idx = index; trackBy: trackByPart"
-        class="partSegment partSegmentListening"
-        [class.activePartSegment]="idx === activePartIndex"
-        (click)="partChange.emit(idx)"
-      >
+      <div *ngFor="let item of test?.parts; let idx = index; trackBy: trackByPart"
+        class="partSegment partSegmentListening" [class.activePartSegment]="idx === activePartIndex"
+        (click)="partChange.emit(idx)">
         <div *ngIf="idx !== activePartIndex; else activeListeningNav" class="segmentMeta">
           <span class="partLabel">Part {{ idx + 1 }}</span>
           <span class="partProgressLabel">{{ getFilledCount(item) }} of {{ getPartQuestionCount(item) }}</span>
@@ -43,13 +48,9 @@
           <div class="qNavContainer">
             <span class="partLabel">Part {{ idx + 1 }}</span>
             <div class="qNavItemWrap">
-              <button
-                *ngFor="let id of getQuestionIdsForPart(idx); trackBy: trackById"
-                type="button"
-                class="qNavItem"
-                [class.qNavItemActive]="currentQId === id"
-                (click)="questionNavigate.emit(id); $event.stopPropagation()"
-              >
+              <button *ngFor="let id of getQuestionIdsForPart(idx); trackBy: trackById" type="button" class="qNavItem"
+                [class.qNavItemActive]="currentQId === id" [class.qNavItemAnswered]="!!getAnswer(id)"
+                (click)="questionNavigate.emit(id); $event.stopPropagation()">
                 {{ id }}
               </button>
             </div>
@@ -58,27 +59,6 @@
       </div>
     </div>
 
-    <button class="submitBtn submitBtnListening" type="button" (click)="submitRequested.emit()">✓</button>
+    <!-- <button class="submitBtn submitBtnListening" type="button" (click)="submitRequested.emit()">✓</button> -->
   </footer>
-
-  <div class="floatingQuestionRail floatingQuestionRailListening" *ngIf="allQuestionIds.length">
-    <button
-      type="button"
-      class="footerPagerBtn footerPagerBtnListening"
-      [disabled]="!canGoPrevious"
-      (click)="previousQuestion.emit()"
-      aria-label="Previous question"
-    >
-      ←
-    </button>
-    <button
-      type="button"
-      class="footerPagerBtn footerPagerBtnListening"
-      [disabled]="!canGoNext"
-      (click)="nextQuestion.emit()"
-      aria-label="Next question"
-    >
-      →
-    </button>
-  </div>
 </div>

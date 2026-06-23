@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
@@ -18,6 +18,8 @@ export class PracticeDetailComponent implements OnInit, OnDestroy {
   result: Submission | null = null;
   loading = true;
   timeLeft = 3600;
+  timeSpent = 0;
+  showResultOverlay = false;
   answers: Record<string, string> = {};
   activePartIndex = 0;
   currentQId = 1;
@@ -147,7 +149,42 @@ export class PracticeDetailComponent implements OnInit, OnDestroy {
   }
 
   setAnswer(questionId: number, value: string): void {
+    this.currentQId = questionId;
     this.practiceStoreService.setAnswer(String(questionId), value);
+  }
+
+  @HostListener('document:click', ['$event'])
+  @HostListener('document:focusin', ['$event'])
+  onInteraction(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target) {
+      return;
+    }
+
+    const gapEl = target.closest('[data-gap-id], [data-qid], [id^="q-box-"]');
+    if (gapEl) {
+      const qidAttr = gapEl.getAttribute('data-gap-id') || gapEl.getAttribute('data-qid');
+      if (qidAttr) {
+        this.currentQId = Number(qidAttr);
+        return;
+      }
+      const idAttr = gapEl.getAttribute('id');
+      if (idAttr) {
+        const match = idAttr.match(/q-box-(\d+)/);
+        if (match) {
+          this.currentQId = Number(match[1]);
+          return;
+        }
+      }
+    }
+
+    if (target instanceof HTMLInputElement && target.name && target.name.startsWith('q-')) {
+      const qid = target.name.replace('q-', '');
+      if (!isNaN(Number(qid))) {
+        this.currentQId = Number(qid);
+        return;
+      }
+    }
   }
 
   beginResize(event: MouseEvent | TouchEvent): void {
@@ -683,9 +720,21 @@ export class PracticeDetailComponent implements OnInit, OnDestroy {
   }
 
   private scrollQuestionIntoView(questionId: number): void {
-    const el = document.getElementById(`q-box-${questionId}`);
+    let el = document.getElementById(`q-box-${questionId}`);
+    if (!el) {
+      el = document.querySelector(`[data-gap-id="${questionId}"]`) as HTMLElement;
+    }
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (el.classList.contains('gapCircle')) {
+        const parentStack = el.closest('.questionItemStack');
+        if (parentStack) {
+          parentStack.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   }
 
@@ -787,6 +836,16 @@ export class PracticeDetailComponent implements OnInit, OnDestroy {
 
     const user = this.authService.currentUser ?? await this.authService.loginWithGoogle();
     this.result = await this.testDataService.submitTest(user.uid, this.test, this.answers);
+    
+    const duration = this.getDurationInSeconds(this.test);
+    this.timeSpent = Math.max(0, duration - this.timeLeft);
+
+    if (this.timerId !== null) {
+      window.clearInterval(this.timerId);
+      this.timerId = null;
+    }
+
+    this.showResultOverlay = true;
   }
 
   trackByPart(_: number, part: TestPart): string {

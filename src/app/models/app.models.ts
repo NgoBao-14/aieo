@@ -63,6 +63,9 @@ export interface Test {
   answerKey: Record<string, string>;
   explanations: Record<string, string>;
   createdAt?: string;
+  partsCount?: number;
+  questionCount?: number;
+  questionTypes?: string[];
 }
 
 export interface Submission {

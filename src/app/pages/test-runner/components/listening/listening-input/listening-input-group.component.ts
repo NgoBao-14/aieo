@@ -9,6 +9,7 @@ import { PreparedGroup } from '../../../practice-detail.models';
 export class ListeningInputGroupComponent {
   @Input() group!: PreparedGroup;
   @Input() answers: Record<string, string> = {};
+  @Input() currentQId = 1;
   @Output() answerChange = new EventEmitter<{ id: number; value: string }>();
 
   trackByQuestion(_: number, question: { id: number }): number {

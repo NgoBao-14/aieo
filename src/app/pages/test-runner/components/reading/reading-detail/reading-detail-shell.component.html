@@ -10,31 +10,20 @@
           <div class="partProgressLabel">{{ getFilledCount(part) }} / {{ getPartQuestionCount(part) }}</div>
         </div>
 
-        <div
-          class="passageWrapper"
-          (dragenter)="passageDragOver.emit($event)"
-          (mouseup)="passageMouseUp.emit()"
-          (dragover)="passageDragOver.emit($event)"
-          (dragleave)="passageDragLeave.emit($event)"
-          (drop)="passageDrop.emit($event)"
-          (click)="passageClick.emit($event)"
-          (mousedown)="hideHighlight.emit()"
-        >
+        <div class="passageWrapper" (dragenter)="passageDragOver.emit($event)" (mouseup)="passageMouseUp.emit()"
+          (dragover)="passageDragOver.emit($event)" (dragleave)="passageDragLeave.emit($event)"
+          (drop)="passageDrop.emit($event)" (click)="passageClick.emit($event)" (mousedown)="hideHighlight.emit()">
           <h1 class="passageTitle">{{ getPaneTitle() }}</h1>
 
-          <div
-            class="passageContent"
-            (dragenter)="passageDragOver.emit($event)"
-            (dragover)="passageDragOver.emit($event)"
-            (dragleave)="passageDragLeave.emit($event)"
-            (drop)="passageDrop.emit($event)"
-            [innerHTML]="renderedPassageHtml"
-          ></div>
+          <div class="passageContent" (dragenter)="passageDragOver.emit($event)"
+            (dragover)="passageDragOver.emit($event)" (dragleave)="passageDragLeave.emit($event)"
+            (drop)="passageDrop.emit($event)" [innerHTML]="renderedPassageHtml"></div>
         </div>
       </div>
     </section>
 
-    <div class="resizer" role="separator" aria-label="Resize panels" (mousedown)="resizeStart.emit($event)" (touchstart)="resizeStart.emit($event)">
+    <div class="resizer" role="separator" aria-label="Resize panels" (mousedown)="resizeStart.emit($event)"
+      (touchstart)="resizeStart.emit($event)">
       <div class="resizerHandle">
         <span></span><span></span><span></span>
       </div>
@@ -47,17 +36,14 @@
             <p class="sectionTag">Reading Exercise Set</p>
             <h2>{{ activePart?.title }}</h2>
           </div>
-          <div class="progressPill">{{ activePart ? getFilledCount(activePart) : 0 }}/{{ activePart ? getPartQuestionCount(activePart) : 0 }} answered</div>
+          <div class="progressPill">{{ activePart ? getFilledCount(activePart) : 0 }}/{{ activePart ?
+            getPartQuestionCount(activePart) : 0 }} answered</div>
         </div>
 
         <div class="groupList">
-          <app-reading-group-renderer
-            [groups]="activeGroups"
-            [answers]="answers"
-            (answerChange)="answerChange.emit($event)"
-            (dragValueStart)="dragValueStart.emit($event)"
-            (dragValueEnd)="dragValueEnd.emit($event)"
-          ></app-reading-group-renderer>
+          <app-reading-group-renderer [groups]="activeGroups" [answers]="answers" [currentQId]="currentQId"
+            (answerChange)="answerChange.emit($event)" (dragValueStart)="dragValueStart.emit($event)"
+            (dragValueEnd)="dragValueEnd.emit($event)"></app-reading-group-renderer>
         </div>
       </div>
     </section>
@@ -65,12 +51,8 @@
 
   <footer class="bottomBar">
     <div class="footerSegments">
-      <div
-        *ngFor="let part of test?.parts; let idx = index; trackBy: trackByPart"
-        class="partSegment"
-        [class.activePartSegment]="idx === activePartIndex"
-        (click)="partChange.emit(idx)"
-      >
+      <div *ngFor="let part of test?.parts; let idx = index; trackBy: trackByPart" class="partSegment"
+        [class.activePartSegment]="idx === activePartIndex" (click)="partChange.emit(idx)">
         <div *ngIf="idx !== activePartIndex; else activeNav" class="segmentMeta">
           <span class="partLabel">Part {{ idx + 1 }}</span>
           <span class="partProgressLabel">{{ getFilledCount(part) }} of {{ getPartQuestionCount(part) }}</span>
@@ -80,14 +62,9 @@
           <div class="qNavContainer">
             <span class="partLabel">Part {{ idx + 1 }}</span>
             <div class="qNavItemWrap">
-              <button
-                *ngFor="let id of getQuestionIdsForPart(idx); trackBy: trackById"
-                type="button"
-                class="qNavItem"
-                [class.qNavItemActive]="currentQId === id"
-                [class.qNavItemAnswered]="!!getAnswer(id)"
-                (click)="questionNavigate.emit(id); $event.stopPropagation()"
-              >
+              <button *ngFor="let id of getQuestionIdsForPart(idx); trackBy: trackById" type="button" class="qNavItem"
+                [class.qNavItemActive]="currentQId === id" [class.qNavItemAnswered]="!!getAnswer(id)"
+                (click)="questionNavigate.emit(id); $event.stopPropagation()">
                 {{ id }}
               </button>
             </div>
@@ -96,27 +73,16 @@
       </div>
     </div>
 
-    <button class="submitBtn" type="button" (click)="submitRequested.emit()">✓</button>
+    <!-- <button class="submitBtn" type="button" (click)="submitRequested.emit()">✓</button> -->
   </footer>
 
   <div class="floatingQuestionRail" *ngIf="allQuestionIds.length">
-    <button
-      type="button"
-      class="footerPagerBtn"
-      [disabled]="!canGoPrevious"
-      (click)="previousQuestion.emit()"
-      aria-label="Previous question"
-    >
-      <
-    </button>
-    <button
-      type="button"
-      class="footerPagerBtn"
-      [disabled]="!canGoNext"
-      (click)="nextQuestion.emit()"
-      aria-label="Next question"
-    >
-      >
-    </button>
+    <button type="button" class="footerPagerBtn" [disabled]="!canGoPrevious" (click)="previousQuestion.emit()"
+      aria-label="Previous question">
+      < </button>
+        <button type="button" class="footerPagerBtn" [disabled]="!canGoNext" (click)="nextQuestion.emit()"
+          aria-label="Next question">
+          >
+        </button>
   </div>
 </div>

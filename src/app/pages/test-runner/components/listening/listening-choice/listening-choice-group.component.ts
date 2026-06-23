@@ -10,6 +10,7 @@ import { Question } from '../../../../../models/app.models';
 export class ListeningChoiceGroupComponent {
   @Input() group!: PreparedGroup;
   @Input() answers: Record<string, string> = {};
+  @Input() currentQId = 1;
   @Output() answerChange = new EventEmitter<{ id: number; value: string }>();
 
   getOptions(question: Question): string[] {

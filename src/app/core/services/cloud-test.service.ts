@@ -22,7 +22,7 @@ interface CloudTestDetail {
 
 @Injectable({ providedIn: 'root' })
 export class CloudTestService {
-  private readonly collectionName = 'tests';
+  private readonly collectionName = 'test';
   private readonly detailsCollectionName = 'testDetails';
 
   constructor(private http: HttpClient) {}
@@ -153,7 +153,9 @@ export class CloudTestService {
   }
 
   async seedDemoTests(): Promise<void> {
+    console.log('[CloudTestService] seedDemoTests starting...');
     if (!this.isEnabled()) {
+      console.error('[CloudTestService] Firebase is not enabled!');
       throw new Error('Firebase is not enabled.');
     }
 
@@ -166,12 +168,16 @@ export class CloudTestService {
       test.parts.some((part) => part.questionGroups.length > 0)
     );
 
+    console.log('[CloudTestService] Found playable tests to seed:', playableTests.map(t => t.title));
+
     for (const test of playableTests) {
+      console.log('[CloudTestService] Seeding test:', test.title);
       await this.upsertTest({
         ...test,
         source: test.source || 'IELTS9s Demo Seed'
       });
     }
+    console.log('[CloudTestService] seedDemoTests completed successfully!');
   }
 
   private async upsertTest(test: Test): Promise<string> {
@@ -186,6 +192,7 @@ export class CloudTestService {
       }
 
       const id = test.id || doc(collection(db, this.detailsCollectionName)).id;
+      console.log(`[CloudTestService] Upserting to Firestore: testId=${id}, title=${test.title}`);
       const metadata = this.sanitizeFirestoreData(this.toMetadata({ ...test, id }));
       const detail = this.sanitizeFirestoreData({
         parts: test.parts ?? [],
@@ -193,10 +200,12 @@ export class CloudTestService {
         explanations: test.explanations ?? {}
       }) as CloudTestDetail;
 
+      console.log(`[CloudTestService] Writing details to ${this.detailsCollectionName}/${id}`);
       await setDoc(doc(db, this.detailsCollectionName, id), detail, { merge: true });
 
       const skillKey = this.getSkillDocKey(test.skill);
       const skillDocRef = doc(db, this.collectionName, skillKey);
+      console.log(`[CloudTestService] Fetching metadata document: ${this.collectionName}/${skillKey}`);
       const skillDocSnap = await getDoc(skillDocRef);
       const current = skillDocSnap.exists() && Array.isArray(skillDocSnap.data()['data'])
         ? skillDocSnap.data()['data'] as CloudTestMetadata[]
@@ -205,15 +214,26 @@ export class CloudTestService {
       const next = current.filter((item) => item.id !== id);
       next.push(metadata);
 
+      console.log(`[CloudTestService] Updating metadata document with ${next.length} items`);
       await setDoc(skillDocRef, { data: next }, { merge: true });
+      console.log(`[CloudTestService] Upsert success for testId=${id}`);
 
       return id;
     } catch (error) {
+      console.error('[CloudTestService] Error in upsertTest:', error);
       handleFirestoreError(error, OperationType.CREATE, this.collectionName);
     }
   }
 
   private toMetadata(test: Test): CloudTestMetadata {
+    const partsCount = test.parts?.length ?? 0;
+    const questionCount = test.parts?.reduce(
+      (sum, p) => sum + (p.questionGroups ?? []).reduce((s, g) => s + (g.questions?.length ?? 0), 0), 0
+    ) ?? 0;
+    const questionTypes = [...new Set(
+      (test.parts ?? []).flatMap(p => (p.questionGroups ?? []).map(g => g.type))
+    )];
+
     return {
       id: test.id,
       title: test.title,
@@ -221,8 +241,11 @@ export class CloudTestService {
       source: test.source,
       attempts: test.attempts ?? 0,
       createdAt: test.createdAt,
-      explanations: test.explanations ?? {}
-    };
+      explanations: test.explanations ?? {},
+      partsCount,
+      questionCount,
+      questionTypes
+    } as any;
   }
 
   private sanitizeFirestoreData<T>(value: T): T {
@@ -242,7 +265,7 @@ export class CloudTestService {
     return value;
   }
 
-  private mapMetadataToTest(metadata: CloudTestMetadata): Test {
+  private mapMetadataToTest(metadata: any): Test {
     return {
       id: metadata.id ?? '',
       title: metadata.title,
@@ -252,7 +275,10 @@ export class CloudTestService {
       parts: [],
       answerKey: {},
       explanations: metadata.explanations ?? {},
-      createdAt: metadata.createdAt
+      createdAt: metadata.createdAt,
+      partsCount: metadata.partsCount,
+      questionCount: metadata.questionCount,
+      questionTypes: metadata.questionTypes
     };
   }
 

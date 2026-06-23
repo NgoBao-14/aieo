@@ -9,6 +9,7 @@ import { PreparedGroup } from '../../../practice-detail.models';
 export class ReadingGridGroupComponent {
   @Input() group!: PreparedGroup;
   @Input() answers: Record<string, string> = {};
+  @Input() currentQId = 1;
   @Output() answerChange = new EventEmitter<{ id: number; value: string }>();
 
   getAnswer(questionId: number): string {

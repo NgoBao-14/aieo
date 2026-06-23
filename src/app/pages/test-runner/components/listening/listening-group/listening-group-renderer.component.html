@@ -21,10 +21,10 @@
                 (answerChange)="answerChange.emit($event)"></app-listening-multi-select-group>
 
             <app-listening-choice-group *ngIf="group.mode === 'choice'" [group]="group" [answers]="answers"
-                (answerChange)="answerChange.emit($event)"></app-listening-choice-group>
+                [currentQId]="currentQId" (answerChange)="answerChange.emit($event)"></app-listening-choice-group>
 
             <app-listening-input-group *ngIf="group.mode === 'input'" [group]="group" [answers]="answers"
-                (answerChange)="answerChange.emit($event)"></app-listening-input-group>
+                [currentQId]="currentQId" (answerChange)="answerChange.emit($event)"></app-listening-input-group>
         </div>
     </section>
 </div>

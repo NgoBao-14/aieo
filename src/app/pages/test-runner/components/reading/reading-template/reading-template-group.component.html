@@ -1,7 +1,7 @@
 <div class="templateBlock">
     <ng-container *ngFor="let segment of group.segments">
         <span *ngIf="segment.kind === 'html'" [innerHTML]="segment.value"></span>
-        <span *ngIf="segment.kind === 'blank'" class="inlineGapWrapper" [attr.data-gap-id]="segment.value">
+        <span *ngIf="segment.kind === 'blank'" class="inlineGapWrapper" [id]="'q-box-' + segment.value" [attr.data-gap-id]="segment.value" [class.gapActive]="currentQId === +segment.value">
             <span class="gapCircle">{{ segment.value }}</span>
 
             <ng-container *ngIf="isDragDrop(group.raw); else textInput">

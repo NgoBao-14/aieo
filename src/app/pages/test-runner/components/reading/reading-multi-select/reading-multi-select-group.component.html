@@ -1,10 +1,10 @@
-<div class="questionItemStack">
+<div class="questionItemStack" [class.qItemActive]="isActive()">
     <div class="questionPrompt" *ngIf="group.raw.text || group.raw.questions[0].text">
         {{ group.raw.text || group.raw.questions[0].text }}
     </div>
 
     <div class="multiSelectNumbers">
-        <span class="gapCircle" *ngFor="let question of group.raw.questions; trackBy: trackByQuestion">{{ question.id }}</span>
+        <span class="gapCircle" *ngFor="let question of group.raw.questions; trackBy: trackByQuestion" [id]="'q-box-' + question.id">{{ question.id }}</span>
     </div>
 
     <button

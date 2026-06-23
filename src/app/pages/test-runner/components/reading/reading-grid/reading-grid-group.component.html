@@ -7,7 +7,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let question of group.raw.questions; trackBy: trackByQuestion">
+            <tr *ngFor="let question of group.raw.questions; trackBy: trackByQuestion" [id]="'q-box-' + question.id" [class.qRowActive]="currentQId === question.id">
                 <td class="gridQText">
                     <span class="qIdBox">{{ question.id }}</span>
                     <span class="qInner">{{ question.text }}</span>

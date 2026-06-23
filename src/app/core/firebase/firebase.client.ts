@@ -8,9 +8,12 @@ import * as firebaseAppletConfig from '../../../../firebase-applet-config.json';
 
 type FirebaseConfig = typeof environment.firebase;
 
-const firebaseConfig: FirebaseConfig = isValidConfig(firebaseAppletConfig)
-  ? firebaseAppletConfig
+const rawConfig = (firebaseAppletConfig as any).default || firebaseAppletConfig;
+const firebaseConfig: FirebaseConfig = isValidConfig(rawConfig)
+  ? rawConfig
   : environment.firebase;
+
+console.log('Firebase initialized with Project ID:', firebaseConfig.projectId);
 
 let appInstance: FirebaseApp | null = null;
 let authInstance: Auth | null = null;
@@ -28,13 +31,12 @@ function isValidConfig(config: Partial<FirebaseConfig> | null | undefined): conf
 }
 
 export function isFirebaseEnabled(): boolean {
-  // return Boolean(
-  //   firebaseConfig.apiKey &&
-  //   firebaseConfig.authDomain &&
-  //   firebaseConfig.projectId &&
-  //   firebaseConfig.appId
-  // );
-  return false;
+  return Boolean(
+    firebaseConfig.apiKey &&
+    firebaseConfig.authDomain &&
+    firebaseConfig.projectId &&
+    firebaseConfig.appId
+  );
 }
 
 export function getFirebaseApp(): FirebaseApp | null {

@@ -1,0 +1,146 @@
+<div class="resultOverlay">
+  <div class="resultModal">
+    <!-- Header/Close button -->
+    <button class="closeBtn" type="button" (click)="review.emit()" aria-label="Close">×</button>
+
+    <!-- Main Content Area -->
+    <div class="mainResultCards">
+      <!-- Mascot Encouragement Panel (Left) -->
+      <div class="encouragePanel">
+        <div class="encourageBubble">
+          Hơi khó bạn nhỉ, bình tĩnh cùng luyện tập với YouPass nha!
+        </div>
+        <div class="mascotWrapper">
+          <!-- Beautiful SVG Mascot of a cute character cheering/comforting -->
+          <svg viewBox="0 0 200 200" class="mascotSvg">
+            <!-- Shadow -->
+            <ellipse cx="100" cy="165" rx="55" ry="12" fill="rgba(0,0,0,0.15)" />
+            <!-- Mascot Body -->
+            <path d="M 50,110 C 50,60 150,60 150,110 C 150,150 50,150 50,110 Z" fill="#ff9f43" />
+            <!-- Inner color/Face area -->
+            <path d="M 60,115 C 60,80 140,80 140,115 C 140,140 60,140 60,115 Z" fill="#ffb8b8" opacity="0.1" />
+            <!-- Tear/Sweat drop for comfort -->
+            <path d="M 125,115 C 125,122 121,126 121,126 C 121,126 117,122 117,115 C 117,110 125,110 125,115 Z" fill="#74b9ff" />
+            <!-- Eyes -->
+            <circle cx="85" cy="105" r="5" fill="#2d3436" />
+            <circle cx="115" cy="105" r="5" fill="#2d3436" />
+            <!-- Blushing cheeks -->
+            <circle cx="75" cy="112" r="7" fill="#ff7675" opacity="0.6" />
+            <circle cx="125" cy="112" r="7" fill="#ff7675" opacity="0.6" />
+            <!-- Sad/comforting little mouth -->
+            <path d="M 95,118 Q 100,123 105,118" stroke="#2d3436" stroke-width="3" fill="none" stroke-linecap="round" />
+            <!-- Cute arms -->
+            <path d="M 45,115 C 35,115 35,125 45,125" stroke="#ff9f43" stroke-width="10" stroke-linecap="round" fill="none" />
+            <path d="M 155,115 C 165,115 165,125 155,125" stroke="#ff9f43" stroke-width="10" stroke-linecap="round" fill="none" />
+            <!-- Cute feet -->
+            <rect x="75" y="145" width="12" height="15" rx="6" fill="#c0392b" />
+            <rect x="113" y="145" width="12" height="15" rx="6" fill="#c0392b" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Score Summary Panel (Right) -->
+      <div class="summaryPanel">
+        <div class="panelHeader">
+          <h3>Kết quả làm bài</h3>
+          <div class="timeSpentLabel">
+            <span>Thời gian làm bài</span>
+            <strong>{{ formatTime(timeSpent) }}</strong>
+          </div>
+        </div>
+
+        <div class="statsContent">
+          <!-- Circular Score Chart -->
+          <div class="chartWrapper">
+            <svg class="progressRing" viewBox="0 0 100 100">
+              <circle class="ringBg" cx="50" cy="50" r="40" />
+              <circle
+                class="ringBar"
+                cx="50"
+                cy="50"
+                r="40"
+                stroke-dasharray="251.2"
+                [attr.stroke-dashoffset]="strokeDashOffset"
+              />
+            </svg>
+            <div class="chartLabel">
+              <span class="scoreNum">{{ correctCount }}/{{ totalQuestions }}</span>
+              <span class="scoreSubText">câu đúng</span>
+            </div>
+          </div>
+
+          <!-- Legend List -->
+          <div class="legendList">
+            <div class="legendItem correct">
+              <span class="dot"></span>
+              <span class="label">Đúng:</span>
+              <strong class="val">{{ correctCount }} câu</strong>
+            </div>
+            <div class="legendItem wrong">
+              <span class="dot"></span>
+              <span class="label">Sai:</span>
+              <strong class="val">{{ wrongCount }} câu</strong>
+            </div>
+            <div class="legendItem skipped">
+              <span class="dot"></span>
+              <span class="label">Bỏ qua:</span>
+              <strong class="val">{{ skippedCount }} câu</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Feature -->
+        <div class="featureBanner">
+          {{ test.skill === 'Reading' ? 'Reading' : 'Listening' }} Pro - Giải thích đáp án chi tiết (NEW & FREE)
+        </div>
+
+        <!-- Call to Action Button -->
+        <button class="primaryBtn" type="button" (click)="review.emit()">
+          Xem giải thích chi tiết
+        </button>
+      </div>
+    </div>
+
+    <!-- Recommendation Box -->
+    <div class="recommendationBox">
+      <p>Bạn có muốn đề xuất bài tập này đến các bạn khác có cùng level với bạn không?</p>
+      <div class="feedbackBtns">
+        <button type="button" class="thumbBtn" aria-label="Thumbs up">👍</button>
+        <button type="button" class="thumbBtn" aria-label="Thumbs down">👎</button>
+      </div>
+    </div>
+
+    <!-- Detailed Question Type Stats Table -->
+    <div class="detailsSection">
+      <h3>Bảng dữ liệu chi tiết</h3>
+      <div class="tableWrapper">
+        <table class="statsTable">
+          <thead>
+            <tr>
+              <th>Loại câu hỏi</th>
+              <th class="textCenter">Số câu hỏi</th>
+              <th class="textCenter colGreen">Đúng</th>
+              <th class="textCenter colRed">Sai</th>
+              <th class="textCenter colGray">Bỏ qua</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stat of stats">
+              <td class="statType">{{ stat.type }}</td>
+              <td class="textCenter">{{ stat.total }}</td>
+              <td class="textCenter colGreen fontBold">
+                <span class="badge cellCorrect">{{ stat.correct }}</span>
+              </td>
+              <td class="textCenter colRed fontBold">
+                <span class="badge cellWrong">{{ stat.wrong }}</span>
+              </td>
+              <td class="textCenter colGray fontBold">
+                <span class="badge cellSkipped">{{ stat.skipped }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

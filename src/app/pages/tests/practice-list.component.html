@@ -1,4 +1,4 @@
-<!-- PRACTICE LIST — content only, sidebar lives in MainLayout -->
+PRACTICE LIST — content only, sidebar lives in MainLayout
 
 <div class="tests-page">
 
@@ -9,11 +9,7 @@
       <p>{{ filteredTests.length }} đề sẵn sàng • Reading & Listening full test</p>
     </div>
     <div class="tests-topbar__right">
-      <button
-        class="btn-seed"
-        (click)="seedDemoTests()"
-        [disabled]="seeding"
-        *ngIf="showSeedBtn">
+      <button class="btn-seed" (click)="seedDemoTests()" [disabled]="seeding" *ngIf="showSeedBtn">
         {{ seeding ? '⏳ Đang tạo...' : '+ Tạo đề mẫu' }}
       </button>
     </div>
@@ -21,9 +17,11 @@
 
   <!-- FILTERS -->
   <div class="tests-filters">
-    <button class="filter-btn" [class.active]="selectedSkill === ''"         (click)="applyFilter('')">Tất cả</button>
-    <button class="filter-btn filter-btn--r" [class.active]="selectedSkill === 'Reading'"   (click)="applyFilter('Reading')">📖 Reading</button>
-    <button class="filter-btn filter-btn--l" [class.active]="selectedSkill === 'Listening'" (click)="applyFilter('Listening')">🎧 Listening</button>
+    <button class="filter-btn" [class.active]="selectedSkill === ''" (click)="applyFilter('')">Tất cả</button>
+    <button class="filter-btn filter-btn--r" [class.active]="selectedSkill === 'Reading'"
+      (click)="applyFilter('Reading')">📖 Reading</button>
+    <button class="filter-btn filter-btn--l" [class.active]="selectedSkill === 'Listening'"
+      (click)="applyFilter('Listening')">🎧 Listening</button>
   </div>
 
   <!-- LOADING -->
@@ -43,16 +41,11 @@
 
     <!-- TEST GRID -->
     <div class="tests-grid" *ngIf="filteredTests.length">
-      <article
-        class="test-card"
-        *ngFor="let test of filteredTests"
-        [class.test-card--reading]="test.skill === 'Reading'"
-        [class.test-card--listening]="test.skill === 'Listening'">
+      <article class="test-card" *ngFor="let test of filteredTests"
+        [class.test-card--reading]="test.skill === 'Reading'" [class.test-card--listening]="test.skill === 'Listening'">
 
         <div class="test-card__header">
-          <span
-            class="skill-pill"
-            [class.skill-pill--reading]="test.skill === 'Reading'"
+          <span class="skill-pill" [class.skill-pill--reading]="test.skill === 'Reading'"
             [class.skill-pill--listening]="test.skill === 'Listening'">
             {{ test.skill }}
           </span>
@@ -62,7 +55,7 @@
         <h3 class="test-card__title">{{ test.title }}</h3>
 
         <div class="test-card__meta">
-          <span>{{ test.parts.length }} {{ test.skill === 'Listening' ? 'sections' : 'passages' }}</span>
+          <span>{{ test.partsCount ?? test.parts.length }} {{ test.skill === 'Listening' ? 'sections' : 'passages' }}</span>
           <span class="test-card__dot">·</span>
           <span>{{ getQuestionCount(test) }} câu hỏi</span>
           <span class="test-card__dot">·</span>
@@ -75,8 +68,7 @@
 
         <div class="test-card__footer">
           <div class="test-card__difficulty">
-            <span class="difficulty-dot" *ngFor="let d of [1,2,3,4,5]"
-              [class.filled]="d <= getDifficulty(test)"></span>
+            <span class="difficulty-dot" *ngFor="let d of [1,2,3,4,5]" [class.filled]="d <= getDifficulty(test)"></span>
             <span class="difficulty-label">{{ getDifficultyLabel(test) }}</span>
           </div>
           <a class="test-card__cta" [routerLink]="['/tests', test.id]">

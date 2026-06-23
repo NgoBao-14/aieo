@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, firstValueFrom, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, firstValueFrom, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { doc, setDoc } from 'firebase/firestore';
 import { Submission, Test } from '../../models/app.models';
 import { UserProfileService } from './user-profile.service';
 import { CloudTestService } from './cloud-test.service';
+import { getFirebaseDb } from '../firebase/firebase.client';
 
 const SUBMISSIONS_KEY = 'ielts9s-submissions';
 
@@ -25,7 +27,11 @@ export class TestDataService {
 
     const source$ = this.cloudTestService.isEnabled()
       ? from(this.cloudTestService.getTests(filters?.skill as Test['skill'] | undefined)).pipe(
-          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : assetTests$)
+          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : assetTests$),
+          catchError((err) => {
+            console.error('Firebase failed to fetch tests, falling back to local files:', err);
+            return assetTests$;
+          })
         )
       : assetTests$;
 
@@ -73,7 +79,53 @@ export class TestDataService {
     submissions.unshift(submission);
     localStorage.setItem(SUBMISSIONS_KEY, JSON.stringify(submissions));
 
-    await this.userProfileService.updateUserStats(userId, test, answers, bandScore);
+    if (this.cloudTestService.isEnabled()) {
+      const db = getFirebaseDb();
+      if (db) {
+        this.userProfileService.getUserProfile(userId).then((profile) => {
+          const displayName = profile?.displayName || 'Học viên';
+          const historyDoc: Record<string, any> = {
+            created_at: submission.createdAt,
+            month: `${new Date().getMonth() + 1}_${new Date().getFullYear()}`,
+            name: displayName,
+            userId: submission.userId,
+            testId: submission.testId,
+            testTitle: submission.testTitle,
+            skill: submission.skill,
+            score: submission.score,
+            bandScore: submission.bandScore
+          };
+
+          test.parts.forEach((part, index) => {
+            const partKey = `part${index + 1}`;
+            const questionsList: any[] = [];
+            part.questionGroups.forEach((group) => {
+              group.questions.forEach((question) => {
+                const answer = answers[String(question.id)] ?? '';
+                const expected = (test.answerKey[String(question.id)] ?? '').trim().toLowerCase();
+                const isCorrect = answer.trim().toLowerCase() === expected;
+                questionsList.push({
+                  id: question.id,
+                  score: isCorrect ? 1 : 0,
+                  userAnswer: answer
+                });
+              });
+            });
+            historyDoc[partKey] = questionsList;
+          });
+
+          setDoc(doc(db, 'history', submission.id), historyDoc)
+            .then(() => console.log('[TestDataService] Saved structured submission to Firestore history:', submission.id))
+            .catch((error) => console.error('[TestDataService] Failed to save submission to Firestore:', error));
+        }).catch((err) => {
+          console.error('[TestDataService] Failed to fetch profile for history:', err);
+        });
+      }
+    }
+
+    this.userProfileService.updateUserStats(userId, test, answers, bandScore)
+      .catch((error) => console.error('[TestDataService] Failed to update user stats:', error));
+
     return submission;
   }
 

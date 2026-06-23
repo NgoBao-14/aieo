@@ -55,6 +55,10 @@ export class ListeningDetailShellComponent {
     return this.allQuestionIds.filter((value) => value >= range.min && value <= range.max);
   }
 
+  getAnswer(questionId: number): string {
+    return this.answers[String(questionId)] ?? '';
+  }
+
   trackByPart(_: number, part: TestPart): string {
     return part.id;
   }

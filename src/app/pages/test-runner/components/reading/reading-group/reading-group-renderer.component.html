@@ -11,10 +11,11 @@
         </div>
 
         <div class="qBlock">
-            <app-reading-template-group
+             <app-reading-template-group
                 *ngIf="group.mode === 'template'"
                 [group]="group"
                 [answers]="answers"
+                [currentQId]="currentQId"
                 (answerChange)="answerChange.emit($event)"
                 (dragValueStart)="dragValueStart.emit($event)"
                 (dragValueEnd)="dragValueEnd.emit($event)"
@@ -24,12 +25,14 @@
                 *ngIf="group.mode === 'grid'"
                 [group]="group"
                 [answers]="answers"
+                [currentQId]="currentQId"
                 (answerChange)="answerChange.emit($event)"
             ></app-reading-grid-group>
 
             <app-reading-headings-group
                 *ngIf="group.mode === 'headings'"
                 [group]="group"
+                [currentQId]="currentQId"
                 (dragValueStart)="dragValueStart.emit($event)"
                 (dragValueEnd)="dragValueEnd.emit($event)"
             ></app-reading-headings-group>
@@ -38,6 +41,7 @@
                 *ngIf="group.mode === 'multi-select'"
                 [group]="group"
                 [answers]="answers"
+                [currentQId]="currentQId"
                 (answerChange)="answerChange.emit($event)"
             ></app-reading-multi-select-group>
 
@@ -45,6 +49,7 @@
                 *ngIf="group.mode === 'choice'"
                 [group]="group"
                 [answers]="answers"
+                [currentQId]="currentQId"
                 (answerChange)="answerChange.emit($event)"
             ></app-reading-choice-group>
 
@@ -52,6 +57,7 @@
                 *ngIf="group.mode === 'input'"
                 [group]="group"
                 [answers]="answers"
+                [currentQId]="currentQId"
                 (answerChange)="answerChange.emit($event)"
             ></app-reading-input-group>
         </div>

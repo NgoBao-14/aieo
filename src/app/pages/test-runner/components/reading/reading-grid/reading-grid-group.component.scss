@@ -23,6 +23,16 @@
   background: #fafbff;
 }
 
+.matchingTable tr.qRowActive td {
+  background: rgba(25, 118, 210, 0.05) !important;
+}
+
+.matchingTable tr.qRowActive .qIdBox {
+  background: #1976d2;
+  color: #fff;
+  border-color: #1976d2;
+}
+
 .gridQText {
   display: flex;
   align-items: center;

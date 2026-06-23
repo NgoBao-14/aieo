@@ -9,7 +9,12 @@ import { PreparedGroup } from '../../../practice-detail.models';
 export class ReadingMultiSelectGroupComponent {
   @Input() group!: PreparedGroup;
   @Input() answers: Record<string, string> = {};
+  @Input() currentQId = 1;
   @Output() answerChange = new EventEmitter<{ id: number; value: string }>();
+
+  isActive(): boolean {
+    return this.group.raw.questions.some((q) => q.id === this.currentQId);
+  }
 
   isSelected(option: string): boolean {
     return this.group.raw.questions.some((question) => this.answers[String(question.id)] === option);

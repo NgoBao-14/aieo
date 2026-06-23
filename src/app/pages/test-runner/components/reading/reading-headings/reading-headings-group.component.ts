@@ -8,6 +8,7 @@ import { PreparedGroup } from '../../../practice-detail.models';
 })
 export class ReadingHeadingsGroupComponent {
   @Input() group!: PreparedGroup;
+  @Input() currentQId = 1;
   @Output() dragValueStart = new EventEmitter<string>();
   @Output() dragValueEnd = new EventEmitter<DragEvent>();
 
