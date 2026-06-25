@@ -1,111 +1,213 @@
-<!-- HOME PAGE — dành cho học viên chưa biết gì về IELTS -->
+<!-- LANDING PAGE — full width, no sidebar -->
+<div class="landing">
 
-<!-- HERO -->
-<section class="home-hero">
-  <div class="home-hero__badge">Miễn phí 100% · Không cần thẻ</div>
-  <h1 class="home-hero__title">
-    Luyện IELTS từ con số 0 —<br>
-    <span class="home-hero__accent">mỗi ngày một bước nhỏ</span>
-  </h1>
-  <p class="home-hero__sub">
-    Không cần nền tảng. Không cần trung tâm. Học từ vựng, làm bài tập theo từng dạng, tiến bộ đo được từng tuần.
-  </p>
-  <div class="home-hero__actions">
-    <a routerLink="/vocabulary" class="btn-primary-lg">Bắt đầu học từ vựng</a>
-    <a routerLink="/exercises" class="btn-ghost-lg">Xem dạng bài luyện tập →</a>
-  </div>
-
-  <!-- TRUST STRIP -->
-  <div class="home-trust">
-    <div class="home-trust__item">✅ Hơn 200+ từ vựng IELTS chuẩn</div>
-    <div class="home-trust__item">✅ Reading & Listening từng dạng câu hỏi</div>
-    <div class="home-trust__item">✅ Có giải thích + ví dụ thực tế</div>
-  </div>
-</section>
-
-<!-- WHAT IS IELTS — giải thích cho người mới -->
-<section class="home-explain">
-  <div class="home-explain__inner">
-    <div class="home-explain__text">
-      <p class="home-explain__eyebrow">IELTS là gì?</p>
-      <h2>Bài thi quốc tế dùng để đi du học, định cư và xin việc</h2>
-      <p>IELTS kiểm tra 4 kỹ năng: <strong>Listening, Reading, Writing, Speaking</strong>. Điểm từ 1–9, trường đại học thường yêu cầu 6.0–7.0+. IELTS9S giúp bạn luyện Listening và Reading trước — chiếm 50% tổng điểm.</p>
+  <!-- ── NAVBAR ─────────────────────────────────────────────── -->
+  <nav class="lnav">
+    <a class="lnav__brand" routerLink="/">
+      <div class="lnav__logo">9S</div>
+      <span>IELTS<strong>9S</strong></span>
+    </a>
+    <div class="lnav__links">
+      <a routerLink="/roadmap">Lộ trình</a>
+      <a routerLink="/exercises">Dạng bài</a>
+      <a routerLink="/tests">Luyện đề</a>
     </div>
-    <div class="home-explain__bands">
-      <div class="home-band" *ngFor="let b of bandGuide">
-        <span class="home-band__score" [style.background]="b.color">{{ b.score }}</span>
-        <div>
-          <strong>{{ b.label }}</strong>
-          <p>{{ b.desc }}</p>
+    <a routerLink="/roadmap/1" class="lnav__cta">Vào học ngay →</a>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__badge">🎯 Miễn phí · Không cần đăng ký ngay</div>
+      <h1 class="hero__h1">
+        Từ <span class="hero__band-from">Band 4.0</span><br>
+        lên <span class="hero__band-to">Band 6.5</span><br>
+        trong 180 buổi
+      </h1>
+      <p class="hero__sub">
+        Lộ trình có bài giảng lý thuyết + bài tập thực hành — từng bước, từng buổi.
+        Không cần biết gì về IELTS để bắt đầu.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/roadmap/1" class="hero__btn-primary">Bắt đầu học — Buổi 1</a>
+        <a routerLink="/roadmap" class="hero__btn-ghost">Xem lộ trình 180 buổi →</a>
+      </div>
+      <div class="hero__proof">
+        <span>📖 Reading</span>
+        <span>🎧 Listening</span>
+        <span>📚 Từ vựng</span>
+        <span>✅ Có bài giảng</span>
+        <span>🏆 Có kiểm tra</span>
+      </div>
+    </div>
+    <div class="hero__visual" aria-hidden="true">
+      <div class="hero__path">
+        <div class="hero__phase hero__phase--1">
+          <div class="hero__phase-num">1</div>
+          <div class="hero__phase-info">
+            <strong>Foundation</strong>
+            <span>30 buổi · Band 4.5</span>
+          </div>
+        </div>
+        <div class="hero__arrow">↓</div>
+        <div class="hero__phase hero__phase--2">
+          <div class="hero__phase-num">2</div>
+          <div class="hero__phase-info">
+            <strong>Building</strong>
+            <span>60 buổi · Band 5.5</span>
+          </div>
+        </div>
+        <div class="hero__arrow">↓</div>
+        <div class="hero__phase hero__phase--3">
+          <div class="hero__phase-num">3</div>
+          <div class="hero__phase-info">
+            <strong>Developing</strong>
+            <span>60 buổi · Band 6.0</span>
+          </div>
+        </div>
+        <div class="hero__arrow">↓</div>
+        <div class="hero__phase hero__phase--4">
+          <div class="hero__phase-num">4</div>
+          <div class="hero__phase-info">
+            <strong>Targeting</strong>
+            <span>30 buổi · Band 6.5</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 3 LEARNING PATHS -->
-<section class="home-paths">
-  <div class="home-section-header">
-    <p class="home-section-header__eyebrow">Lộ trình học</p>
-    <h2>3 bước để tăng điểm IELTS</h2>
-    <p>Dành cho người mới bắt đầu đến mục tiêu 7.0+</p>
-  </div>
-
-  <div class="home-paths__grid">
-    <a class="home-path-card home-path-card--1" routerLink="/vocabulary">
-      <div class="home-path-card__step">1</div>
-      <div class="home-path-card__icon">📚</div>
-      <h3>Xây từ vựng</h3>
-      <p>Học từ theo chủ đề IELTS (môi trường, giáo dục, công nghệ...). Mỗi ngày 10–15 từ là đủ.</p>
-      <span class="home-path-card__cta">Học từ vựng →</span>
-    </a>
-
-    <a class="home-path-card home-path-card--2" routerLink="/exercises">
-      <div class="home-path-card__step">2</div>
-      <div class="home-path-card__icon">✏️</div>
-      <h3>Luyện từng dạng bài</h3>
-      <p>True/False/NG, Multiple Choice, Form Completion... mỗi dạng có cách làm riêng — học đúng trọng tâm.</p>
-      <span class="home-path-card__cta">Xem dạng bài →</span>
-    </a>
-
-    <a class="home-path-card home-path-card--3" routerLink="/tests">
-      <div class="home-path-card__step">3</div>
-      <div class="home-path-card__icon">📝</div>
-      <h3>Luyện đề thi thử</h3>
-      <p>Sau khi nắm dạng bài, luyện đề full để quen áp lực thời gian và cách tổng hợp kỹ năng.</p>
-      <span class="home-path-card__cta">Luyện đề →</span>
-    </a>
-  </div>
-</section>
-
-<!-- FEATURED QUESTION TYPES -->
-<section class="home-types">
-  <div class="home-section-header">
-    <p class="home-section-header__eyebrow">Dạng bài phổ biến</p>
-    <h2>Những câu hỏi hay gặp nhất trong IELTS</h2>
-  </div>
-
-  <div class="home-types__grid">
-    <div class="home-type-card" *ngFor="let qt of questionTypes">
-      <span class="home-type-card__skill" [class.reading]="qt.skill === 'Reading'" [class.listening]="qt.skill === 'Listening'">{{ qt.skill }}</span>
-      <h4>{{ qt.name }}</h4>
-      <p>{{ qt.tip }}</p>
+  <!-- ── WHAT IS IELTS — 1 câu thôi ─────────────────────────── -->
+  <section class="what">
+    <div class="what__inner">
+      <div class="what__item">
+        <span class="what__num">50%</span>
+        <p>điểm IELTS đến từ Reading + Listening — 2 kỹ năng luyện được ngay, không cần giáo viên.</p>
+      </div>
+      <div class="what__divider"></div>
+      <div class="what__item">
+        <span class="what__num">180</span>
+        <p>buổi học có cấu trúc — mỗi buổi 20–40 phút, bao gồm lý thuyết và bài tập thực hành.</p>
+      </div>
+      <div class="what__divider"></div>
+      <div class="what__item">
+        <span class="what__num">6.5</span>
+        <p>là mục tiêu Band — đủ để xin visa du học Úc, Canada, Anh và học thạc sĩ quốc tế.</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="home-types__cta">
-    <a routerLink="/exercises" class="btn-outline">Xem toàn bộ {{ totalTypes }} dạng bài →</a>
-  </div>
-</section>
-
-<!-- DAILY ROUTINE CTA -->
-<section class="home-cta-banner">
-  <div class="home-cta-banner__content">
-    <h2>Bắt đầu hôm nay — chỉ 20 phút mỗi ngày</h2>
-    <p>Học viên luyện đều đặn 30 ngày tăng trung bình 0.5 band điểm. Không cần học nhiều — cần học đúng.</p>
-    <div class="home-cta-banner__actions">
-      <a routerLink="/vocabulary" class="btn-primary-lg">Vào học ngay</a>
-      <a routerLink="/dictionary" class="btn-ghost-lg-light">Tra từ điển</a>
+  <!-- ── MỖI BUỔI HỌC GỒM GÌ ────────────────────────────────── -->
+  <section class="how">
+    <div class="how__inner">
+      <div class="how__head">
+        <p class="how__eyebrow">Mỗi buổi học</p>
+        <h2>3 bước — không bỏ được bước nào</h2>
+      </div>
+      <div class="how__steps">
+        <div class="how__step">
+          <div class="how__step-icon">📖</div>
+          <h3>Bài giảng</h3>
+          <p>Học chiến lược làm bài cho từng dạng câu hỏi. Có ví dụ, có bẫy thường gặp. ~10–15 phút.</p>
+        </div>
+        <div class="how__step-arrow">→</div>
+        <div class="how__step">
+          <div class="how__step-icon">✏️</div>
+          <h3>Luyện tập</h3>
+          <p>Làm bài tập thực tế ngay sau khi học lý thuyết. Có đáp án và giải thích từng câu. ~20–30 phút.</p>
+        </div>
+        <div class="how__step-arrow">→</div>
+        <div class="how__step">
+          <div class="how__step-icon">✅</div>
+          <h3>Đạt chuẩn</h3>
+          <p>Phải đạt điểm tối thiểu (thường 70%) mới qua được buổi tiếp. Chưa đạt → làm lại.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ── BAND GUIDE ──────────────────────────────────────────── -->
+  <section class="bands">
+    <div class="bands__inner">
+      <div class="bands__head">
+        <p class="bands__eyebrow">Thang điểm IELTS</p>
+        <h2>Bạn cần Band bao nhiêu?</h2>
+      </div>
+      <div class="bands__grid">
+        <div class="bands__item" *ngFor="let b of bandGuide">
+          <div class="bands__score" [style.background]="b.color">{{ b.score }}</div>
+          <div class="bands__info">
+            <strong>{{ b.label }}</strong>
+            <p>{{ b.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT YOU PRACTICE ──────────────────────────────────── -->
+  <section class="features">
+    <div class="features__inner">
+      <div class="features__head">
+        <p class="features__eyebrow">Nội dung luyện tập</p>
+        <h2>Đầy đủ Reading & Listening</h2>
+      </div>
+      <div class="features__grid">
+        <div class="features__card features__card--reading">
+          <div class="features__card-skill">📖 Reading</div>
+          <ul>
+            <li>True / False / Not Given</li>
+            <li>Yes / No / Not Given</li>
+            <li>Multiple Choice</li>
+            <li>Matching Headings</li>
+            <li>Note / Summary / Sentence Completion</li>
+            <li>+ nhiều dạng khác</li>
+          </ul>
+        </div>
+        <div class="features__card features__card--listening">
+          <div class="features__card-skill">🎧 Listening</div>
+          <ul>
+            <li>Form Completion</li>
+            <li>Multiple Choice</li>
+            <li>Note Completion</li>
+            <li>Map / Plan Labelling</li>
+            <li>Table / Flow-chart Completion</li>
+            <li>+ nhiều dạng khác</li>
+          </ul>
+        </div>
+        <div class="features__card features__card--vocab">
+          <div class="features__card-skill">📚 Từ vựng</div>
+          <ul>
+            <li>Môi trường · Công nghệ</li>
+            <li>Y tế · Xã hội</li>
+            <li>Giáo dục · Kinh tế</li>
+            <li>Flashcard + ôn tập</li>
+            <li>Lọc theo Band mục tiêu</li>
+            <li>Từ điển giải thích tiếng Việt</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ───────────────────────────────────────────── -->
+  <section class="cta">
+    <div class="cta__inner">
+      <h2>Bắt đầu ngay hôm nay</h2>
+      <p>Miễn phí hoàn toàn. Không cần thẻ ngân hàng. Không cần trung tâm.</p>
+      <a routerLink="/roadmap/1" class="cta__btn">Vào học ngay — miễn phí</a>
+      <p class="cta__note">Mỗi ngày 20–30 phút. 180 ngày = Band 6.5.</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────── -->
+  <footer class="lfooter">
+    <span>© 2025 IELTS9S · Học IELTS miễn phí</span>
+    <div class="lfooter__links">
+      <a routerLink="/roadmap">Lộ trình</a>
+      <a routerLink="/exercises">Dạng bài</a>
+      <a routerLink="/vocabulary">Từ vựng</a>
+    </div>
+  </footer>
+
+</div>

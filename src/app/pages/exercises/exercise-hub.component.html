@@ -83,7 +83,7 @@
     </section>
 
     <!-- READING — coming soon -->
-    <section class="hub-section" *ngIf="selectedSkill !== 'Listening'">
+    <section class="hub-section" *ngIf="selectedSkill !== 'Listening' && readingComingSoonFiltered.length">
       <div class="hub-section__head">
         <div class="hub-section__title">
           <span class="hub-coming-badge">Sắp có</span>
@@ -91,7 +91,7 @@
         </div>
       </div>
       <div class="exercise-grid">
-        <article class="exercise-card exercise-card--locked" *ngFor="let t of readingComingSoon">
+        <article class="exercise-card exercise-card--locked" *ngFor="let t of readingComingSoonFiltered">
           <div class="exercise-card__top">
             <span class="skill-pill skill-pill--reading">Reading</span>
           </div>
@@ -135,7 +135,7 @@
     </section>
 
     <!-- LISTENING — coming soon -->
-    <section class="hub-section" *ngIf="selectedSkill !== 'Reading'">
+    <section class="hub-section" *ngIf="selectedSkill !== 'Reading' && listeningComingSoonFiltered.length">
       <div class="hub-section__head">
         <div class="hub-section__title">
           <span class="hub-coming-badge">Sắp có</span>
@@ -143,7 +143,7 @@
         </div>
       </div>
       <div class="exercise-grid">
-        <article class="exercise-card exercise-card--locked" *ngFor="let t of listeningComingSoon">
+        <article class="exercise-card exercise-card--locked" *ngFor="let t of listeningComingSoonFiltered">
           <div class="exercise-card__top">
             <span class="skill-pill skill-pill--listening">Listening</span>
           </div>

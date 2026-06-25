@@ -93,6 +93,53 @@
   padding: 12px 8px 4px;
 }
 
+.sidebar__zone-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #D1D5DB;
+  padding: 12px 8px 4px;
+
+  &--spaced { padding-top: 20px; }
+}
+
+.sidebar__session-badge {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+.sidebar__status {
+  padding: 8px 12px;
+  border-top: 1px solid #F3F4F6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__status-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B7280;
+}
+
+.sidebar__status-icon {
+  font-size: 13px;
+}
+
 .sidebar__nav a {
   display: flex;
   align-items: center;

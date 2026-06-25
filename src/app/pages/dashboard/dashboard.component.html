@@ -1,101 +1,124 @@
-<div class="page-shell" *ngIf="!loading && profile; else loadingState">
-  <aside class="page-shell__sidebar">
-    <section class="page-sidebar">
-      <div class="page-sidebar__brand">
-        <div class="page-sidebar__brand-mark">i</div>
+<!-- DASHBOARD -->
+<div class="dash-page" *ngIf="!loading; else loadingTpl">
+
+  <!-- TOPBAR -->
+  <header class="dash-topbar">
+    <div>
+      <h1>Tổng quan</h1>
+      <p class="dash-topbar__sub">Lộ trình của bạn · {{ completedCount }}/{{ TOTAL_SESSIONS }} buổi</p>
+    </div>
+    <div class="dash-topbar__streak" *ngIf="progress.streak > 0">
+      <span class="dash-fire">🔥</span>
+      <span>{{ progress.streak }} ngày</span>
+    </div>
+  </header>
+
+  <!-- TODAY CARD -->
+  <section class="dash-today" *ngIf="todaySession">
+    <div class="dash-today__label">
+      <span class="dash-today__badge">Hôm nay</span>
+      <span class="dash-today__phase">Phase {{ todaySession.phase }} · Buổi {{ todaySession.id }}</span>
+    </div>
+    <div class="dash-today__body">
+      <div class="dash-today__info">
+        <span class="dash-today__skill-icon">{{ skillIcon(todaySession.skill) }}</span>
         <div>
-          <a class="page-sidebar__brand-name" routerLink="/">ielts9s</a>
-          <p class="page-sidebar__brand-sub">Dashboard Page</p>
-        </div>
-      </div>
-
-      <nav class="page-sidebar__nav">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Trang Chủ</a>
-        <a routerLink="/vocabulary" routerLinkActive="active">Từ Vựng</a>
-        <a routerLink="/dictionary" routerLinkActive="active">Từ Điển</a>
-        <a routerLink="/exercises" routerLinkActive="active">Dạng Bài</a>
-        <a routerLink="/tests" routerLinkActive="active">Luyện Đề</a>
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      </nav>
-
-      <div class="page-sidebar__auth" *ngIf="user">
-        <div class="page-sidebar__profile">
-          <img [src]="user.photoURL" [alt]="user.displayName" />
-          <div>
-            <strong>{{ user.displayName }}</strong>
-            <p>{{ user.email }}</p>
+          <h2 class="dash-today__title">{{ todaySession.title }}</h2>
+          <p class="dash-today__sub">{{ todaySession.subtitle }}</p>
+          <div class="dash-today__meta">
+            <span>~{{ todaySession.estimatedMinutes }} phút</span>
+            <span class="dash-dot">·</span>
+            <span *ngIf="todaySession.hasTheory">Có bài giảng</span>
+            <span *ngIf="!todaySession.hasTheory">Bài tập</span>
+            <span *ngIf="todaySession.minAccuracy > 0" class="dash-dot">·</span>
+            <span *ngIf="todaySession.minAccuracy > 0">Đạt {{ todaySession.minAccuracy }}% để tiếp</span>
           </div>
         </div>
-        <button class="page-sidebar__logout" (click)="logout()">Đăng xuất</button>
       </div>
-    </section>
-  </aside>
-
-  <main class="page-shell__content">
-    <section class="page-topbar">
-      <h2>Dashboard</h2>
-    </section>
-
-    <section class="dashboard">
-      <div class="dashboard__hero">
-        <p class="dashboard__eyebrow">Welcome back</p>
-        <h1>{{ profile.displayName }}</h1>
-        <p class="dashboard__subtitle">Tiếp tục hành trình chinh phục Band {{ profile.targetBand }} với Reading và Listening được tách rõ dạng bài.</p>
-      </div>
-
-      <div class="dashboard__grid">
-        <article class="dashboard__card dashboard__card--accent">
-          <span>Rank hiện tại</span>
-          <strong>{{ rankLabels[profile.rank] }}</strong>
-          <p>Band mục tiêu {{ profile.targetBand }}</p>
-        </article>
-
-        <article class="dashboard__card">
-          <h3>Quick Actions</h3>
-          <div class="dashboard__actions">
-            <button class="btn btn--primary" (click)="practice('Reading')">Dạng bài Reading</button>
-            <button class="btn btn--ghost" (click)="practice('Listening')">Dạng bài Listening</button>
-            <button class="btn btn--ghost" (click)="seedDemoTests()" [disabled]="seeding">
-              {{ seeding ? 'Đang seed...' : 'Tạo đề mẫu Firebase' }}
-            </button>
-          </div>
-        </article>
-
-        <article class="dashboard__card dashboard__card--wide">
-          <h3>Kỹ năng gần đây</h3>
-          <div class="dashboard__skills">
-            <div class="dashboard__skill" *ngFor="let row of skillRows">
-              <span>{{ row.label }}</span>
-              <div class="dashboard__meter"><div class="dashboard__meter-fill" [style.width.%]="row.value * 100"></div></div>
-              <strong>{{ (row.value * 100) | number:'1.0-0' }}%</strong>
-            </div>
-          </div>
-        </article>
-
-        <article class="dashboard__card dashboard__card--wide">
-          <h3>Bài làm gần nhất</h3>
-          <div *ngIf="recentSubmissions.length; else emptyState" class="dashboard__recent">
-            <div class="dashboard__recent-item" *ngFor="let submission of recentSubmissions">
-              <div>
-                <strong>{{ submission.testTitle }}</strong>
-                <p>{{ submission.skill }} • {{ submission.createdAt | date:'short' }}</p>
-              </div>
-              <span class="pill">Band {{ submission.bandScore }}</span>
-            </div>
-          </div>
-          <ng-template #emptyState>
-            <p class="dashboard__empty">Chưa có submission nào. Có thể vào khu dạng bài hoặc luyện đề để bắt đầu tạo dữ liệu.</p>
-          </ng-template>
-        </article>
-      </div>
-    </section>
-  </main>
-</div>
-
-<ng-template #loadingState>
-  <section class="dashboard dashboard--loading">
-    <div class="dashboard__card">
-      <p>Đang tải dashboard...</p>
+      <button class="dash-today__btn" (click)="goToSession(todaySession.id)">
+        Bắt đầu →
+      </button>
     </div>
   </section>
+
+  <div class="dash-no-session" *ngIf="!todaySession">
+    <p>🎉 Bạn đã hoàn thành tất cả 180 buổi!</p>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="dash-stats">
+
+    <!-- Band card -->
+    <div class="dash-stat-card">
+      <div class="dash-stat-card__label">Band ước tính</div>
+      <div class="dash-stat-card__value">~{{ progress.bandEstimate }}</div>
+      <div class="dash-stat-card__bar-wrap">
+        <div class="dash-stat-card__bar" [style.width.%]="bandProgress"></div>
+      </div>
+      <div class="dash-stat-card__meta">Mục tiêu {{ TARGET_BAND }}</div>
+    </div>
+
+    <!-- Phase card -->
+    <div class="dash-stat-card">
+      <div class="dash-stat-card__label">Phase {{ currentPhase }} — {{ phaseLabel }}</div>
+      <div class="dash-stat-card__value">{{ phaseProgress }}%</div>
+      <div class="dash-stat-card__bar-wrap">
+        <div class="dash-stat-card__bar dash-stat-card__bar--phase" [style.width.%]="phaseProgress"></div>
+      </div>
+      <div class="dash-stat-card__meta">
+        <a class="dash-link" (click)="goToRoadmap()">Xem lộ trình →</a>
+      </div>
+    </div>
+
+    <!-- Total card -->
+    <div class="dash-stat-card">
+      <div class="dash-stat-card__label">Tiến độ tổng</div>
+      <div class="dash-stat-card__value">{{ completedCount }}<span class="dash-stat-card__total">/{{ TOTAL_SESSIONS }}</span></div>
+      <div class="dash-stat-card__bar-wrap">
+        <div class="dash-stat-card__bar dash-stat-card__bar--total" [style.width.%]="completedCount / TOTAL_SESSIONS * 100"></div>
+      </div>
+      <div class="dash-stat-card__meta">buổi hoàn thành</div>
+    </div>
+
+  </div>
+
+  <!-- RECENT -->
+  <section class="dash-recent" *ngIf="recentSessions.length">
+    <h3 class="dash-recent__title">Gần đây</h3>
+    <div class="dash-recent__list">
+      <div class="dash-recent-item" *ngFor="let r of recentSessions" (click)="goToSession(r.session.id)">
+        <div class="dash-recent-item__icon" [class.passed]="r.prog.passed" [class.failed]="!r.prog.passed">
+          {{ r.prog.passed ? '✓' : '✗' }}
+        </div>
+        <div class="dash-recent-item__info">
+          <span class="dash-recent-item__title">Buổi {{ r.session.id }} · {{ r.session.title }}</span>
+          <span class="dash-recent-item__meta">{{ r.prog.score }}% · {{ r.prog.passed ? 'Đạt' : 'Chưa qua' }}</span>
+        </div>
+        <div class="dash-recent-item__bar-wrap">
+          <div class="dash-recent-item__bar"
+            [class.passed]="r.prog.passed"
+            [style.width.%]="r.prog.score">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPTY STATE khi chưa học gì -->
+  <section class="dash-welcome" *ngIf="!recentSessions.length">
+    <div class="dash-welcome__inner">
+      <p class="dash-welcome__emoji">👋</p>
+      <h2>Chào mừng đến IELTS9S!</h2>
+      <p>Bắt đầu từ Buổi 1 — mỗi ngày 1 buổi là đủ. 180 buổi = Band 6.5.</p>
+      <button class="dash-welcome__btn" (click)="goToSession(1)">Bắt đầu Buổi 1 →</button>
+    </div>
+  </section>
+
+</div>
+
+<ng-template #loadingTpl>
+  <div class="dash-loading">
+    <div class="dash-spinner"></div>
+    <p>Đang tải...</p>
+  </div>
 </ng-template>

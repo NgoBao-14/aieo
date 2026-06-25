@@ -1,242 +1,120 @@
 [
   {
-    "id": "ielts-listening-sample-01",
-    "title": "IELTS Academic Listening - Sample Test 1",
+    "id": "ielts-listening-01",
+    "title": "IELTS Academic Listening - Test 1",
     "skill": "Listening",
-    "source": "IELTS9s Sample",
+    "source": "IELTS9s Original",
     "attempts": 0,
     "parts": [
       {
-        "id": "sample-l1",
+        "id": "l1-p1",
         "number": 1,
-        "title": "SECTION 1",
+        "title": "SECTION 1 — Booking a Tour",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
         "questionGroups": [
           {
-            "id": "sample-l1-g1",
+            "id": "l1-g1",
             "type": "Form Completion",
-            "range": "1-4",
-            "instructions": "Complete the form below.",
+            "range": "1-6",
+            "instructions": "Complete the booking form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.",
+            "template": "<h3>City Tours — Booking Form</h3><table><tr><td>Customer name:</td><td><strong>((1))</strong></td></tr><tr><td>Tour date:</td><td><strong>((2))</strong></td></tr><tr><td>Number of adults:</td><td><strong>((3))</strong></td></tr><tr><td>Tour type:</td><td><strong>((4))</strong></td></tr><tr><td>Pick-up location:</td><td><strong>((5))</strong></td></tr><tr><td>Total cost:</td><td>£<strong>((6))</strong></td></tr></table>",
             "questions": [
-              { "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 4 }
+              { "id": 1 },
+              { "id": 2 },
+              { "id": 3 },
+              { "id": 4 },
+              { "id": 5 },
+              { "id": 6 }
             ]
           },
           {
-            "id": "sample-l1-g2",
+            "id": "l1-g2",
             "type": "Multiple Choice",
-            "range": "5-7",
+            "range": "7-10",
             "instructions": "Choose the correct letter, A, B or C.",
             "questions": [
               {
-                "id": 5,
-                "text": "What is the purpose of the accommodation visit?",
-                "options": [
-                  "A. To register for a course",
-                  "B. To find suitable housing",
-                  "C. To meet the landlord"
-                ]
-              },
-              {
-                "id": 6,
-                "text": "What is the student's budget for accommodation?",
-                "options": [
-                  "A. £100 per week",
-                  "B. £150 per week",
-                  "C. £200 per week"
-                ]
-              },
-              {
                 "id": 7,
-                "text": "Which facility is most important to the student?",
-                "options": [
-                  "A. A private bathroom",
-                  "B. A shared kitchen",
-                  "C. A study desk"
-                ]
+                "text": "What is included in the tour price?",
+                "options": ["A. Meals and transport", "B. Entry fees and a guidebook", "C. Transport and lunch"]
+              },
+              {
+                "id": 8,
+                "text": "What does the customer ask about regarding payment?",
+                "options": ["A. Whether they can pay by card", "B. Whether a deposit is required", "C. Whether group discounts apply"]
+              },
+              {
+                "id": 9,
+                "text": "Why does the customer choose the evening tour?",
+                "options": ["A. It is cheaper than the daytime tour", "B. It includes a dinner experience", "C. They have a morning commitment"]
+              },
+              {
+                "id": 10,
+                "text": "What should the customer bring?",
+                "options": ["A. Comfortable shoes and a raincoat", "B. Their passport and booking reference", "C. A camera and printed tickets"]
               }
             ]
           }
         ],
-        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        "questionTypes": [
-          "Form Completion",
-          "Multiple Choice"
-        ]
-      }
-    ],
-    "answerKey": {
-      "1": "John Smith", "2": "15 June", "3": "6 months", "4": "Business",
-      "5": "B", "6": "B", "7": "C"
-    }
-  },
-  {
-    "id": "ielts-listening-sample-02",
-    "title": "IELTS Academic Listening - Sample Test 2",
-    "skill": "Listening",
-    "source": "IELTS9s Sample",
-    "attempts": 0,
-    "parts": [
+        "questionTypes": ["Form Completion", "Multiple Choice"]
+      },
       {
-        "id": "sample-l2",
+        "id": "l1-p2",
         "number": 2,
-        "title": "SECTION 2",
+        "title": "SECTION 2 — Talk About a Local Library",
         "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
         "questionGroups": [
           {
-            "id": "sample-l2-g1",
+            "id": "l1-g3",
             "type": "Note Completion",
-            "range": "8-9",
-            "instructions": "Complete the notes below.",
-            "template": "<ul><li>Club founded in ((8))</li><li>Annual fee: ((9))</li></ul>",
+            "range": "11-15",
+            "instructions": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+            "template": "<h3>Riverside Community Library</h3><ul><li>Founded in <strong>((11))</strong></li><li>Recently renovated — now includes a <strong>((12))</strong> room for children</li><li>Members can borrow up to <strong>((13))</strong> items at once</li><li>New digital lending service — no need to visit in <strong>((14))</strong></li><li>Weekly events include storytelling, coding clubs and <strong>((15))</strong> classes</li></ul>",
             "questions": [
-              { "id": 8 }, { "id": 9 }
-            ]
-          },
-          {
-            "id": "sample-l2-g2",
-            "type": "Table Completion",
-            "range": "10-11",
-            "instructions": "Complete the table below.",
-            "renderType": "grid",
-            "columns": ["Activity", "Location", "Time"],
-            "questions": [
-              { "id": 10, "text": "Swimming -> Pool -> ((10))" },
-              { "id": 11, "text": "Yoga -> ((11)) -> 7 PM" }
-            ]
-          },
-          {
-            "id": "sample-l2-g3",
-            "type": "Flow-chart Completion",
-            "range": "12-13",
-            "instructions": "Complete the flowchart.",
-            "template": "Register -> Pay Fee -> ((12)) -> Book Session -> ((13))",
-            "questions": [
-              { "id": 12 }, { "id": 13 }
-            ]
-          },
-          {
-            "id": "sample-l2-g4",
-            "type": "Summary Completion",
-            "range": "14-15",
-            "instructions": "Complete the summary.",
-            "template": "<p>The fitness center offers a variety of ((14)) and has newly upgraded ((15)).</p>",
-            "questions": [
-              { "id": 14 }, { "id": 15 }
-            ]
-          },
-          {
-            "id": "sample-l2-g5",
-            "type": "Sentence Completion",
-            "range": "16-17",
-            "instructions": "Complete the sentences.",
-            "template": "<p>Members can park their ((16)) outside. The center is closed on ((17)).</p>",
-            "questions": [
-              { "id": 16 }, { "id": 17 }
-            ]
-          },
-          {
-            "id": "sample-l2-g6",
-            "type": "Short Answer Questions",
-            "range": "18-19",
-            "instructions": "Answer the questions.",
-            "questions": [
-              { "id": 18, "text": "What is the name of the fitness manager?" },
-              { "id": 19, "text": "How many courts are available for hire?" }
+              { "id": 11 },
+              { "id": 12 },
+              { "id": 13 },
+              { "id": 14 },
+              { "id": 15 }
             ]
           }
-        ]
+        ],
+        "questionTypes": ["Note Completion"]
       }
     ],
     "answerKey": {
-      "8": "1995", "9": "$200",
-      "10": "6 AM", "11": "Studio A",
-      "12": "Receive ID Card", "13": "Attend Gym Session",
-      "14": "classes", "15": "equipment",
-      "16": "cars", "17": "Sunday",
-      "18": "David", "19": "4"
-    }
-  },
-  {
-    "id": "ielts-listening-sample-03",
-    "title": "IELTS Academic Listening - Sample Test 3",
-    "skill": "Listening",
-    "source": "IELTS9s Sample",
-    "attempts": 0,
-    "parts": [
-      {
-        "id": "sample-l3",
-        "number": 3,
-        "title": "SECTION 3",
-        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-        "questionGroups": [
-          {
-            "id": "sample-l3-g1",
-            "type": "Map Labelling",
-            "range": "20-21",
-            "instructions": "Label the map below.",
-            "template": "<p>North Gate: ((20)), South Gate: ((21))</p>",
-            "questions": [
-              { "id": 20 }, { "id": 21 }
-            ]
-          },
-          {
-            "id": "sample-l3-g2",
-            "type": "Plan/Map/Diagram Labelling",
-            "range": "22-23",
-            "instructions": "Label the plan below.",
-            "template": "<p>Cafeteria: ((22)), Library: ((23))</p>",
-            "questions": [
-              { "id": 22 }, { "id": 23 }
-            ]
-          },
-          {
-            "id": "sample-l3-g3",
-            "type": "Matching Features",
-            "range": "24-25",
-            "instructions": "Match the features with correct system.",
-            "renderType": "grid",
-            "columns": ["System A", "System B", "Both"],
-            "questions": [
-              { "id": 24, "text": "Requires internet connection" },
-              { "id": 25, "text": "Supports offline usage" }
-            ]
-          },
-          {
-            "id": "sample-l3-g4",
-            "type": "Matching Information",
-            "range": "26-27",
-            "instructions": "Match the opinions with correct speaker.",
-            "renderType": "grid",
-            "columns": ["Speaker X", "Speaker Y", "Speaker Z"],
-            "questions": [
-              { "id": 26, "text": "Believes the project needs more time" },
-              { "id": 27, "text": "Suggests cutting down the scope" }
-            ]
-          },
-          {
-            "id": "sample-l3-g5",
-            "type": "Multiple Choice (Multiple Answers)",
-            "range": "28-29",
-            "instructions": "Choose TWO letters, A–E.",
-            "options": [
-              "A. Speed is essential",
-              "B. Cost is the main concern",
-              "C. Design must be user-friendly",
-              "D. Color scheme is irrelevant",
-              "E. Code quality is secondary"
-            ],
-            "questions": [
-              { "id": 28 }, { "id": 29 }
-            ]
-          }
-        ]
-      }
-    ],
-    "answerKey": {
-      "20": "A", "21": "B",
-      "22": "C", "23": "D",
-      "24": "System A", "25": "System B",
-      "26": "Speaker X", "27": "Speaker Y",
-      "28": "A", "29": "C"
+      "1": "Sarah Blake",
+      "2": "14 March",
+      "3": "4",
+      "4": "evening",
+      "5": "Central Hotel",
+      "6": "160",
+      "7": "B",
+      "8": "A",
+      "9": "C",
+      "10": "A",
+      "11": "1952",
+      "12": "reading",
+      "13": "eight",
+      "14": "person",
+      "15": "language"
+    },
+    "explanations": {
+      "1": "The customer gives her name as Sarah Blake",
+      "2": "She requests the 14th of March",
+      "3": "There are 4 adults in the group",
+      "4": "She chooses the evening tour option",
+      "5": "Pick-up is arranged from the Central Hotel",
+      "6": "4 adults at £40 each = £160 total",
+      "7": "The tour includes entry fees and a guidebook",
+      "8": "The customer asks whether they can pay by credit card",
+      "9": "She has a morning commitment so chooses the evening",
+      "10": "The guide recommends comfortable shoes and a raincoat",
+      "11": "The library was founded in 1952",
+      "12": "A new reading room for children was created",
+      "13": "Members can borrow up to eight items",
+      "14": "The digital service means no need to visit in person",
+      "15": "Weekly language classes are offered"
     }
   }
 ]

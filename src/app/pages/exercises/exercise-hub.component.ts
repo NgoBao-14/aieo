@@ -48,6 +48,16 @@ export class ExerciseHubComponent implements OnInit {
 
   get readingCatalog():   ExerciseCatalogItem[] { return this.catalog.filter(i => i.skill === 'Reading'); }
   get listeningCatalog(): ExerciseCatalogItem[] { return this.catalog.filter(i => i.skill === 'Listening'); }
+
+  get readingComingSoonFiltered(): ComingSoonType[] {
+    const live = new Set(this.readingCatalog.map(i => i.type.toLowerCase()));
+    return this.readingComingSoon.filter(t => !live.has(t.type.toLowerCase()));
+  }
+
+  get listeningComingSoonFiltered(): ComingSoonType[] {
+    const live = new Set(this.listeningCatalog.map(i => i.type.toLowerCase()));
+    return this.listeningComingSoon.filter(t => !live.has(t.type.toLowerCase()));
+  }
   get totalQuestions(): number { return this.catalog.reduce((s, i) => s + i.questionCount, 0); }
   get totalTypes():     number { return this.catalog.length; }
   get totalSources():   number { return this.catalog.reduce((max, i) => Math.max(max, i.testCount), 0); }

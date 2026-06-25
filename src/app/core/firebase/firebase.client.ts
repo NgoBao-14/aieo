@@ -28,13 +28,12 @@ function isValidConfig(config: Partial<FirebaseConfig> | null | undefined): conf
 }
 
 export function isFirebaseEnabled(): boolean {
-  // return Boolean(
-  //   firebaseConfig.apiKey &&
-  //   firebaseConfig.authDomain &&
-  //   firebaseConfig.projectId &&
-  //   firebaseConfig.appId
-  // );
-  return false;
+  return Boolean(
+    firebaseConfig.apiKey &&
+    firebaseConfig.authDomain &&
+    firebaseConfig.projectId &&
+    firebaseConfig.appId
+  );
 }
 
 export function getFirebaseApp(): FirebaseApp | null {

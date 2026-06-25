@@ -91,12 +91,15 @@ export class ExercisePracticeComponent implements OnInit {
       'form-completion':                'Form Completion',
       'matching-headings':              'Matching Headings',
       'yes---no---not-given':           'Yes - No - Not Given',
+      'yes--no--not-given':             'Yes - No - Not Given',
       'sentence-completion':            'Sentence Completion',
       'summary-completion':             'Summary Completion',
       'table-completion':               'Table Completion',
       'flow-chart-completion':          'Flow-chart Completion',
       'map---plan-labelling':           'Map / Plan Labelling',
+      'map--plan-labelling':            'Map / Plan Labelling',
       'short-answer':                   'Short Answer Questions',
+      'short-answer-questions':         'Short Answer Questions',
       'matching':                       'Matching',
     };
     return map[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());

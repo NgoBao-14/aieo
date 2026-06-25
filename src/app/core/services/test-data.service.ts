@@ -25,7 +25,10 @@ export class TestDataService {
 
     const source$ = this.cloudTestService.isEnabled()
       ? from(this.cloudTestService.getTests(filters?.skill as Test['skill'] | undefined)).pipe(
-          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : assetTests$)
+          switchMap((cloudTests) => {
+            const hasContent = cloudTests.some(t => (t.parts?.length ?? 0) > 0);
+            return hasContent ? of(cloudTests) : assetTests$;
+          })
         )
       : assetTests$;
 

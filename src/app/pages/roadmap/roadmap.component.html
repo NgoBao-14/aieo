@@ -1,0 +1,118 @@
+<!-- ROADMAP -->
+<div class="roadmap-page" *ngIf="!loading; else loadingTpl">
+
+  <!-- TOPBAR -->
+  <header class="roadmap-topbar">
+    <div>
+      <h1>Lộ trình học</h1>
+      <p class="roadmap-topbar__sub">{{ completedCount }}/{{ TOTAL }} buổi · {{ overallProgress }}% hoàn thành</p>
+    </div>
+    <div class="roadmap-topbar__bar-wrap">
+      <div class="roadmap-topbar__bar" [style.width.%]="overallProgress"></div>
+    </div>
+  </header>
+
+  <!-- PHASES -->
+  <div class="roadmap-phases">
+
+    <div class="phase-block"
+      *ngFor="let ph of phases"
+      [class.phase-block--active]="ph.isActive"
+      [class.phase-block--locked]="ph.isLocked"
+      [class.phase-block--done]="ph.completedCount === ph.totalCount && ph.totalCount > 0">
+
+      <!-- Phase header -->
+      <div class="phase-header" (click)="togglePhase(ph)">
+        <div class="phase-header__left">
+          <div class="phase-badge" [style.background]="ph.isLocked ? '#E5E7EB' : ph.color">
+            <span *ngIf="!ph.isLocked">{{ ph.phase }}</span>
+            <span *ngIf="ph.isLocked">🔒</span>
+          </div>
+          <div>
+            <div class="phase-header__title">
+              Phase {{ ph.phase }} — {{ ph.label }}
+              <span class="phase-test-tag" *ngIf="ph.sessions[ph.sessions.length - 1]?.isPhaseTest">🏆 Phase Test</span>
+            </div>
+            <div class="phase-header__meta">
+              {{ ph.bandTarget }} · {{ ph.totalCount }} buổi
+              <span *ngIf="ph.isLocked"> · Cần hoàn thành Phase {{ ph.phase - 1 }} trước</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-header__right">
+          <div class="phase-progress-ring" *ngIf="!ph.isLocked">
+            <span class="phase-progress-ring__num">{{ ph.completedCount }}/{{ ph.totalCount }}</span>
+          </div>
+          <svg class="phase-chevron" [class.open]="ph.expanded"
+            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Phase progress bar -->
+      <div class="phase-bar-wrap" *ngIf="!ph.isLocked && ph.totalCount > 0">
+        <div class="phase-bar" [style.width.%]="(ph.completedCount / ph.totalCount) * 100" [style.background]="ph.color"></div>
+      </div>
+
+      <!-- Sessions list -->
+      <div class="phase-sessions" *ngIf="ph.expanded && !ph.isLocked">
+        <div class="session-row"
+          *ngFor="let s of ph.sessions"
+          [class.session-row--done]="sessionState(s) === 'done'"
+          [class.session-row--active]="sessionState(s) === 'active'"
+          [class.session-row--failed]="sessionState(s) === 'failed'"
+          [class.session-row--locked]="sessionState(s) === 'locked'"
+          [class.session-row--phase-test]="s.isPhaseTest"
+          (click)="goToSession(s)">
+
+          <!-- State icon -->
+          <div class="session-row__icon">
+            <ng-container [ngSwitch]="sessionState(s)">
+              <span *ngSwitchCase="'done'">✓</span>
+              <span *ngSwitchCase="'active'">●</span>
+              <span *ngSwitchCase="'failed'">↺</span>
+              <span *ngSwitchCase="'locked'">·</span>
+            </ng-container>
+          </div>
+
+          <!-- Info -->
+          <div class="session-row__info">
+            <div class="session-row__title">
+              <span class="session-row__id">{{ s.id }}</span>
+              {{ s.title }}
+              <span class="session-row__phase-badge" *ngIf="s.isPhaseTest">🏆 Phase Test</span>
+            </div>
+            <div class="session-row__meta">
+              {{ skillIcon(s.skill) }} {{ s.skill }}
+              <span class="session-row__dot">·</span>
+              ~{{ s.estimatedMinutes }} phút
+              <span class="session-row__dot" *ngIf="s.hasTheory">·</span>
+              <span *ngIf="s.hasTheory">Có bài giảng</span>
+              <span class="session-row__dot" *ngIf="s.minAccuracy > 0">·</span>
+              <span *ngIf="s.minAccuracy > 0">Đạt {{ s.minAccuracy }}%</span>
+            </div>
+          </div>
+
+          <!-- Score if done -->
+          <div class="session-row__score" *ngIf="progress.completedSessions[s.id] as sp">
+            <span [class.score-pass]="sp.passed" [class.score-fail]="!sp.passed">
+              {{ sp.score }}%
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingTpl>
+  <div class="roadmap-loading">
+    <div class="roadmap-spinner"></div>
+    <p>Đang tải lộ trình...</p>
+  </div>
+</ng-template>

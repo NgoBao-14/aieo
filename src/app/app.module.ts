@@ -31,18 +31,22 @@ import { AudioPlayerComponent } from './pages/test-runner/components/common/audi
 import { VocabularyComponent } from './pages/vocabulary/vocabulary.component';
 import { DictionaryComponent } from './pages/dictionary/dictionary.component';
 import { ExerciseHubComponent } from './pages/exercises/exercise-hub.component';
-import { ExercisePracticeComponent } from './pages/exercises/practice/exercise-practice.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { ExercisePracticeComponent } from './pages/exercises/practice/exercise-practice.component';
+import { RoadmapComponent } from './pages/roadmap/roadmap.component';
+import { SessionDetailComponent } from './pages/roadmap/session/session-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
+    ExercisePracticeComponent,
+    RoadmapComponent,
+    SessionDetailComponent,
     HomeComponent,
     VocabularyComponent,
     DictionaryComponent,
     ExerciseHubComponent,
-    ExercisePracticeComponent,
     DashboardComponent,
     PracticeListComponent,
     PracticeDetailComponent,
