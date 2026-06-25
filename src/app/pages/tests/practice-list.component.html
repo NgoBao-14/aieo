@@ -1,4 +1,4 @@
-PRACTICE LIST — content only, sidebar lives in MainLayout
+<!-- PRACTICE LIST — content only, sidebar lives in MainLayout -->
 
 <div class="tests-page">
 
@@ -55,7 +55,8 @@ PRACTICE LIST — content only, sidebar lives in MainLayout
         <h3 class="test-card__title">{{ test.title }}</h3>
 
         <div class="test-card__meta">
-          <span>{{ test.partsCount ?? test.parts.length }} {{ test.skill === 'Listening' ? 'sections' : 'passages' }}</span>
+          <span>{{ test.partsCount ?? test.parts.length }} {{ test.skill === 'Listening' ? 'sections' : 'passages'
+            }}</span>
           <span class="test-card__dot">·</span>
           <span>{{ getQuestionCount(test) }} câu hỏi</span>
           <span class="test-card__dot">·</span>
