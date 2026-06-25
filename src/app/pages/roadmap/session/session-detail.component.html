@@ -1,0 +1,158 @@
+<!-- SESSION DETAIL — full-page, no sidebar -->
+<div class="sp" *ngIf="!loading && session; else loadingTpl">
+
+  <!-- ── TOPBAR ─────────────────────────────────────────────── -->
+  <header class="sp-bar">
+    <button class="sp-bar__back" (click)="goRoadmap()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Lộ trình
+    </button>
+
+    <!-- Step progress -->
+    <div class="sp-bar__steps" *ngIf="session.tasks.length > 0 || session.hasTheory">
+      <div class="sp-step" [class.sp-step--active]="step === 'theory'" [class.sp-step--done]="step === 'practice' || step === 'complete'">
+        <div class="sp-step__dot"></div>
+        <span>Bài giảng</span>
+      </div>
+      <div class="sp-step__line"></div>
+      <div class="sp-step" [class.sp-step--active]="step === 'practice'" [class.sp-step--done]="step === 'complete'">
+        <div class="sp-step__dot"></div>
+        <span>Luyện tập</span>
+      </div>
+      <div class="sp-step__line"></div>
+      <div class="sp-step" [class.sp-step--active]="step === 'complete'">
+        <div class="sp-step__dot"></div>
+        <span>Hoàn thành</span>
+      </div>
+    </div>
+
+    <div class="sp-bar__meta">
+      <span class="sp-bar__skill">{{ skillIcon(session.skill) }} {{ session.skill }}</span>
+      <span class="sp-bar__id">Buổi {{ session.id }}</span>
+    </div>
+  </header>
+
+  <!-- ══ THEORY ══════════════════════════════════════════════ -->
+  <div class="sp-body" *ngIf="step === 'theory'">
+    <article class="sp-lesson">
+
+      <!-- Lesson title block -->
+      <div class="sp-lesson__head">
+        <div class="sp-lesson__phase">Phase {{ session.phase }} · Buổi {{ session.id }} / 180</div>
+        <h1 class="sp-lesson__title">{{ session.title }}</h1>
+        <p class="sp-lesson__sub">{{ session.subtitle }}</p>
+        <div class="sp-lesson__meta">
+          <span>⏱ {{ session.estimatedMinutes }} phút</span>
+          <span>{{ skillIcon(session.skill) }} {{ session.skill }}</span>
+        </div>
+      </div>
+
+      <!-- Lesson content -->
+      <div class="lesson-body" *ngIf="safeTheoryHtml" [innerHTML]="safeTheoryHtml"></div>
+
+      <!-- Placeholder -->
+      <div class="sp-placeholder" *ngIf="!safeTheoryHtml">
+        <div class="sp-placeholder__icon">📖</div>
+        <p>Nội dung bài giảng đang được chuẩn bị.</p>
+        <p class="sp-placeholder__sub">Quay lại sau hoặc tiếp tục sang bài tập.</p>
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="sp-lesson__footer">
+        <button class="sp-btn sp-btn--primary" (click)="finishTheory()">
+          <ng-container *ngIf="session.tasks.length > 0">Bắt đầu luyện tập →</ng-container>
+          <ng-container *ngIf="!session.tasks.length">Hoàn thành buổi học ✓</ng-container>
+        </button>
+      </div>
+    </article>
+  </div>
+
+  <!-- ══ PRACTICE ════════════════════════════════════════════ -->
+  <div class="sp-body sp-body--centered" *ngIf="step === 'practice'">
+    <div class="sp-practice">
+
+      <div class="sp-practice__head">
+        <span class="sp-practice__icon">✏️</span>
+        <h2>Luyện tập</h2>
+        <p>{{ session.title }}</p>
+      </div>
+
+      <!-- Tasks list -->
+      <div class="sp-tasks" *ngIf="session.tasks.length">
+        <div class="sp-task" *ngFor="let task of session.tasks; let i = index">
+          <div class="sp-task__num">{{ i + 1 }}</div>
+          <div class="sp-task__info">
+            <span class="sp-task__type" *ngIf="task.exerciseType">{{ task.exerciseType }}</span>
+            <span class="sp-task__type" *ngIf="task.type === 'vocabulary'">Từ vựng</span>
+            <span class="sp-task__skill">{{ task.skill || task.topicSlug }}</span>
+          </div>
+          <span class="sp-task__req" *ngIf="task.minAccuracy">≥ {{ task.minAccuracy }}%</span>
+        </div>
+      </div>
+
+      <!-- Open exercise link -->
+      <div class="sp-practice__link" *ngIf="exerciseRoute || vocabularyRoute">
+        <a class="sp-btn sp-btn--primary" [routerLink]="exerciseRoute || vocabularyRoute" target="_blank">
+          Mở bài tập ↗
+        </a>
+        <p *ngIf="exerciseRoute">Làm xong → quay lại đây nhập kết quả</p>
+      </div>
+
+      <!-- Score input -->
+      <div class="sp-score">
+        <p class="sp-score__label">Kết quả của bạn</p>
+        <div class="sp-score__row">
+          <input type="number" min="0" max="100" class="sp-score__input"
+            placeholder="0 – 100" #scoreInput />
+          <button class="sp-btn sp-btn--primary" (click)="finishPractice(+scoreInput.value || 0)">
+            Nộp ✓
+          </button>
+        </div>
+        <p class="sp-score__hint">Cần tối thiểu <strong>{{ session.minAccuracy }}%</strong> để qua buổi này</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ COMPLETE ════════════════════════════════════════════ -->
+  <div class="sp-body sp-body--centered" *ngIf="step === 'complete'">
+    <div class="sp-result" [class.sp-result--pass]="lastPassed" [class.sp-result--fail]="!lastPassed">
+
+      <div class="sp-result__icon">{{ lastPassed ? '✅' : '❌' }}</div>
+      <h1 class="sp-result__title">
+        {{ lastPassed ? 'Buổi ' + session.id + ' hoàn thành!' : 'Chưa đạt yêu cầu' }}
+      </h1>
+
+      <!-- Score bar -->
+      <div class="sp-result__bar-wrap">
+        <div class="sp-result__bar">
+          <div class="sp-result__bar-fill" [class.pass]="lastPassed" [style.width.%]="lastScore"></div>
+        </div>
+        <div class="sp-result__nums">
+          <span class="sp-result__score" [class.pass]="lastPassed" [class.fail]="!lastPassed">{{ lastScore }}%</span>
+          <span class="sp-result__req">Yêu cầu: {{ session.minAccuracy }}%</span>
+        </div>
+      </div>
+
+      <p class="sp-result__msg" *ngIf="lastPassed">🎉 Tốt lắm! Buổi tiếp theo đã được mở khoá.</p>
+      <p class="sp-result__msg" *ngIf="!lastPassed">Cần {{ session.minAccuracy }}% để tiếp tục. Xem lại bài giảng và làm lại.</p>
+
+      <div class="sp-result__actions">
+        <button class="sp-btn sp-btn--ghost" (click)="goRoadmap()">← Lộ trình</button>
+        <button class="sp-btn sp-btn--warn" *ngIf="!lastPassed" (click)="retrySession()">Làm lại</button>
+        <button class="sp-btn sp-btn--primary" *ngIf="lastPassed" (click)="goNextSession()">
+          Buổi {{ session.id + 1 }} →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingTpl>
+  <div class="sp-loading">
+    <div class="sp-spinner"></div>
+    <p>Đang tải...</p>
+  </div>
+</ng-template>

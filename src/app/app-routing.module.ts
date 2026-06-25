@@ -9,26 +9,33 @@ import { VocabularyComponent } from './pages/vocabulary/vocabulary.component';
 import { DictionaryComponent } from './pages/dictionary/dictionary.component';
 import { ExerciseHubComponent } from './pages/exercises/exercise-hub.component';
 import { ExercisePracticeComponent } from './pages/exercises/practice/exercise-practice.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { RoadmapComponent } from './pages/roadmap/roadmap.component';
+import { SessionDetailComponent } from './pages/roadmap/session/session-detail.component';
 import { AdminDashboardComponent } from './pages/admin/dashboard/admin-dashboard.component';
 import { TestManagementComponent } from './pages/admin/test-management/test-management.component';
 import { TestFormComponent } from './pages/admin/test-management/test-form.component';
 
 const routes: Routes = [
+  // ── Landing page — full width, no sidebar ────────────────────
+  { path: '', component: HomeComponent },
+
   // ── Learner area — shared sidebar layout ─────────────────────
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '',           component: HomeComponent },
       { path: 'vocabulary', component: VocabularyComponent },
       { path: 'dictionary', component: DictionaryComponent },
-      { path: 'exercises',  component: ExerciseHubComponent },
+      { path: 'roadmap',        component: RoadmapComponent },
+      { path: 'exercises',      component: ExerciseHubComponent },
       { path: 'exercises/:skill/:type', component: ExercisePracticeComponent },
       { path: 'tests',      component: PracticeListComponent },
-      { path: 'dashboard',  component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'dashboard',  component: DashboardComponent },
     ]
   },
+
+  // ── Session detail — full screen, no sidebar (immersive learning) ──
+  { path: 'roadmap/:id',      component: SessionDetailComponent },
 
   // ── Test runner — full screen, no sidebar ─────────────────────
   { path: 'tests/:testId',    component: PracticeDetailComponent },

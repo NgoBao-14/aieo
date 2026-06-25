@@ -1,356 +1,335 @@
 [
   {
-    "id": "ielts-reading-full-01",
-    "title": "IELTS Academic Reading - Practice Test 1",
+    "id": "ielts-reading-01",
+    "title": "IELTS Academic Reading - Test 1",
     "skill": "Reading",
     "source": "IELTS9s Original",
-    "attempts": 1024,
+    "attempts": 0,
     "parts": [
       {
-        "id": "full-01-p1",
+        "id": "p1",
         "number": 1,
         "title": "THE STORY OF SILK",
-        "passageHtml": "<div class='passage-section'><span class='p-label'>Paragraph A</span><p>Silk is a fine, strong, soft lustrous fibre produced by silkworms in making cocoons and collected to make thread and fabric. According to legend, it was Lei Zu (also known as Hsi-Ling-Shih), the wife of the mythical Yellow Emperor, who discovered the process around 3000 BC. She was supposedly sitting under a mulberry tree when a cocoon fell into her <strong>tea</strong>, and as she picked it out, a long thread began to unravel. She became so fascinated that she took to studying the silkworm. She also developed the silk <strong>reel</strong> and loom. The art of raising silkworms is called sericulture.</p></div><div class='passage-section'><span class='p-label'>Paragraph B</span><p>For about 3,000 years, the Chinese kept the secret of silk entirely to themselves. It was the most zealously guarded secret in history. Anyone caught smuggling silkworm eggs or cocoons out of China was punished by death. Only <strong>women</strong> were entrusted with the labourious tasks of raising the silkworms and weaving the fabric. Only members of <strong>royalty</strong> were allowed to wear silk garments. The fabric was so prized that it was used as a form of <strong>currency</strong> — farmers paid their taxes in silk, and the Emperor rewarded his ministers with silk.</p></div><div class='passage-section'><span class='p-label'>Paragraph C</span><p>Silk was used for many purposes beyond clothing. Evidence found near Changsha, China showed that <strong>paper</strong> was made from silk as early as 168 AD. Silk was used for musical instruments, fishing lines, bowstrings, and even <strong>money</strong>. The Chinese also made luxury items from silk, including fans, wall hangings, and paintings.</p></div><div class='passage-section'><span class='p-label'>Paragraph D</span><p>The Silk Road — the ancient network of trade routes linking China to the Mediterranean — got its name because silk was the major commodity carried westward. Merchants would bring silk to the west and take back <strong>wool</strong>, gold, and precious metals to China. By the first century BC, the Romans had developed a passion for silk. Wealthy Romans wore it to show off their riches. Silk was literally worth its weight in gold.</p></div><div class='passage-section'><span class='p-label'>Paragraph E</span><p>The secret of silk finally left China around 550 AD when, according to the Byzantine historian Procopius, two <strong>monks</strong> succeeded in smuggling silkworm eggs out of China. The Emperor Justinian I had sent them to China as spies. They hid silkworm eggs inside hollow bamboo <strong>canes</strong> and brought them to Constantinople. This marked the beginning of the silk industry in the Western world.</p></div><div class='passage-section'><span class='p-label'>Paragraph F</span><p>The invention of artificial fibres like <strong>nylon</strong> in the 20th century led to a decline in natural silk production. However, silk remains a luxury item globally and continues to be highly valued. China remains the world's leading producer of silk, followed by India. The global silk industry is worth billions of dollars annually, and natural silk is still preferred for high-end fashion and medical applications.</p></div>",
-        "questionTypes": [
-          "Note Completion",
-          "True - False - Not Given"
-        ],
+        "passageHtml": "<div class=\"passage\"><h3>The Story of Silk</h3><p>Silk is a fine, strong, shiny fibre produced by silkworms when making their cocoons. It is thought that the Empress Xi Ling Shi first discovered silk around 2700 BC when a cocoon fell into her cup of tea and unravelled into a long thread. She is said to have developed the silk reel and the silk loom, and arranged for women to be entrusted with the task of silk production.</p><p>For many centuries, China kept the secret of silk production, and anyone caught attempting to smuggle silkworm eggs or cocoons out of the country was punished by death. Only royalty and aristocrats were allowed to wear silk garments. Silk eventually became so valuable that it was used as a currency to pay government officials and reward subjects.</p><p>The Silk Road, the ancient trade route connecting Asia and Europe, transported silk and other commodities for hundreds of years. Along this route, silk was traded for gold, ivory, glass and wool. Emperor Justinian I is said to have sent monks as spies to discover the silk-production process; they returned with silkworm eggs hidden in hollow canes. This led to the silk industry spreading to the Byzantine Empire around the 6th century AD.</p><p>Today, while synthetic fibres have largely replaced silk in everyday use, natural silk remains prized for its unique properties. It is still used in luxury clothing, accessories, and even in medical applications, where its biocompatibility makes it ideal for surgical sutures and tissue engineering.</p></div>",
         "questionGroups": [
           {
-            "id": "p1-g1",
+            "id": "g1",
             "type": "Note Completion",
-            "range": "1-8",
-            "instructions": "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer. Write your answers in boxes 1–8 on your answer sheet.",
-            "template": "<h3>Early silk production in China</h3><ul><li>Around 3000 BC — Emperor's wife discovered silk when a cocoon fell into her ((1))</li><li>She developed the silk ((2)) and loom</li><li>Only ((3)) were permitted to raise silkworms and weave the fabric</li><li>Only ((4)) were allowed to wear silk garments</li><li>Silk used as a form of ((5)) — e.g. farmers paid taxes in silk</li><li>Evidence found that ((6)) was made from silk as early as 168 AD</li></ul><h3>Silk reaches the rest of the world</h3><ul><li>Merchants on the Silk Road took silk westward and returned with ((7)) and precious metals</li><li>Around 550 AD — two ((8)) smuggled silkworm eggs out of China hidden in bamboo canes</li></ul>",
+            "range": "1-5",
+            "instructions": "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
+            "template": "<h3>The Origins of Silk</h3><ul><li>Discovered by Empress Xi Ling Shi when a cocoon fell into her cup of <strong>((1))</strong></li><li>She developed the silk <strong>((2))</strong> and loom</li><li>Only <strong>((3))</strong> were trusted with silk production</li><li>Only members of <strong>((4))</strong> were allowed to wear silk</li><li>Silk was used as a <strong>((5))</strong> to pay officials</li></ul>",
             "questions": [
               { "id": 1 },
               { "id": 2 },
               { "id": 3 },
               { "id": 4 },
-              { "id": 5 },
-              { "id": 6 },
-              { "id": 7 },
-              { "id": 8 }
+              { "id": 5 }
             ]
           },
           {
-            "id": "p1-g2",
+            "id": "g2",
             "type": "True - False - Not Given",
-            "range": "9-13",
-            "instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN in boxes 9–13 on your answer sheet.",
+            "range": "6-10",
+            "instructions": "Do the following statements agree with the information given in the passage? Write TRUE, FALSE or NOT GIVEN.",
             "questions": [
               {
-                "id": 9,
+                "id": 6,
                 "text": "The Chinese penalty for revealing the secret of silk was execution.",
                 "options": ["TRUE", "FALSE", "NOT GIVEN"]
               },
               {
-                "id": 10,
+                "id": 7,
                 "text": "Gold was the most valuable material transported along the Silk Road.",
                 "options": ["TRUE", "FALSE", "NOT GIVEN"]
               },
               {
-                "id": 11,
+                "id": 8,
                 "text": "Roman women wore more silk than Roman men.",
                 "options": ["TRUE", "FALSE", "NOT GIVEN"]
               },
               {
-                "id": 12,
+                "id": 9,
                 "text": "The monks who took silk to Constantinople were sent by Emperor Justinian I.",
                 "options": ["TRUE", "FALSE", "NOT GIVEN"]
               },
               {
-                "id": 13,
+                "id": 10,
                 "text": "Natural silk is still used today in medical applications.",
                 "options": ["TRUE", "FALSE", "NOT GIVEN"]
               }
             ]
           }
-        ]
-      },
-      {
-        "id": "full-01-p2",
-        "number": 2,
-        "title": "THE PSYCHOLOGY OF PROCRASTINATION",
-        "passageHtml": "<p>Procrastination — the act of delaying or postponing tasks...</p>",
-        "questionTypes": [
-          "Matching Information",
-          "Matching Sentence Endings",
-          "Multiple Choice",
-          "Note Completion"
         ],
-        "questionGroups": [
-          {
-            "id": "p2-g1",
-            "type": "Matching Information",
-            "range": "14-16",
-            "instructions": "Reading Passage 2 has six paragraphs, A–F. Which paragraph contains the following information?",
-            "renderType": "grid",
-            "columns": ["A", "B", "C", "D", "E", "F"],
-            "questions": [
-              {
-                "id": 14,
-                "text": "neurological evidence of a link between procrastination and emotion"
-              },
-              {
-                "id": 15,
-                "text": "mention of false assumptions about why people procrastinate"
-              },
-              {
-                "id": 16,
-                "text": "reference to the realisation that others also procrastinate"
-              }
-            ]
-          },
-          {
-            "id": "p2-g2",
-            "type": "Matching Sentence Endings",
-            "range": "17-20",
-            "instructions": "Complete each sentence with the correct ending, A–G, below.",
-            "inputType": "pills",
-            "template": "<p>Pychyl and Flett's research found that frequent procrastinators at work ((17))</p><p>One effective strategy to reduce procrastination is to make ((18))</p><p>People who procrastinate because they fear failure are likely to ((19))</p><p>Societies that value long-term planning tend to ((20))</p>",
-            "options": [
-              "A. have very high personal standards.",
-              "B. report lower job satisfaction.",
-              "C. experience increased levels of wellbeing.",
-              "D. show fewer symptoms of emotional avoidance.",
-              "E. specific plans about when and how to act.",
-              "F. have lower reported rates of procrastination.",
-              "G. produce work of consistently lower quality."
-            ],
-            "questions": [
-              { "id": 17 },
-              { "id": 18 },
-              { "id": 19 },
-              { "id": 20 }
-            ]
-          },
-          {
-            "id": "p2-g3",
-            "type": "Multiple Choice",
-            "range": "21-22",
-            "instructions": "Choose TWO letters, A–E. Which TWO of the following are stated in the passage about chronic procrastinators?",
-            "options": [
-              "A. They are unable to produce high-quality work.",
-              "B. They are often motivated by very high personal standards.",
-              "C. They tend to have a smaller amygdala than non-procrastinators.",
-              "D. They experience greater stress in achieving results.",
-              "E. They have stronger prefrontal cortex activity."
-            ],
-            "questions": [
-              { "id": 21 },
-              { "id": 22 }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "full-01-p3",
-        "number": 3,
-        "title": "REWILDING: RESTORING NATURE'S BALANCE",
-        "passageHtml": "<p>The concept of rewilding...</p>",
-        "questionTypes": [
-          "Matching Headings"
-        ],
-        "questionGroups": [
-          {
-            "id": "p3-g1",
-            "type": "Matching Headings",
-            "range": "27-32",
-            "instructions": "Reading Passage 3 has six paragraphs, A–F. Choose the correct heading for each paragraph.",
-            "headings": [
-              "i. The economic case for rewilding",
-              "ii. A radical experiment that divided opinion",
-              "iii. Opposition from local communities",
-              "iv. An introduction to the rewilding philosophy",
-              "v. The surprising effects of reintroducing a predator",
-              "vi. Benefits of rewilding in aquatic environments"
-            ],
-            "questions": [
-              { "id": 27, "text": "Paragraph A" },
-              { "id": 28, "text": "Paragraph B" },
-              { "id": 29, "text": "Paragraph C" },
-              { "id": 30, "text": "Paragraph D" },
-              { "id": 31, "text": "Paragraph E" },
-              { "id": 32, "text": "Paragraph F" }
-            ]
-          }
-        ]
+        "questionTypes": ["Note Completion", "True - False - Not Given"]
       }
     ],
     "answerKey": {
-      "1": "tea", "2": "reel", "3": "women", "4": "royalty", "5": "currency", "6": "paper", "7": "wool", "8": "monks",
-      "9": "TRUE", "10": "NOT GIVEN", "11": "NOT GIVEN", "12": "TRUE", "13": "TRUE",
-      "14": "B", "15": "C", "16": "C",
-      "17": "B", "18": "E", "19": "A", "20": "F",
-      "21": "B", "22": "D",
-      "27": "iv", "28": "v", "29": "iii", "30": "ii", "31": "vi", "32": "i"
+      "1": "tea",
+      "2": "reel",
+      "3": "women",
+      "4": "royalty",
+      "5": "currency",
+      "6": "TRUE",
+      "7": "FALSE",
+      "8": "NOT GIVEN",
+      "9": "TRUE",
+      "10": "TRUE"
+    },
+    "explanations": {
+      "1": "She picked tea from her cup when a cocoon fell in",
+      "2": "She developed the silk reel and loom",
+      "3": "Only women were entrusted with the tasks",
+      "4": "Only members of royalty were allowed to wear silk",
+      "5": "Silk was used as a currency to pay taxes and officials",
+      "6": "The passage says anyone caught smuggling was punished by death",
+      "7": "The passage mentions gold, ivory, glass and wool — but not that gold was the most valuable",
+      "8": "The passage does not mention gender differences in silk wearing",
+      "9": "Emperor Justinian I sent monks as spies",
+      "10": "Natural silk is used in surgical sutures and tissue engineering"
     }
   },
   {
-    "id": "ielts-reading-full-02",
-    "title": "IELTS Academic Reading - Practice Test 2",
+    "id": "ielts-reading-02",
+    "title": "IELTS Academic Reading - Test 2",
     "skill": "Reading",
-    "source": "IELTS9s Mock",
+    "source": "IELTS9s Original",
     "attempts": 0,
     "parts": [
       {
-        "id": "full-02-p1",
+        "id": "p2",
         "number": 1,
-        "title": "THE HISTORY OF COFFEE",
-        "passageHtml": "<p>Coffee is a beverage loved worldwide...</p>",
+        "title": "THE PSYCHOLOGY OF COLOUR",
+        "passageHtml": "<div class=\"passage\"><h3>The Psychology of Colour</h3><p>Colour is one of the most powerful tools in visual communication. Research in environmental psychology has consistently shown that colour significantly influences human mood, behaviour, and decision-making. The effects are both physiological and psychological, with different hues triggering distinct neural and emotional responses.</p><p>Red is the most visually stimulating colour. Studies have shown that exposure to red increases heart rate and creates a sense of urgency — which is why it is so widely used in clearance sales and warning signs. In competitive sports, teams wearing red have been shown to win more frequently, possibly because red signals dominance and aggression to opponents.</p><p>Blue, by contrast, promotes calm and trust. It is the most popular colour worldwide and is heavily used in corporate branding, particularly in the finance and technology sectors. Research by the University of British Columbia found that blue environments enhance creative performance, while red environments improve accuracy in detail-oriented tasks.</p><p>Yellow stimulates mental activity and generates a feeling of warmth and optimism, but overuse can cause visual fatigue. Green, associated with nature and balance, has a restorative effect — hospital studies have shown that patients in rooms with green views recover more quickly than those without. White creates a sense of cleanliness and spaciousness, while black conveys authority and sophistication.</p><p>Colour preferences are not universal, however. Cultural context plays a significant role: white is associated with purity in Western cultures but mourning in parts of Asia. Marketers must therefore consider regional colour norms when developing global branding campaigns.</p></div>",
         "questionGroups": [
           {
-            "id": "full-02-p1-g1",
-            "type": "Yes - No - Not Given",
-            "range": "41-43",
-            "instructions": "Do the statements agree with the view of the writer?",
+            "id": "g3",
+            "type": "Multiple Choice",
+            "range": "1-4",
+            "instructions": "Choose the correct letter, A, B, C or D.",
             "questions": [
               {
-                "id": 41,
-                "text": "Coffee was originally discovered in South America.",
+                "id": 1,
+                "text": "According to the passage, why is red commonly used in sales promotions?",
+                "options": [
+                  "A. It is the most visually attractive colour",
+                  "B. It creates a feeling of urgency in consumers",
+                  "C. It makes products appear more affordable",
+                  "D. It is associated with happiness and optimism"
+                ]
+              },
+              {
+                "id": 2,
+                "text": "The University of British Columbia study found that blue environments:",
+                "options": [
+                  "A. improve accuracy in repetitive tasks",
+                  "B. reduce stress in office workers",
+                  "C. enhance creative thinking",
+                  "D. increase productivity overall"
+                ]
+              },
+              {
+                "id": 3,
+                "text": "What does the passage say about the colour yellow?",
+                "options": [
+                  "A. It is the most popular colour globally",
+                  "B. It can cause visual fatigue if overused",
+                  "C. It promotes calm and relaxation",
+                  "D. It improves performance in sports"
+                ]
+              },
+              {
+                "id": 4,
+                "text": "Why must marketers consider regional colour norms?",
+                "options": [
+                  "A. Because colour printing costs vary by region",
+                  "B. Because colour preferences change over time",
+                  "C. Because the same colour can mean different things in different cultures",
+                  "D. Because some colours are legally restricted in certain countries"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "g4",
+            "type": "Yes - No - Not Given",
+            "range": "5-8",
+            "instructions": "Do the following statements agree with the claims of the writer? Write YES, NO or NOT GIVEN.",
+            "questions": [
+              {
+                "id": 5,
+                "text": "The effects of colour on humans are both physical and psychological.",
                 "options": ["YES", "NO", "NOT GIVEN"]
               },
               {
-                "id": 42,
-                "text": "Arabica coffee has a sweeter taste than Robusta.",
+                "id": 6,
+                "text": "Red sports teams win because their uniforms are more aerodynamic.",
                 "options": ["YES", "NO", "NOT GIVEN"]
               },
               {
-                "id": 43,
-                "text": "All coffee beans are hand-picked today.",
+                "id": 7,
+                "text": "Green environments help hospital patients recover faster.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 8,
+                "text": "Children are more sensitive to colour than adults.",
                 "options": ["YES", "NO", "NOT GIVEN"]
               }
             ]
           },
           {
-            "id": "full-02-p1-g2",
-            "type": "Short Answer Questions",
-            "range": "44-45",
-            "instructions": "Answer the questions below using NO MORE THAN TWO WORDS.",
-            "questions": [
-              { "id": 44, "text": "Which continent produces the most coffee today?" },
-              { "id": 45, "text": "What chemical in coffee acts as a central nervous system stimulant?" }
-            ]
-          },
-          {
-            "id": "full-02-p1-g3",
-            "type": "Matching Features",
-            "range": "46-48",
-            "instructions": "Match the features with the coffee types.",
-            "renderType": "grid",
-            "columns": ["Coffee Arabica", "Coffee Robusta", "Both"],
-            "questions": [
-              { "id": 46, "text": "Grows best at high altitudes" },
-              { "id": 47, "text": "Contains higher caffeine content" },
-              { "id": 48, "text": "Popular beverage choice globally" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "full-02-p2",
-        "number": 2,
-        "title": "BIOMIMETICS IN MODERN DESIGN",
-        "passageHtml": "<p>Biomimetic design borrows from natural elements...</p>",
-        "questionGroups": [
-          {
-            "id": "full-02-p2-g1",
-            "type": "Multiple Choice (Multiple Answers)",
-            "range": "49-50",
-            "instructions": "Choose TWO letters, A–E.",
-            "options": [
-              "A. Shark skin reduces drag in water.",
-              "B. Lotus leaves attract dirt particles.",
-              "C. Termite mounds maintain stable interior temperatures.",
-              "D. Bird feathers repel water completely.",
-              "E. Spiders use sonar to spin webs."
-            ],
-            "questions": [
-              { "id": 49 },
-              { "id": 50 }
-            ]
-          },
-          {
-            "id": "full-02-p2-g2",
+            "id": "g5",
             "type": "Sentence Completion",
-            "range": "51-53",
-            "instructions": "Complete the sentences below using ONE WORD ONLY.",
-            "template": "<p>Designing structures inspired by nature is called ((51)). Velcro was created after studying plant ((52)) sticking to clothing. Shark skin inspired coating for ((53)) to decrease resistance.</p>",
+            "range": "9-12",
+            "instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
             "questions": [
-              { "id": 51 },
-              { "id": 52 },
-              { "id": 53 }
-            ]
-          },
-          {
-            "id": "full-02-p2-g3",
-            "type": "Table Completion",
-            "range": "54-56",
-            "instructions": "Complete the table below.",
-            "renderType": "grid",
-            "columns": ["Nature Source", "Feature", "Human Design"],
-            "questions": [
-              { "id": 54, "text": "Termite mounds -> Air flow channels -> ((54)) ventilation systems" },
-              { "id": 55, "text": "Lotus leaf -> Hydrophobic surface -> Self-cleaning ((55))" },
-              { "id": 56, "text": "Kingfisher beak -> Aerodynamic shape -> ((56)) train design" }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "full-02-p3",
-        "number": 3,
-        "title": "THE WATER CYCLE AND LANDSCAPES",
-        "passageHtml": "<p>The water cycle moves water across the globe...</p>",
-        "questionGroups": [
-          {
-            "id": "full-02-p3-g1",
-            "type": "Summary Completion",
-            "range": "57-59",
-            "instructions": "Complete the summary using words from the box.",
-            "template": "<p>Solar heat causes liquid water to turn into ((57)). This rise forms clouds in the process of ((58)). Eventually, water returns to Earth as ((59)).</p>",
-            "questions": [
-              { "id": 57 },
-              { "id": 58 },
-              { "id": 59 }
-            ]
-          },
-          {
-            "id": "full-02-p3-g2",
-            "type": "Flow-chart Completion",
-            "range": "60-61",
-            "instructions": "Complete the flowchart.",
-            "template": "<p>Evaporation -> Cooling -> ((60)) -> Precipitation -> ((61))</p>",
-            "questions": [
-              { "id": 60 },
-              { "id": 61 }
-            ]
-          },
-          {
-            "id": "full-02-p3-g3",
-            "type": "Diagram Labeling",
-            "range": "62-63",
-            "instructions": "Label the diagram.",
-            "template": "<p>Top layer of cloud: ((62)), Bottom layer: ((63))</p>",
-            "questions": [
-              { "id": 62 },
-              { "id": 63 }
+              {
+                "id": 9,
+                "text": "Red is widely used in ________ and warning signs."
+              },
+              {
+                "id": 10,
+                "text": "Blue is described as the most ________ colour worldwide."
+              },
+              {
+                "id": 11,
+                "text": "White creates a sense of cleanliness and ________."
+              },
+              {
+                "id": 12,
+                "text": "In Western cultures, white is associated with ________, but with mourning in parts of Asia."
+              }
             ]
           }
-        ]
+        ],
+        "questionTypes": ["Multiple Choice", "Yes - No - Not Given", "Sentence Completion"]
       }
     ],
     "answerKey": {
-      "41": "NO", "42": "YES", "43": "NO",
-      "44": "South America", "45": "caffeine",
-      "46": "Coffee Arabica", "47": "Coffee Robusta", "48": "Both",
-      "49": "A", "50": "C",
-      "51": "biomimetic", "52": "seeds", "53": "submarines",
-      "54": "building", "55": "paint", "56": "bullet",
-      "57": "vapor", "58": "condensation", "59": "rain",
-      "60": "clouds", "61": "runoff",
-      "62": "ice", "63": "water droplets"
+      "1": "B",
+      "2": "C",
+      "3": "B",
+      "4": "C",
+      "5": "YES",
+      "6": "NO",
+      "7": "YES",
+      "8": "NOT GIVEN",
+      "9": "clearance sales",
+      "10": "popular",
+      "11": "spaciousness",
+      "12": "purity"
+    },
+    "explanations": {
+      "1": "The passage states red 'creates a sense of urgency — which is why it is so widely used in clearance sales'",
+      "2": "The passage says 'blue environments enhance creative performance'",
+      "3": "The passage states 'overuse can cause visual fatigue'",
+      "4": "The passage says 'white is associated with purity in Western cultures but mourning in parts of Asia'",
+      "5": "The passage states effects are 'both physiological and psychological'",
+      "6": "The passage suggests red signals dominance to opponents, not anything about aerodynamics",
+      "7": "The passage states 'patients in rooms with green views recover more quickly'",
+      "8": "The passage does not mention children at all",
+      "9": "The passage says 'widely used in clearance sales and warning signs'",
+      "10": "The passage says 'Blue is the most popular colour worldwide'",
+      "11": "The passage says 'White creates a sense of cleanliness and spaciousness'",
+      "12": "The passage says 'white is associated with purity in Western cultures'"
+    }
+  },
+  {
+    "id": "ielts-reading-03",
+    "title": "IELTS Academic Reading - Test 3",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "p3",
+        "number": 1,
+        "title": "URBAN FARMING: FEEDING THE CITIES OF TOMORROW",
+        "passageHtml": "<div class=\"passage\"><h3>Urban Farming: Feeding the Cities of Tomorrow</h3><p><strong>A.</strong> As the world's population continues to shift towards urban areas, cities face unprecedented challenges in food security. Urban farming — the practice of cultivating, processing, and distributing food in or around urban areas — is increasingly seen as part of the solution. It takes many forms, from rooftop gardens and vertical farms to community allotments and hydroponic greenhouses.</p><p><strong>B.</strong> Vertical farming is among the most technologically advanced forms of urban agriculture. By stacking crops in climate-controlled, artificially lit layers, vertical farms can produce yields up to 100 times greater per square metre than conventional fields. They use up to 95% less water through recirculating systems and can operate year-round regardless of weather. However, the high energy consumption required for lighting and climate control remains a significant obstacle to large-scale adoption.</p><p><strong>C.</strong> Community gardens represent the opposite end of the spectrum — low-tech, socially oriented spaces where residents grow food collectively. Research has shown that community gardens improve mental health, strengthen neighbourhood bonds, and provide access to fresh produce in so-called 'food deserts' — urban areas where affordable fresh food is scarce. In cities such as Detroit and Havana, community gardens have become vital food sources following economic decline.</p><p><strong>D.</strong> Hydroponic systems, which grow plants in nutrient-rich water without soil, offer a middle ground. They can be set up in warehouses, shipping containers, or disused industrial buildings, making use of otherwise wasted urban space. Hydroponics typically uses 70–80% less water than soil-based farming and produces harvests more quickly. The main disadvantage is the cost of establishing and maintaining the nutrient delivery systems.</p><p><strong>E.</strong> Critics argue that urban farming cannot realistically replace conventional agriculture on a meaningful scale. The land area required to feed a city using current urban farming methods would far exceed available space. Proponents counter that urban farming was never intended to replace but to supplement rural agriculture, reduce food miles, and build community resilience. The debate continues, but cities around the world are investing in urban farming infrastructure as part of broader sustainability strategies.</p></div>",
+        "questionGroups": [
+          {
+            "id": "g6",
+            "type": "Matching Headings",
+            "range": "1-5",
+            "instructions": "The passage has five paragraphs, A–E. Choose the correct heading for each paragraph from the list of headings below.",
+            "headings": [
+              "i. The social benefits of shared growing spaces",
+              "ii. A soil-free alternative for city spaces",
+              "iii. The limitations and future of city-grown food",
+              "iv. An introduction to food production in cities",
+              "v. High-yield technology with an energy cost",
+              "vi. The role of government policy in urban farming",
+              "vii. Economic challenges facing rural farmers"
+            ],
+            "questions": [
+              {
+                "id": 1,
+                "text": "Paragraph A",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 2,
+                "text": "Paragraph B",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 3,
+                "text": "Paragraph C",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 4,
+                "text": "Paragraph D",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 5,
+                "text": "Paragraph E",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              }
+            ]
+          },
+          {
+            "id": "g7",
+            "type": "Summary Completion",
+            "range": "6-10",
+            "instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            "template": "<p>Urban farming includes many techniques. <strong>((6))</strong> farming stacks crops in layers and can yield up to 100 times more produce per square metre, but uses a lot of energy. <strong>((7))</strong> gardens are community-focused and help people in food <strong>((8))</strong> access fresh produce. Hydroponic systems grow plants in water without <strong>((9))</strong>, and typically use 70–80% less water. Critics say urban farming cannot replace conventional agriculture, but supporters argue it should <strong>((10))</strong> rural food production rather than replace it.</p>",
+            "questions": [
+              { "id": 6 },
+              { "id": 7 },
+              { "id": 8 },
+              { "id": 9 },
+              { "id": 10 }
+            ]
+          }
+        ],
+        "questionTypes": ["Matching Headings", "Summary Completion"]
+      }
+    ],
+    "answerKey": {
+      "1": "iv",
+      "2": "v",
+      "3": "i",
+      "4": "ii",
+      "5": "iii",
+      "6": "Vertical",
+      "7": "Community",
+      "8": "deserts",
+      "9": "soil",
+      "10": "supplement"
+    },
+    "explanations": {
+      "1": "Paragraph A introduces the concept of urban farming and its various forms",
+      "2": "Paragraph B describes vertical farming's high yields but notes the energy cost",
+      "3": "Paragraph C focuses on community gardens and their social/health benefits",
+      "4": "Paragraph D explains hydroponics as a soil-free method for urban spaces",
+      "5": "Paragraph E discusses the debate around urban farming's limitations and future",
+      "6": "The passage states 'Vertical farming is among the most technologically advanced...'",
+      "7": "The passage refers to 'Community gardens represent the opposite end of the spectrum'",
+      "8": "The passage defines 'food deserts' as 'urban areas where affordable fresh food is scarce'",
+      "9": "The passage says hydroponics grows 'plants in nutrient-rich water without soil'",
+      "10": "The passage says urban farming was 'intended to supplement rural agriculture'"
     }
   }
 ]
