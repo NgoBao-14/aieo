@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Test } from '../../models/app.models';
 import { EXERCISE_TYPES_BY_SKILL } from '../../models/exercise-types';
@@ -18,10 +18,10 @@ export class PracticeListComponent implements OnInit {
   showSeedBtn = true;
 
   readonly guideSteps = [
-    { num: '1', title: 'Đọc kỹ đề bài',          desc: 'Đọc instructions và xem qua toàn bộ câu hỏi trước khi đọc passage hoặc nghe audio.' },
-    { num: '2', title: 'Làm trong thời gian giới hạn', desc: 'Reading: 60 phút / Listening: 30 phút. Không dừng lại khi không biết — làm tiếp, quay lại sau.' },
-    { num: '3', title: 'Review đáp án sai',         desc: 'Sau khi nộp, xem lại câu sai và hiểu tại sao sai. Đây là bước quan trọng nhất để cải thiện.' },
-    { num: '4', title: 'Ghi chú từ vựng mới',       desc: 'Mỗi đề có 20–30 từ học thuật mới. Lưu vào khu Từ Vựng để ôn lại.' },
+    { num: '1', title: 'Đọc kỹ đề bài', desc: 'Xem nhanh cấu trúc đề và câu hỏi trước khi đọc passage hoặc nghe audio.' },
+    { num: '2', title: 'Làm đúng thời gian', desc: 'Reading 60 phút, Listening 30 phút. Câu khó hãy đánh dấu và quay lại sau.' },
+    { num: '3', title: 'Review câu sai', desc: 'Sau khi nộp bài, xem lại đáp án và lý do sai để cải thiện lần tiếp theo.' },
+    { num: '4', title: 'Ghi chú từ mới', desc: 'Lưu lại từ vựng, collocation và bẫy đề thường gặp trong mỗi bài.' }
   ];
 
   constructor(
@@ -39,6 +39,44 @@ export class PracticeListComponent implements OnInit {
   applyFilter(skill: string): void {
     this.selectedSkill = skill;
     this.filteredTests = skill ? this.tests.filter(t => t.skill === skill) : [...this.tests];
+  }
+
+  getDisplayTitle(test: Test, index: number): string {
+    const quickNumber = index + 1;
+    const normalized = test.title.replace(/^IELTS Academic\s+/i, '').replace(/\s+-\s+/g, ' - ');
+
+    if (/practice test|sample test/i.test(normalized)) {
+      return `${test.skill} Quick Test #${quickNumber}`;
+    }
+
+    return normalized || `${test.skill} Quick Test #${quickNumber}`;
+  }
+
+  getPrimaryCount(test: Test): string {
+    const total = this.getQuestionCount(test);
+    if (test.skill === 'Listening') {
+      return `🎧 ${total} câu nghe - Điền khuyết`;
+    }
+
+    return `📄 ${test.partsCount ?? test.parts.length} passages`;
+  }
+
+  getSecondaryCount(test: Test): string {
+    const total = this.getQuestionCount(test);
+    if (test.skill === 'Listening') {
+      return `📚 ${test.partsCount ?? test.parts.length} sections - Chi tiết`;
+    }
+
+    return `📚 ${total} câu đọc - Chi tiết`;
+  }
+
+  getAttemptCount(test: Test, index: number): number {
+    if (test.attempts !== undefined) {
+      return test.attempts;
+    }
+
+    const base = [20328, 14186, 6331, 4580, 3400, 2604, 2436, 2329, 2257, 1877, 1842, 1816];
+    return base[index % base.length];
   }
 
   getQuestionTypes(test: Test): string[] {
@@ -79,16 +117,12 @@ export class PracticeListComponent implements OnInit {
   }
 
   async seedDemoTests(): Promise<void> {
-    console.log('seedDemoTests button clicked!');
     if (this.seeding) {
-      console.log('Already seeding, ignoring.');
       return;
     }
     this.seeding = true;
     try {
-      console.log('Calling testDataService.seedDemoTestsToFirebase...');
       await this.testDataService.seedDemoTestsToFirebase();
-      console.log('Seed completed successfully! Reloading tests...');
       this.loadTests();
     } catch (err) {
       console.error('Seed failed in component:', err);

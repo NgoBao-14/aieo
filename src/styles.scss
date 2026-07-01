@@ -422,3 +422,169 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.25; }
   .sidebar__nav-label { display: none; }
   .sidebar__auth { border-top: none; padding-top: 0; margin-top: 0; }
 }
+
+/* ============================================================
+   TOEIC-INSPIRED LEARNER THEME OVERRIDES
+   ============================================================ */
+.toeic-main {
+  --primary: #20248f;
+  --primary-dark: #171a72;
+  --primary-mid: #2c31aa;
+  --primary-light: #eef1ff;
+  --secondary: #ffb000;
+  --secondary-dark: #9a6a00;
+  --secondary-light: #fff3d1;
+  --bg: #f4f6fc;
+  --surface: #fff;
+  --border: #dfe3ee;
+  --text: #292b33;
+  --text-muted: #737989;
+}
+
+.toeic-main .dash-page,
+.toeic-main .hub-page,
+.toeic-main .vocab-page,
+.toeic-main .dict-page,
+.toeic-main .roadmap-page {
+  min-height: 100%;
+  padding: 30px 36px 42px;
+  background:
+    radial-gradient(circle at 45% 0%, rgba(255, 255, 255, 0.9), transparent 34%),
+    linear-gradient(90deg, #f4f6fc 0%, #f8f9fd 45%, #f5f6fb 100%);
+}
+
+.toeic-main .dash-topbar,
+.toeic-main .hub-topbar,
+.toeic-main .vocab-topbar,
+.toeic-main .dict-topbar,
+.toeic-main .roadmap-topbar {
+  position: static;
+  margin-bottom: 22px;
+  padding: 0;
+  background: transparent;
+  border-bottom: none;
+}
+
+.toeic-main .dash-topbar h1,
+.toeic-main .hub-topbar h1,
+.toeic-main .vocab-topbar h1,
+.toeic-main .dict-topbar h1,
+.toeic-main .roadmap-topbar h1 {
+  color: #34363d;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  text-transform: uppercase;
+}
+
+.toeic-main .dash-topbar__sub,
+.toeic-main .hub-topbar p,
+.toeic-main .vocab-topbar p,
+.toeic-main .dict-topbar p,
+.toeic-main .roadmap-topbar__sub {
+  margin-top: 6px;
+  color: #737989;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.toeic-main .dash-today,
+.toeic-main .dash-stat-card,
+.toeic-main .dash-recent-item,
+.toeic-main .dash-welcome__inner,
+.toeic-main .hub-hero,
+.toeic-main .hub-stats,
+.toeic-main .hub-section,
+.toeic-main .exercise-card,
+.toeic-main .word-card,
+.toeic-main .dict-result,
+.toeic-main .dict-feature-card,
+.toeic-main .phase-block {
+  border: 1px solid #d6dae5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(22, 28, 143, 0.06);
+}
+
+.toeic-main .hub-hero,
+.toeic-main .hub-tabs,
+.toeic-main .vocab-filters,
+.toeic-main .dict-search-wrap,
+.toeic-main .dict-content,
+.toeic-main .dict-suggestions,
+.toeic-main .roadmap-phases,
+.toeic-main .dash-stats,
+.toeic-main .dash-recent,
+.toeic-main .word-grid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.toeic-main .hub-tabs,
+.toeic-main .vocab-filters,
+.toeic-main .dict-search-wrap {
+  margin-bottom: 22px;
+  border-bottom: none;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(22, 28, 143, 0.05);
+}
+
+.toeic-main .hub-tab,
+.toeic-main .vocab-chip,
+.toeic-main .btn-mode,
+.toeic-main .dict-suggestion-chip {
+  border-color: #a8adbb;
+  color: #686e7c;
+  font-weight: 800;
+}
+
+.toeic-main .hub-tab.active,
+.toeic-main .vocab-chip.active,
+.toeic-main .dash-today__btn,
+.toeic-main .dash-welcome__btn {
+  border-color: #20248f;
+  background: #20248f;
+  color: #fff;
+}
+
+.toeic-main .hub-tab:hover,
+.toeic-main .vocab-chip:hover,
+.toeic-main .dict-suggestion-chip:hover,
+.toeic-main .btn-mode:hover {
+  border-color: #ffb000;
+  color: #20248f;
+  background: #fff8e5;
+}
+
+.toeic-main .exercise-card:hover,
+.toeic-main .word-card:hover,
+.toeic-main .dash-recent-item:hover,
+.toeic-main .phase-block--active {
+  border-color: #ffb000;
+  box-shadow: 0 16px 34px rgba(255, 176, 0, 0.12);
+}
+
+.toeic-main .dash-today,
+.toeic-main .dash-no-session {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 720px) {
+  .toeic-main .dash-page,
+  .toeic-main .hub-page,
+  .toeic-main .vocab-page,
+  .toeic-main .dict-page,
+  .toeic-main .roadmap-page {
+    padding: 18px 14px 28px;
+  }
+
+  .toeic-main .dash-topbar h1,
+  .toeic-main .hub-topbar h1,
+  .toeic-main .vocab-topbar h1,
+  .toeic-main .dict-topbar h1,
+  .toeic-main .roadmap-topbar h1 {
+    font-size: 26px;
+  }
+}

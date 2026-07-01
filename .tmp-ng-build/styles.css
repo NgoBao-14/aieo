@@ -1,0 +1,473 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[6].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[6].rules[1].use[1]!./src/styles.scss?ngGlobalStyle ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap);
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[6].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[6].rules[1].use[1]!./src/styles.scss?ngGlobalStyle (1) ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* ============================================================
+   BRAND TOKENS
+   ============================================================ */
+:root {
+  --primary: #1A237E;
+  --primary-dark: #0D1557;
+  --primary-mid: #3949AB;
+  --primary-light: #E8EAF6;
+  --secondary: #FFB800;
+  --secondary-dark: #B37A00;
+  --secondary-light:#FFF8E1;
+  --success: #047857;
+  --success-light: #D1FAE5;
+  --danger: #B91C1C;
+  --danger-light: #FEE2E2;
+  --reading-color: #1565C0;
+  --reading-light: #E3F2FD;
+  --listening-color:#6A1B9A;
+  --listening-light:#F3E5F5;
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
+  --text: #1A1A2E;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --border-brand: rgba(26, 35, 126, 0.12);
+  --shadow-sm: 0 2px 8px rgba(26, 35, 126, 0.06);
+  --shadow: 0 4px 20px rgba(26, 35, 126, 0.08);
+  --shadow-lg: 0 10px 40px rgba(26, 35, 126, 0.12);
+  --shadow-xl: 0 20px 60px rgba(26, 35, 126, 0.16);
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full:999px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Be Vietnam Pro", "Manrope", sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a, button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* ============================================================
+   LAYOUT SHELL (shared across all pages)
+   ============================================================ */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.app-shell__sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.app-shell__sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.app-shell__main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  background: var(--primary-dark);
+  padding: 20px 12px;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+}
+
+.sidebar__logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--secondary);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.sidebar__brand-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+}
+.sidebar__brand-name span {
+  color: var(--secondary);
+}
+
+.sidebar__brand-sub {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 1px;
+}
+
+.sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+}
+
+.sidebar__nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.35);
+  padding: 14px 12px 6px;
+  display: block;
+}
+
+.sidebar__nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar__nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+}
+.sidebar__nav a.active {
+  background: rgba(255, 184, 0, 0.15);
+  color: var(--secondary);
+  border-left: 3px solid var(--secondary);
+  padding-left: 9px;
+}
+
+.sidebar__nav-icon {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.sidebar__auth {
+  margin-top: auto;
+  padding: 12px 10px 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar__profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 8px;
+}
+.sidebar__profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+.sidebar__profile strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.sidebar__profile p {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.sidebar__btn {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sidebar__btn--logout {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+}
+.sidebar__btn--logout:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.sidebar__btn--login {
+  background: var(--secondary);
+  color: var(--primary-dark);
+}
+.sidebar__btn--login:hover {
+  background: #ffc933;
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.page-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 var(--border);
+}
+.page-topbar h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+/* ============================================================
+   GLOBAL COMPONENTS
+   ============================================================ */
+.container {
+  width: min(1100px, 100% - 2rem);
+  margin: 0 auto;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(26, 35, 126, 0.25);
+}
+.btn--primary:hover {
+  background: var(--primary-mid);
+  box-shadow: 0 6px 20px rgba(26, 35, 126, 0.32);
+}
+
+.btn--secondary {
+  background: var(--secondary);
+  color: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(255, 184, 0, 0.3);
+}
+.btn--secondary:hover {
+  background: #ffc933;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn--ghost:hover {
+  background: var(--bg);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn--outline:hover {
+  background: var(--primary-light);
+}
+
+.btn--sm {
+  min-height: 32px;
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* Pills / Badges */
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skill-pill--reading {
+  background: var(--reading-light);
+  color: var(--reading-color);
+}
+
+.skill-pill--listening {
+  background: var(--listening-light);
+  color: var(--listening-color);
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Input */
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input::placeholder {
+  color: var(--text-muted);
+}
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.08);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .app-shell__sidebar {
+    position: relative;
+    height: auto;
+  }
+  .sidebar {
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 8px;
+  }
+  .sidebar__brand {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  .sidebar__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 0;
+    gap: 4px;
+  }
+  .sidebar__nav-label {
+    display: none;
+  }
+  .sidebar__auth {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map*/

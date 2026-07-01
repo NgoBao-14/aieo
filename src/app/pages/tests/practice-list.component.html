@@ -1,100 +1,87 @@
-<!-- PRACTICE LIST — content only, sidebar lives in MainLayout -->
-
-<div class="tests-page">
-
-  <!-- TOPBAR -->
-  <header class="tests-topbar">
-    <div class="tests-topbar__left">
-      <h1>Luyện Đề</h1>
-      <p>{{ filteredTests.length }} đề sẵn sàng • Reading & Listening full test</p>
+﻿<div class="tests-page">
+  <section class="tests-hero">
+    <div>
+      <p class="tests-kicker">Listening & Reading</p>
+      <h1>Listening & Reading</h1>
     </div>
-    <div class="tests-topbar__right">
-      <button class="btn-seed" (click)="seedDemoTests()" [disabled]="seeding" *ngIf="showSeedBtn">
-        {{ seeding ? '⏳ Đang tạo...' : '+ Tạo đề mẫu' }}
+
+    <div class="tests-promo">
+      <div class="tests-promo__icon">📋</div>
+      <div>
+        <strong>Khoá giải đề cấp tốc 1 tháng</strong>
+        <span>Bứt tốc 1 tháng - Tự tin đi thi</span>
+      </div>
+      <b>1.990k</b>
+      <button type="button">Inbox Zalo</button>
+    </div>
+  </section>
+
+  <div class="tests-toolbar">
+    <div class="tests-filters" aria-label="Practice filters">
+      <button class="filter-btn filter-btn--quick" [class.active]="selectedSkill === ''" (click)="applyFilter('')">
+        Quick Test <span>✓</span>
       </button>
+      <button class="filter-btn" [class.active]="selectedSkill === 'Reading'" (click)="applyFilter('Reading')">Reading</button>
+      <button class="filter-btn" [class.active]="selectedSkill === 'Listening'" (click)="applyFilter('Listening')">Listening</button>
+      <button class="filter-btn" type="button">2026</button>
+      <button class="filter-btn" type="button">2025</button>
+      <button class="filter-btn" type="button">2024</button>
+      <button class="filter-btn" type="button">2023</button>
     </div>
-  </header>
 
-  <!-- FILTERS -->
-  <div class="tests-filters">
-    <button class="filter-btn" [class.active]="selectedSkill === ''" (click)="applyFilter('')">Tất cả</button>
-    <button class="filter-btn filter-btn--r" [class.active]="selectedSkill === 'Reading'"
-      (click)="applyFilter('Reading')">📖 Reading</button>
-    <button class="filter-btn filter-btn--l" [class.active]="selectedSkill === 'Listening'"
-      (click)="applyFilter('Listening')">🎧 Listening</button>
+    <button class="btn-seed" (click)="seedDemoTests()" [disabled]="seeding" *ngIf="showSeedBtn">
+      {{ seeding ? 'Đang tạo...' : '+ Tạo đề mẫu' }}
+    </button>
   </div>
 
-  <!-- LOADING -->
   <div class="tests-loading" *ngIf="loading">
     <div class="tests-spinner"></div>
     <p>Đang tải danh sách đề...</p>
   </div>
 
   <ng-container *ngIf="!loading">
-
-    <!-- EMPTY -->
     <div class="tests-empty" *ngIf="!filteredTests.length">
       <p class="tests-empty__icon">📂</p>
       <p class="tests-empty__title">Chưa có đề cho bộ lọc này</p>
-      <p class="tests-empty__sub">Thử chọn "Tất cả" hoặc thêm đề mới từ Admin.</p>
+      <p class="tests-empty__sub">Thử chọn Quick Test hoặc thêm đề mới từ Admin.</p>
     </div>
 
-    <!-- TEST GRID -->
     <div class="tests-grid" *ngIf="filteredTests.length">
-      <article class="test-card" *ngFor="let test of filteredTests"
-        [class.test-card--reading]="test.skill === 'Reading'" [class.test-card--listening]="test.skill === 'Listening'">
+      <article class="test-card" *ngFor="let test of filteredTests; let idx = index" [class.test-card--listening]="test.skill === 'Listening'">
+        <span class="test-card__attempts">{{ getAttemptCount(test, idx) | number }} lượt</span>
 
-        <div class="test-card__header">
-          <span class="skill-pill" [class.skill-pill--reading]="test.skill === 'Reading'"
-            [class.skill-pill--listening]="test.skill === 'Listening'">
-            {{ test.skill }}
-          </span>
-          <span class="test-card__source">{{ test.source }}</span>
-        </div>
+        <div class="test-card__body">
+          <p class="test-card__eyebrow"><span>☰A</span> Đề thi IELTS</p>
+          <h2>{{ getDisplayTitle(test, idx) }}</h2>
 
-        <h3 class="test-card__title">{{ test.title }}</h3>
-
-        <div class="test-card__meta">
-          <span>{{ test.partsCount ?? test.parts.length }} {{ test.skill === 'Listening' ? 'sections' : 'passages'
-            }}</span>
-          <span class="test-card__dot">·</span>
-          <span>{{ getQuestionCount(test) }} câu hỏi</span>
-          <span class="test-card__dot">·</span>
-          <span>~{{ test.skill === 'Listening' ? '30' : '60' }} phút</span>
-        </div>
-
-        <div class="test-card__types">
-          <span class="type-tag" *ngFor="let type of getQuestionTypes(test)">{{ type }}</span>
-        </div>
-
-        <div class="test-card__footer">
-          <div class="test-card__difficulty">
-            <span class="difficulty-dot" *ngFor="let d of [1,2,3,4,5]" [class.filled]="d <= getDifficulty(test)"></span>
-            <span class="difficulty-label">{{ getDifficultyLabel(test) }}</span>
+          <div class="test-card__meta">
+            <span>{{ getPrimaryCount(test) }}</span>
+            <span>{{ getSecondaryCount(test) }}</span>
           </div>
-          <a class="test-card__cta" [routerLink]="['/tests', test.id]">
-            Vào làm bài →
-          </a>
         </div>
+
+        <footer class="test-card__footer">
+          <a class="test-card__start" [routerLink]="['/tests', test.id]">
+            <span>📖</span> Làm Bài
+          </a>
+          <button class="test-card__review" type="button" disabled>
+            <span>👨‍🏫</span> Review
+          </button>
+        </footer>
       </article>
     </div>
 
-    <!-- HOW IT WORKS (khi đã có đề) -->
     <section class="tests-guide" *ngIf="filteredTests.length">
-      <div class="tests-guide__inner">
-        <h2>Hướng dẫn luyện đề hiệu quả</h2>
-        <div class="tests-guide__steps">
-          <div class="tests-guide__step" *ngFor="let step of guideSteps">
-            <div class="tests-guide__step-num">{{ step.num }}</div>
-            <div>
-              <h4>{{ step.title }}</h4>
-              <p>{{ step.desc }}</p>
-            </div>
+      <h2>Hướng dẫn luyện đề hiệu quả</h2>
+      <div class="tests-guide__steps">
+        <div class="tests-guide__step" *ngFor="let step of guideSteps">
+          <span>{{ step.num }}</span>
+          <div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.desc }}</p>
           </div>
         </div>
       </div>
     </section>
-
   </ng-container>
-
 </div>

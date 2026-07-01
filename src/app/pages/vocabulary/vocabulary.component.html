@@ -1,14 +1,11 @@
-<!-- VOCABULARY PAGE — content only, sidebar lives in MainLayout -->
-
 <div class="vocab-page">
-
-  <!-- TOPBAR -->
-  <header class="vocab-topbar">
-    <div class="vocab-topbar__left">
-      <h1>Từ Vựng IELTS</h1>
-      <p>{{ filteredWords.length }} từ trong bộ lọc · {{ savedWords.size }} đã lưu</p>
+  <section class="vocab-hero">
+    <div>
+      <p class="vocab-kicker">IELTS Word Bank</p>
+      <h1>Từ vựng IELTS</h1>
+      <p class="vocab-meta">{{ filteredWords.length }} từ trong bộ lọc · {{ savedWords.size }} đã lưu</p>
     </div>
-    <div class="vocab-topbar__right">
+    <div class="vocab-stats-promo">
       <div class="vocab-progress-pill">
         <div class="vocab-progress-pill__bar" [style.width.%]="learnedPercent"></div>
         <span>{{ learnedPercent }}% đã thuộc</span>
@@ -17,11 +14,9 @@
         {{ flashcardMode ? '📋 Danh sách' : '🃏 Flashcard' }}
       </button>
     </div>
-  </header>
+  </section>
 
-  <!-- FILTERS -->
   <div class="vocab-filters">
-    <!-- Topic -->
     <div class="vocab-filter-row">
       <span class="vocab-filter-label">Chủ đề</span>
       <div class="vocab-chips">
@@ -35,7 +30,7 @@
         </button>
       </div>
     </div>
-    <!-- Band -->
+
     <div class="vocab-filter-row">
       <span class="vocab-filter-label">Band</span>
       <div class="vocab-chips">
@@ -51,7 +46,6 @@
     </div>
   </div>
 
-  <!-- ========== FLASHCARD MODE ========== -->
   <ng-container *ngIf="flashcardMode && filteredWords.length">
     <div class="flashcard-wrap">
       <div class="flashcard" [class.flipped]="cardFlipped" (click)="flipCard()">
@@ -83,19 +77,18 @@
           class="fc-btn fc-btn--save"
           [class.saved]="savedWords.has(currentCard.word)"
           (click)="toggleSave(currentCard.word)">
-          {{ savedWords.has(currentCard.word) ? '❤️ Đã lưu' : '🤍 Lưu từ' }}
+          {{ savedWords.has(currentCard.word) ? '♥ Đã lưu' : '♡ Lưu từ' }}
         </button>
         <button
           class="fc-btn fc-btn--ok"
           [class.learned]="learnedWords.has(currentCard.word)"
           (click)="toggleLearned(currentCard.word); nextCard()">
-          {{ learnedWords.has(currentCard.word) ? '✅ Thuộc rồi' : '✓ Thuộc rồi!' }}
+          {{ learnedWords.has(currentCard.word) ? '✓ Đã thuộc' : '✓ Thuộc rồi' }}
         </button>
       </div>
     </div>
   </ng-container>
 
-  <!-- ========== LIST MODE ========== -->
   <ng-container *ngIf="!flashcardMode">
     <div class="word-grid" *ngIf="filteredWords.length; else emptyState">
       <article
@@ -122,18 +115,18 @@
           <span class="word-card__topic">{{ getTopicLabel(word.topic) }}</span>
           <div class="word-card__actions">
             <button
-              class="word-btn"
+              class="word-btn btn-save"
               [class.active]="savedWords.has(word.word)"
               (click)="toggleSave(word.word)"
               title="Lưu từ">
-              {{ savedWords.has(word.word) ? '❤️' : '🤍' }}
+              {{ savedWords.has(word.word) ? '♥' : '♡' }}
             </button>
             <button
-              class="word-btn"
+              class="word-btn btn-learned"
               [class.active]="learnedWords.has(word.word)"
               (click)="toggleLearned(word.word)"
               title="Thuộc rồi">
-              {{ learnedWords.has(word.word) ? '✅' : '○' }}
+              {{ learnedWords.has(word.word) ? '✓' : '○' }}
             </button>
           </div>
         </div>
@@ -148,5 +141,4 @@
       </div>
     </ng-template>
   </ng-container>
-
 </div>

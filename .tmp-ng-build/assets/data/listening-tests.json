@@ -1,0 +1,120 @@
+[
+  {
+    "id": "ielts-listening-01",
+    "title": "IELTS Academic Listening - Test 1",
+    "skill": "Listening",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "l1-p1",
+        "number": 1,
+        "title": "SECTION 1 — Booking a Tour",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        "questionGroups": [
+          {
+            "id": "l1-g1",
+            "type": "Form Completion",
+            "range": "1-6",
+            "instructions": "Complete the booking form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.",
+            "template": "<h3>City Tours — Booking Form</h3><table><tr><td>Customer name:</td><td><strong>((1))</strong></td></tr><tr><td>Tour date:</td><td><strong>((2))</strong></td></tr><tr><td>Number of adults:</td><td><strong>((3))</strong></td></tr><tr><td>Tour type:</td><td><strong>((4))</strong></td></tr><tr><td>Pick-up location:</td><td><strong>((5))</strong></td></tr><tr><td>Total cost:</td><td>£<strong>((6))</strong></td></tr></table>",
+            "questions": [
+              { "id": 1 },
+              { "id": 2 },
+              { "id": 3 },
+              { "id": 4 },
+              { "id": 5 },
+              { "id": 6 }
+            ]
+          },
+          {
+            "id": "l1-g2",
+            "type": "Multiple Choice",
+            "range": "7-10",
+            "instructions": "Choose the correct letter, A, B or C.",
+            "questions": [
+              {
+                "id": 7,
+                "text": "What is included in the tour price?",
+                "options": ["A. Meals and transport", "B. Entry fees and a guidebook", "C. Transport and lunch"]
+              },
+              {
+                "id": 8,
+                "text": "What does the customer ask about regarding payment?",
+                "options": ["A. Whether they can pay by card", "B. Whether a deposit is required", "C. Whether group discounts apply"]
+              },
+              {
+                "id": 9,
+                "text": "Why does the customer choose the evening tour?",
+                "options": ["A. It is cheaper than the daytime tour", "B. It includes a dinner experience", "C. They have a morning commitment"]
+              },
+              {
+                "id": 10,
+                "text": "What should the customer bring?",
+                "options": ["A. Comfortable shoes and a raincoat", "B. Their passport and booking reference", "C. A camera and printed tickets"]
+              }
+            ]
+          }
+        ],
+        "questionTypes": ["Form Completion", "Multiple Choice"]
+      },
+      {
+        "id": "l1-p2",
+        "number": 2,
+        "title": "SECTION 2 — Talk About a Local Library",
+        "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        "questionGroups": [
+          {
+            "id": "l1-g3",
+            "type": "Note Completion",
+            "range": "11-15",
+            "instructions": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+            "template": "<h3>Riverside Community Library</h3><ul><li>Founded in <strong>((11))</strong></li><li>Recently renovated — now includes a <strong>((12))</strong> room for children</li><li>Members can borrow up to <strong>((13))</strong> items at once</li><li>New digital lending service — no need to visit in <strong>((14))</strong></li><li>Weekly events include storytelling, coding clubs and <strong>((15))</strong> classes</li></ul>",
+            "questions": [
+              { "id": 11 },
+              { "id": 12 },
+              { "id": 13 },
+              { "id": 14 },
+              { "id": 15 }
+            ]
+          }
+        ],
+        "questionTypes": ["Note Completion"]
+      }
+    ],
+    "answerKey": {
+      "1": "Sarah Blake",
+      "2": "14 March",
+      "3": "4",
+      "4": "evening",
+      "5": "Central Hotel",
+      "6": "160",
+      "7": "B",
+      "8": "A",
+      "9": "C",
+      "10": "A",
+      "11": "1952",
+      "12": "reading",
+      "13": "eight",
+      "14": "person",
+      "15": "language"
+    },
+    "explanations": {
+      "1": "The customer gives her name as Sarah Blake",
+      "2": "She requests the 14th of March",
+      "3": "There are 4 adults in the group",
+      "4": "She chooses the evening tour option",
+      "5": "Pick-up is arranged from the Central Hotel",
+      "6": "4 adults at £40 each = £160 total",
+      "7": "The tour includes entry fees and a guidebook",
+      "8": "The customer asks whether they can pay by credit card",
+      "9": "She has a morning commitment so chooses the evening",
+      "10": "The guide recommends comfortable shoes and a raincoat",
+      "11": "The library was founded in 1952",
+      "12": "A new reading room for children was created",
+      "13": "Members can borrow up to eight items",
+      "14": "The digital service means no need to visit in person",
+      "15": "Weekly language classes are offered"
+    }
+  }
+]

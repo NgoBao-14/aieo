@@ -1,0 +1,335 @@
+[
+  {
+    "id": "ielts-reading-01",
+    "title": "IELTS Academic Reading - Test 1",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "p1",
+        "number": 1,
+        "title": "THE STORY OF SILK",
+        "passageHtml": "<div class=\"passage\"><h3>The Story of Silk</h3><p>Silk is a fine, strong, shiny fibre produced by silkworms when making their cocoons. It is thought that the Empress Xi Ling Shi first discovered silk around 2700 BC when a cocoon fell into her cup of tea and unravelled into a long thread. She is said to have developed the silk reel and the silk loom, and arranged for women to be entrusted with the task of silk production.</p><p>For many centuries, China kept the secret of silk production, and anyone caught attempting to smuggle silkworm eggs or cocoons out of the country was punished by death. Only royalty and aristocrats were allowed to wear silk garments. Silk eventually became so valuable that it was used as a currency to pay government officials and reward subjects.</p><p>The Silk Road, the ancient trade route connecting Asia and Europe, transported silk and other commodities for hundreds of years. Along this route, silk was traded for gold, ivory, glass and wool. Emperor Justinian I is said to have sent monks as spies to discover the silk-production process; they returned with silkworm eggs hidden in hollow canes. This led to the silk industry spreading to the Byzantine Empire around the 6th century AD.</p><p>Today, while synthetic fibres have largely replaced silk in everyday use, natural silk remains prized for its unique properties. It is still used in luxury clothing, accessories, and even in medical applications, where its biocompatibility makes it ideal for surgical sutures and tissue engineering.</p></div>",
+        "questionGroups": [
+          {
+            "id": "g1",
+            "type": "Note Completion",
+            "range": "1-5",
+            "instructions": "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
+            "template": "<h3>The Origins of Silk</h3><ul><li>Discovered by Empress Xi Ling Shi when a cocoon fell into her cup of <strong>((1))</strong></li><li>She developed the silk <strong>((2))</strong> and loom</li><li>Only <strong>((3))</strong> were trusted with silk production</li><li>Only members of <strong>((4))</strong> were allowed to wear silk</li><li>Silk was used as a <strong>((5))</strong> to pay officials</li></ul>",
+            "questions": [
+              { "id": 1 },
+              { "id": 2 },
+              { "id": 3 },
+              { "id": 4 },
+              { "id": 5 }
+            ]
+          },
+          {
+            "id": "g2",
+            "type": "True - False - Not Given",
+            "range": "6-10",
+            "instructions": "Do the following statements agree with the information given in the passage? Write TRUE, FALSE or NOT GIVEN.",
+            "questions": [
+              {
+                "id": 6,
+                "text": "The Chinese penalty for revealing the secret of silk was execution.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 7,
+                "text": "Gold was the most valuable material transported along the Silk Road.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 8,
+                "text": "Roman women wore more silk than Roman men.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 9,
+                "text": "The monks who took silk to Constantinople were sent by Emperor Justinian I.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 10,
+                "text": "Natural silk is still used today in medical applications.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              }
+            ]
+          }
+        ],
+        "questionTypes": ["Note Completion", "True - False - Not Given"]
+      }
+    ],
+    "answerKey": {
+      "1": "tea",
+      "2": "reel",
+      "3": "women",
+      "4": "royalty",
+      "5": "currency",
+      "6": "TRUE",
+      "7": "FALSE",
+      "8": "NOT GIVEN",
+      "9": "TRUE",
+      "10": "TRUE"
+    },
+    "explanations": {
+      "1": "She picked tea from her cup when a cocoon fell in",
+      "2": "She developed the silk reel and loom",
+      "3": "Only women were entrusted with the tasks",
+      "4": "Only members of royalty were allowed to wear silk",
+      "5": "Silk was used as a currency to pay taxes and officials",
+      "6": "The passage says anyone caught smuggling was punished by death",
+      "7": "The passage mentions gold, ivory, glass and wool — but not that gold was the most valuable",
+      "8": "The passage does not mention gender differences in silk wearing",
+      "9": "Emperor Justinian I sent monks as spies",
+      "10": "Natural silk is used in surgical sutures and tissue engineering"
+    }
+  },
+  {
+    "id": "ielts-reading-02",
+    "title": "IELTS Academic Reading - Test 2",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "p2",
+        "number": 1,
+        "title": "THE PSYCHOLOGY OF COLOUR",
+        "passageHtml": "<div class=\"passage\"><h3>The Psychology of Colour</h3><p>Colour is one of the most powerful tools in visual communication. Research in environmental psychology has consistently shown that colour significantly influences human mood, behaviour, and decision-making. The effects are both physiological and psychological, with different hues triggering distinct neural and emotional responses.</p><p>Red is the most visually stimulating colour. Studies have shown that exposure to red increases heart rate and creates a sense of urgency — which is why it is so widely used in clearance sales and warning signs. In competitive sports, teams wearing red have been shown to win more frequently, possibly because red signals dominance and aggression to opponents.</p><p>Blue, by contrast, promotes calm and trust. It is the most popular colour worldwide and is heavily used in corporate branding, particularly in the finance and technology sectors. Research by the University of British Columbia found that blue environments enhance creative performance, while red environments improve accuracy in detail-oriented tasks.</p><p>Yellow stimulates mental activity and generates a feeling of warmth and optimism, but overuse can cause visual fatigue. Green, associated with nature and balance, has a restorative effect — hospital studies have shown that patients in rooms with green views recover more quickly than those without. White creates a sense of cleanliness and spaciousness, while black conveys authority and sophistication.</p><p>Colour preferences are not universal, however. Cultural context plays a significant role: white is associated with purity in Western cultures but mourning in parts of Asia. Marketers must therefore consider regional colour norms when developing global branding campaigns.</p></div>",
+        "questionGroups": [
+          {
+            "id": "g3",
+            "type": "Multiple Choice",
+            "range": "1-4",
+            "instructions": "Choose the correct letter, A, B, C or D.",
+            "questions": [
+              {
+                "id": 1,
+                "text": "According to the passage, why is red commonly used in sales promotions?",
+                "options": [
+                  "A. It is the most visually attractive colour",
+                  "B. It creates a feeling of urgency in consumers",
+                  "C. It makes products appear more affordable",
+                  "D. It is associated with happiness and optimism"
+                ]
+              },
+              {
+                "id": 2,
+                "text": "The University of British Columbia study found that blue environments:",
+                "options": [
+                  "A. improve accuracy in repetitive tasks",
+                  "B. reduce stress in office workers",
+                  "C. enhance creative thinking",
+                  "D. increase productivity overall"
+                ]
+              },
+              {
+                "id": 3,
+                "text": "What does the passage say about the colour yellow?",
+                "options": [
+                  "A. It is the most popular colour globally",
+                  "B. It can cause visual fatigue if overused",
+                  "C. It promotes calm and relaxation",
+                  "D. It improves performance in sports"
+                ]
+              },
+              {
+                "id": 4,
+                "text": "Why must marketers consider regional colour norms?",
+                "options": [
+                  "A. Because colour printing costs vary by region",
+                  "B. Because colour preferences change over time",
+                  "C. Because the same colour can mean different things in different cultures",
+                  "D. Because some colours are legally restricted in certain countries"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "g4",
+            "type": "Yes - No - Not Given",
+            "range": "5-8",
+            "instructions": "Do the following statements agree with the claims of the writer? Write YES, NO or NOT GIVEN.",
+            "questions": [
+              {
+                "id": 5,
+                "text": "The effects of colour on humans are both physical and psychological.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 6,
+                "text": "Red sports teams win because their uniforms are more aerodynamic.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 7,
+                "text": "Green environments help hospital patients recover faster.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              },
+              {
+                "id": 8,
+                "text": "Children are more sensitive to colour than adults.",
+                "options": ["YES", "NO", "NOT GIVEN"]
+              }
+            ]
+          },
+          {
+            "id": "g5",
+            "type": "Sentence Completion",
+            "range": "9-12",
+            "instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            "questions": [
+              {
+                "id": 9,
+                "text": "Red is widely used in ________ and warning signs."
+              },
+              {
+                "id": 10,
+                "text": "Blue is described as the most ________ colour worldwide."
+              },
+              {
+                "id": 11,
+                "text": "White creates a sense of cleanliness and ________."
+              },
+              {
+                "id": 12,
+                "text": "In Western cultures, white is associated with ________, but with mourning in parts of Asia."
+              }
+            ]
+          }
+        ],
+        "questionTypes": ["Multiple Choice", "Yes - No - Not Given", "Sentence Completion"]
+      }
+    ],
+    "answerKey": {
+      "1": "B",
+      "2": "C",
+      "3": "B",
+      "4": "C",
+      "5": "YES",
+      "6": "NO",
+      "7": "YES",
+      "8": "NOT GIVEN",
+      "9": "clearance sales",
+      "10": "popular",
+      "11": "spaciousness",
+      "12": "purity"
+    },
+    "explanations": {
+      "1": "The passage states red 'creates a sense of urgency — which is why it is so widely used in clearance sales'",
+      "2": "The passage says 'blue environments enhance creative performance'",
+      "3": "The passage states 'overuse can cause visual fatigue'",
+      "4": "The passage says 'white is associated with purity in Western cultures but mourning in parts of Asia'",
+      "5": "The passage states effects are 'both physiological and psychological'",
+      "6": "The passage suggests red signals dominance to opponents, not anything about aerodynamics",
+      "7": "The passage states 'patients in rooms with green views recover more quickly'",
+      "8": "The passage does not mention children at all",
+      "9": "The passage says 'widely used in clearance sales and warning signs'",
+      "10": "The passage says 'Blue is the most popular colour worldwide'",
+      "11": "The passage says 'White creates a sense of cleanliness and spaciousness'",
+      "12": "The passage says 'white is associated with purity in Western cultures'"
+    }
+  },
+  {
+    "id": "ielts-reading-03",
+    "title": "IELTS Academic Reading - Test 3",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "p3",
+        "number": 1,
+        "title": "URBAN FARMING: FEEDING THE CITIES OF TOMORROW",
+        "passageHtml": "<div class=\"passage\"><h3>Urban Farming: Feeding the Cities of Tomorrow</h3><p><strong>A.</strong> As the world's population continues to shift towards urban areas, cities face unprecedented challenges in food security. Urban farming — the practice of cultivating, processing, and distributing food in or around urban areas — is increasingly seen as part of the solution. It takes many forms, from rooftop gardens and vertical farms to community allotments and hydroponic greenhouses.</p><p><strong>B.</strong> Vertical farming is among the most technologically advanced forms of urban agriculture. By stacking crops in climate-controlled, artificially lit layers, vertical farms can produce yields up to 100 times greater per square metre than conventional fields. They use up to 95% less water through recirculating systems and can operate year-round regardless of weather. However, the high energy consumption required for lighting and climate control remains a significant obstacle to large-scale adoption.</p><p><strong>C.</strong> Community gardens represent the opposite end of the spectrum — low-tech, socially oriented spaces where residents grow food collectively. Research has shown that community gardens improve mental health, strengthen neighbourhood bonds, and provide access to fresh produce in so-called 'food deserts' — urban areas where affordable fresh food is scarce. In cities such as Detroit and Havana, community gardens have become vital food sources following economic decline.</p><p><strong>D.</strong> Hydroponic systems, which grow plants in nutrient-rich water without soil, offer a middle ground. They can be set up in warehouses, shipping containers, or disused industrial buildings, making use of otherwise wasted urban space. Hydroponics typically uses 70–80% less water than soil-based farming and produces harvests more quickly. The main disadvantage is the cost of establishing and maintaining the nutrient delivery systems.</p><p><strong>E.</strong> Critics argue that urban farming cannot realistically replace conventional agriculture on a meaningful scale. The land area required to feed a city using current urban farming methods would far exceed available space. Proponents counter that urban farming was never intended to replace but to supplement rural agriculture, reduce food miles, and build community resilience. The debate continues, but cities around the world are investing in urban farming infrastructure as part of broader sustainability strategies.</p></div>",
+        "questionGroups": [
+          {
+            "id": "g6",
+            "type": "Matching Headings",
+            "range": "1-5",
+            "instructions": "The passage has five paragraphs, A–E. Choose the correct heading for each paragraph from the list of headings below.",
+            "headings": [
+              "i. The social benefits of shared growing spaces",
+              "ii. A soil-free alternative for city spaces",
+              "iii. The limitations and future of city-grown food",
+              "iv. An introduction to food production in cities",
+              "v. High-yield technology with an energy cost",
+              "vi. The role of government policy in urban farming",
+              "vii. Economic challenges facing rural farmers"
+            ],
+            "questions": [
+              {
+                "id": 1,
+                "text": "Paragraph A",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 2,
+                "text": "Paragraph B",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 3,
+                "text": "Paragraph C",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 4,
+                "text": "Paragraph D",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              },
+              {
+                "id": 5,
+                "text": "Paragraph E",
+                "options": ["i", "ii", "iii", "iv", "v", "vi", "vii"]
+              }
+            ]
+          },
+          {
+            "id": "g7",
+            "type": "Summary Completion",
+            "range": "6-10",
+            "instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            "template": "<p>Urban farming includes many techniques. <strong>((6))</strong> farming stacks crops in layers and can yield up to 100 times more produce per square metre, but uses a lot of energy. <strong>((7))</strong> gardens are community-focused and help people in food <strong>((8))</strong> access fresh produce. Hydroponic systems grow plants in water without <strong>((9))</strong>, and typically use 70–80% less water. Critics say urban farming cannot replace conventional agriculture, but supporters argue it should <strong>((10))</strong> rural food production rather than replace it.</p>",
+            "questions": [
+              { "id": 6 },
+              { "id": 7 },
+              { "id": 8 },
+              { "id": 9 },
+              { "id": 10 }
+            ]
+          }
+        ],
+        "questionTypes": ["Matching Headings", "Summary Completion"]
+      }
+    ],
+    "answerKey": {
+      "1": "iv",
+      "2": "v",
+      "3": "i",
+      "4": "ii",
+      "5": "iii",
+      "6": "Vertical",
+      "7": "Community",
+      "8": "deserts",
+      "9": "soil",
+      "10": "supplement"
+    },
+    "explanations": {
+      "1": "Paragraph A introduces the concept of urban farming and its various forms",
+      "2": "Paragraph B describes vertical farming's high yields but notes the energy cost",
+      "3": "Paragraph C focuses on community gardens and their social/health benefits",
+      "4": "Paragraph D explains hydroponics as a soil-free method for urban spaces",
+      "5": "Paragraph E discusses the debate around urban farming's limitations and future",
+      "6": "The passage states 'Vertical farming is among the most technologically advanced...'",
+      "7": "The passage refers to 'Community gardens represent the opposite end of the spectrum'",
+      "8": "The passage defines 'food deserts' as 'urban areas where affordable fresh food is scarce'",
+      "9": "The passage says hydroponics grows 'plants in nutrient-rich water without soil'",
+      "10": "The passage says urban farming was 'intended to supplement rural agriculture'"
+    }
+  }
+]

@@ -59,10 +59,10 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private testDataService: TestDataService) {}
 
   ngOnInit() {
-    this.readingTests$ = this.testDataService.getTests({ skill: 'Reading' });
-    this.listeningTests$ = this.testDataService.getTests({ skill: 'Listening' });
+    this.readingTests$ = this.testDataService.getTests({ skill: 'Reading', preferCloud: true });
+    this.listeningTests$ = this.testDataService.getTests({ skill: 'Listening', preferCloud: true });
 
-    this.testDataService.getTests().subscribe(tests => {
+    this.testDataService.getTests({ preferCloud: true }).subscribe(tests => {
       let total = 0;
       tests.forEach(test => {
         test.parts.forEach(part => {

@@ -1,17 +1,20 @@
 <!-- DASHBOARD -->
 <div class="dash-page" *ngIf="!loading; else loadingTpl">
 
-  <!-- TOPBAR -->
-  <header class="dash-topbar">
+  <!-- HERO -->
+  <section class="dash-hero">
     <div>
+      <p class="dash-kicker">Learning Statistics</p>
       <h1>Tổng quan</h1>
-      <p class="dash-topbar__sub">Lộ trình của bạn · {{ completedCount }}/{{ TOTAL_SESSIONS }} buổi</p>
+      <p class="dash-meta">Lộ trình học của bạn · {{ completedCount }}/{{ TOTAL_SESSIONS }} buổi đã hoàn thành</p>
     </div>
-    <div class="dash-topbar__streak" *ngIf="progress.streak > 0">
-      <span class="dash-fire">🔥</span>
-      <span>{{ progress.streak }} ngày</span>
+    <div class="dash-stats-promo" *ngIf="progress.streak > 0">
+      <div class="dash-streak-badge">
+        <span class="dash-fire">🔥</span>
+        <span>Học tập liên tục: <strong>{{ progress.streak }} ngày</strong></span>
+      </div>
     </div>
-  </header>
+  </section>
 
   <!-- TODAY CARD -->
   <section class="dash-today" *ngIf="todaySession">

@@ -1,7 +1,7 @@
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app';
 import { Auth, GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { Analytics, getAnalytics } from 'firebase/analytics';
-import { Firestore, doc, getDocFromServer, getFirestore } from 'firebase/firestore';
+import { Firestore, getFirestore } from 'firebase/firestore';
 import { FirebaseStorage, getStorage } from 'firebase/storage';
 import { environment } from '../../../environments/environment';
 import * as firebaseAppletConfig from '../../../../firebase-applet-config.json';
@@ -110,23 +110,6 @@ export function createGoogleProvider(): GoogleAuthProvider {
   });
   return provider;
 }
-
-async function testConnection(): Promise<void> {
-  const db = getFirebaseDb();
-  if (!db) {
-    return;
-  }
-
-  try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error('Please check your Firebase configuration.');
-    }
-  }
-}
-
-void testConnection();
 
 export enum OperationType {
   CREATE = 'create',

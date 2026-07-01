@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ielts-reading-full-01",
+    "title": "IELTS Academic Reading - Practice Test 1",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 1024,
+    "parts": [
+      {
+        "id": "full-01-p1",
+        "number": 1,
+        "title": "THE STORY OF SILK",
+        "passageHtml": "<div class='passage-section'><span class='p-label'>Paragraph A</span><p>Silk is a fine, strong, soft lustrous fibre produced by silkworms in making cocoons and collected to make thread and fabric. According to legend, it was Lei Zu (also known as Hsi-Ling-Shih), the wife of the mythical Yellow Emperor, who discovered the process around 3000 BC. She was supposedly sitting under a mulberry tree when a cocoon fell into her <strong>tea</strong>, and as she picked it out, a long thread began to unravel. She became so fascinated that she took to studying the silkworm. She also developed the silk <strong>reel</strong> and loom. The art of raising silkworms is called sericulture.</p></div><div class='passage-section'><span class='p-label'>Paragraph B</span><p>For about 3,000 years, the Chinese kept the secret of silk entirely to themselves. It was the most zealously guarded secret in history. Anyone caught smuggling silkworm eggs or cocoons out of China was punished by death. Only <strong>women</strong> were entrusted with the labourious tasks of raising the silkworms and weaving the fabric. Only members of <strong>royalty</strong> were allowed to wear silk garments. The fabric was so prized that it was used as a form of <strong>currency</strong> — farmers paid their taxes in silk, and the Emperor rewarded his ministers with silk.</p></div><div class='passage-section'><span class='p-label'>Paragraph C</span><p>Silk was used for many purposes beyond clothing. Evidence found near Changsha, China showed that <strong>paper</strong> was made from silk as early as 168 AD. Silk was used for musical instruments, fishing lines, bowstrings, and even <strong>money</strong>. The Chinese also made luxury items from silk, including fans, wall hangings, and paintings.</p></div><div class='passage-section'><span class='p-label'>Paragraph D</span><p>The Silk Road — the ancient network of trade routes linking China to the Mediterranean — got its name because silk was the major commodity carried westward. Merchants would bring silk to the west and take back <strong>wool</strong>, gold, and precious metals to China. By the first century BC, the Romans had developed a passion for silk. Wealthy Romans wore it to show off their riches. Silk was literally worth its weight in gold.</p></div><div class='passage-section'><span class='p-label'>Paragraph E</span><p>The secret of silk finally left China around 550 AD when, according to the Byzantine historian Procopius, two <strong>monks</strong> succeeded in smuggling silkworm eggs out of China. The Emperor Justinian I had sent them to China as spies. They hid silkworm eggs inside hollow bamboo <strong>canes</strong> and brought them to Constantinople. This marked the beginning of the silk industry in the Western world.</p></div><div class='passage-section'><span class='p-label'>Paragraph F</span><p>The invention of artificial fibres like <strong>nylon</strong> in the 20th century led to a decline in natural silk production. However, silk remains a luxury item globally and continues to be highly valued. China remains the world's leading producer of silk, followed by India. The global silk industry is worth billions of dollars annually, and natural silk is still preferred for high-end fashion and medical applications.</p></div>",
+        "questionTypes": [
+          "Note Completion",
+          "True - False - Not Given"
+        ],
+        "questionGroups": [
+          {
+            "id": "p1-g1",
+            "type": "Note Completion",
+            "range": "1-8",
+            "instructions": "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer. Write your answers in boxes 1–8 on your answer sheet.",
+            "template": "<h3>Early silk production in China</h3><ul><li>Around 3000 BC — Emperor's wife discovered silk when a cocoon fell into her ((1))</li><li>She developed the silk ((2)) and loom</li><li>Only ((3)) were permitted to raise silkworms and weave the fabric</li><li>Only ((4)) were allowed to wear silk garments</li><li>Silk used as a form of ((5)) — e.g. farmers paid taxes in silk</li><li>Evidence found that ((6)) was made from silk as early as 168 AD</li></ul><h3>Silk reaches the rest of the world</h3><ul><li>Merchants on the Silk Road took silk westward and returned with ((7)) and precious metals</li><li>Around 550 AD — two ((8)) smuggled silkworm eggs out of China hidden in bamboo canes</li></ul>",
+            "questions": [
+              { "id": 1 },
+              { "id": 2 },
+              { "id": 3 },
+              { "id": 4 },
+              { "id": 5 },
+              { "id": 6 },
+              { "id": 7 },
+              { "id": 8 }
+            ]
+          },
+          {
+            "id": "p1-g2",
+            "type": "True - False - Not Given",
+            "range": "9-13",
+            "instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN in boxes 9–13 on your answer sheet.",
+            "questions": [
+              {
+                "id": 9,
+                "text": "The Chinese penalty for revealing the secret of silk was execution.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 10,
+                "text": "Gold was the most valuable material transported along the Silk Road.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 11,
+                "text": "Roman women wore more silk than Roman men.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 12,
+                "text": "The monks who took silk to Constantinople were sent by Emperor Justinian I.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              },
+              {
+                "id": 13,
+                "text": "Natural silk is still used today in medical applications.",
+                "options": ["TRUE", "FALSE", "NOT GIVEN"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-01-p2",
+        "number": 2,
+        "title": "THE PSYCHOLOGY OF PROCRASTINATION",
+        "passageHtml": "<div class='passage-section'><span class='p-label'>Paragraph A</span><p>Procrastination — the act of delaying or postponing tasks — affects a significant portion of the adult population. Studies suggest that around 20 percent of people chronically procrastinate. While it is often dismissed as laziness or poor time management, researchers have found that procrastination is far more complex. It is fundamentally an emotional regulation problem, not a time management one. People procrastinate not because they cannot manage time, but because they struggle to manage negative emotions associated with a task.</p></div><div class='passage-section'><span class='p-label'>Paragraph B</span><p>Neuroscientific research has revealed a clear link between procrastination and the amygdala — the brain's emotional processing centre. When facing a difficult task, the amygdala perceives it as a threat and triggers a stress response. The prefrontal cortex, which governs rational decision-making, must then override this signal. In chronic procrastinators, this override mechanism is weaker, causing the person to avoid the task rather than address it. Brain imaging studies have even shown that procrastinators tend to have a larger amygdala with weaker connections to the dorsal anterior cingulate cortex.</p></div><div class='passage-section'><span class='p-label'>Paragraph C</span><p>A common misconception is that procrastinators are simply lazy or lack ambition. In reality, many chronic procrastinators are high achievers who set very high standards for themselves — they delay tasks precisely because they fear not reaching those standards. This phenomenon, known as perfectionism-driven procrastination, can trap individuals in a cycle of avoidance. When people discover that others also procrastinate, they often feel a sense of relief — the realisation that they are not alone in their struggles can itself be the first step toward change.</p></div><div class='passage-section'><span class='p-label'>Paragraph D</span><p>In the workplace, procrastination has measurable consequences. Research by Pychyl and Flett (2012) found that employees who frequently procrastinate report lower job satisfaction, higher stress levels, and are more likely to be absent from work. Interestingly, studies have not found a consistent relationship between procrastination and the quality of the final work output — a procrastinator may still produce high-quality work, but at a greater personal cost in terms of stress and wellbeing.</p></div><div class='passage-section'><span class='p-label'>Paragraph E</span><p>Several effective interventions have been identified. Implementation intention — the practice of forming specific if-then plans ('If it is 9am Monday, I will start the report') — significantly reduces procrastination. Self-compassion is another powerful tool: forgiving oneself for past procrastination reduces the guilt that often triggers further avoidance. Breaking tasks into smaller chunks and using time-blocking techniques have also been shown to reduce avoidance behaviours.</p></div><div class='passage-section'><span class='p-label'>Paragraph F</span><p>Cultural factors also play a role. Research comparing attitudes to time across different cultures found that societies with high future-time orientation — those that strongly value planning ahead — tend to report lower rates of procrastination. Digital culture has introduced new forms of temptation — social media, streaming services, and instant gratification platforms — that have made task avoidance far easier than at any previous point in history.</p></div>",
+        "questionTypes": [
+          "Matching Information",
+          "Matching Sentence Endings",
+          "Multiple Choice",
+          "Note Completion"
+        ],
+        "questionGroups": [
+          {
+            "id": "p2-g1",
+            "type": "Matching Information",
+            "range": "14-16",
+            "instructions": "Reading Passage 2 has six paragraphs, A–F. Which paragraph contains the following information? Write the correct letter, A–F, in boxes 14–16 on your answer sheet. NB You may use any letter more than once.",
+            "renderType": "grid",
+            "columns": ["A", "B", "C", "D", "E", "F"],
+            "questions": [
+              {
+                "id": 14,
+                "text": "neurological evidence of a link between procrastination and emotion"
+              },
+              {
+                "id": 15,
+                "text": "mention of false assumptions about why people procrastinate"
+              },
+              {
+                "id": 16,
+                "text": "reference to the realisation that others also procrastinate"
+              }
+            ]
+          },
+          {
+            "id": "p2-g2",
+            "type": "Matching Sentence Endings",
+            "range": "17-20",
+            "instructions": "Complete each sentence with the correct ending, A–G, below. Write the correct letter, A–G, in boxes 17–20 on your answer sheet.",
+            "inputType": "pills",
+            "template": "<p>Pychyl and Flett's research found that frequent procrastinators at work ((17))</p><p>One effective strategy to reduce procrastination is to make ((18))</p><p>People who procrastinate because they fear failure are likely to ((19))</p><p>Societies that value long-term planning tend to ((20))</p>",
+            "options": [
+              "A. have very high personal standards.",
+              "B. report lower job satisfaction.",
+              "C. experience increased levels of wellbeing.",
+              "D. show fewer symptoms of emotional avoidance.",
+              "E. specific plans about when and how to act.",
+              "F. have lower reported rates of procrastination.",
+              "G. produce work of consistently lower quality."
+            ],
+            "questions": [
+              { "id": 17 },
+              { "id": 18 },
+              { "id": 19 },
+              { "id": 20 }
+            ]
+          },
+          {
+            "id": "p2-g3",
+            "type": "Multiple Choice",
+            "range": "21-22",
+            "instructions": "Choose TWO letters, A–E. Which TWO of the following are stated in the passage about chronic procrastinators?",
+            "options": [
+              "A. They are unable to produce high-quality work.",
+              "B. They are often motivated by very high personal standards.",
+              "C. They tend to have a smaller amygdala than non-procrastinators.",
+              "D. They experience greater stress in achieving results.",
+              "E. They have stronger prefrontal cortex activity."
+            ],
+            "questions": [
+              { "id": 21 },
+              { "id": 22 }
+            ]
+          },
+          {
+            "id": "p2-g4",
+            "type": "Note Completion",
+            "range": "23-26",
+            "instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer. Write your answers in boxes 23–26.",
+            "template": "<p>Procrastination is best understood as a problem of ((23)) rather than time management. The part of the brain responsible for rational thinking is the ((24)), while the ((25)) triggers avoidance. Strategies such as ((26)) — forming specific when-and-how plans — have been shown to be effective in reducing procrastination.</p>",
+            "questions": [
+              { "id": 23 },
+              { "id": 24 },
+              { "id": 25 },
+              { "id": 26 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "full-01-p3",
+        "number": 3,
+        "title": "REWILDING: RESTORING NATURE'S BALANCE",
+        "passageHtml": "<div class='passage-section'><span class='p-label'>Paragraph A</span><p>The concept of rewilding — reintroducing species and restoring natural processes to degraded ecosystems — has gained considerable traction in conservation circles over the past two decades. Proponents argue that modern conservation has focused too heavily on preserving the status quo, protecting what remains rather than actively trying to restore what has been lost. Rewilding takes the opposite approach: it aims to revive the ecological complexity and self-sustaining processes that once characterised landscapes before human interference.</p></div>[[27]]<div class='passage-section'><span class='p-label'>Paragraph B</span><p>The most celebrated example of rewilding is the reintroduction of wolves to Yellowstone National Park in 1995. The absence of wolves had caused deer populations to surge, which led to overgrazing of riverbanks and the collapse of vegetation along waterways. When wolves were reintroduced, they changed not only the behaviour of deer — who began avoiding open riverbanks — but also the physical landscape. Vegetation recovered, rivers changed their course, and fish populations returned. This cascade of effects triggered by the reintroduction of a keystone predator is now referred to as a 'trophic cascade'.</p></div>[[28]]<div class='passage-section'><span class='p-label'>Paragraph C</span><p>Critics of rewilding point to significant practical challenges. Large predators require vast territories, which inevitably brings them into conflict with farming communities. In Europe, the return of wolves to countries like France, Germany, and Italy has been met with fierce opposition from rural communities whose livestock have been attacked. Conservationists argue that adequate compensation schemes and preventive measures — such as livestock guardian dogs — can mitigate these conflicts, but tensions remain.</p></div>[[29]]<div class='passage-section'><span class='p-label'>Paragraph D</span><p>Perhaps the most ambitious example of rewilding in Europe is the Oostvaardersplassen reserve in the Netherlands. Established in the 1980s, it became a radical experiment in natural dynamics: large herbivores including Heck cattle, Konik horses, and red deer were introduced with minimal human management. The idea was that nature would regulate itself. However, a series of harsh winters in the 2010s led to mass animal die-offs that triggered a public outcry. The debate exposed a tension at the heart of rewilding: should humans intervene when nature takes a painful but natural course?</p></div>[[30]]<div class='passage-section'><span class='p-label'>Paragraph E</span><p>The rewilding of marine environments presents its own set of opportunities and challenges. The reintroduction of European beavers to rivers in the UK has shown remarkable results — beaver dams slow the flow of water, reduce downstream flooding, improve water quality, and create diverse wetland habitats. Similarly, the recovery of whale populations in regions where hunting has ceased has had far-reaching effects on marine ecosystems, as whale faeces fertilise the ocean surface, supporting phytoplankton growth that underpins entire food chains.</p></div>[[31]]<div class='passage-section'><span class='p-label'>Paragraph F</span><p>Rewilding also carries significant economic potential. Studies in Scotland, where there are calls to reintroduce lynx and wolves, suggest that a rewilded landscape could attract significant ecotourism revenue. The Yellowstone wolf reintroduction, for instance, has been estimated to generate around $35 million annually in tourism. Advocates argue that rewilding is not just ecologically sound but economically rational — particularly in marginal agricultural areas where farming is barely profitable.</p></div>[[32]]",
+        "questionTypes": [
+          "Matching Headings",
+          "Multiple Choice"
+        ],
+        "questionGroups": [
+          {
+            "id": "p3-g1",
+            "type": "Matching Headings",
+            "range": "27-32",
+            "instructions": "Reading Passage 3 has six paragraphs, A–F. Choose the correct heading for each paragraph from the list of headings below. Write the correct Roman numeral i–viii in boxes 27–32 on your answer sheet.",
+            "headings": [
+              "i. The economic case for rewilding",
+              "ii. A radical experiment that divided opinion",
+              "iii. Opposition from local communities",
+              "iv. An introduction to the rewilding philosophy",
+              "v. The surprising effects of reintroducing a predator",
+              "vi. Benefits of rewilding in aquatic environments",
+              "vii. The role of climate change in species loss",
+              "viii. Government policy on rewilding"
+            ],
+            "questions": [
+              { "id": 27, "text": "Paragraph A" },
+              { "id": 28, "text": "Paragraph B" },
+              { "id": 29, "text": "Paragraph C" },
+              { "id": 30, "text": "Paragraph D" },
+              { "id": 31, "text": "Paragraph E" },
+              { "id": 32, "text": "Paragraph F" }
+            ]
+          },
+          {
+            "id": "p3-g2",
+            "type": "Multiple Choice",
+            "range": "33-40",
+            "instructions": "Choose the correct letter, A, B, C or D.",
+            "questions": [
+              {
+                "id": 33,
+                "text": "According to paragraph B, what was the immediate effect of wolves being absent from Yellowstone?",
+                "options": [
+                  "A. Fish populations in rivers declined sharply.",
+                  "B. Deer began to overgraze riverbank vegetation.",
+                  "C. Vegetation along waterways collapsed immediately.",
+                  "D. Rivers changed their course without intervention."
+                ]
+              },
+              {
+                "id": 34,
+                "text": "What does the term 'trophic cascade' refer to in the context of the passage?",
+                "options": [
+                  "A. The migration pattern of keystone predators.",
+                  "B. The chain of environmental changes caused by reintroducing a predator.",
+                  "C. The process by which rivers naturally change course.",
+                  "D. The increase in deer population following wolf removal."
+                ]
+              },
+              {
+                "id": 35,
+                "text": "What do critics of rewilding mainly argue?",
+                "options": [
+                  "A. Large predators are ineffective at regulating ecosystems.",
+                  "B. Rewilding leads to a permanent reduction in biodiversity.",
+                  "C. The practical difficulties outweigh the ecological benefits.",
+                  "D. Compensation schemes for farmers are too expensive."
+                ]
+              },
+              {
+                "id": 36,
+                "text": "Why did Oostvaardersplassen become controversial?",
+                "options": [
+                  "A. Wolves introduced there attacked local livestock.",
+                  "B. The reserve failed to attract any wildlife.",
+                  "C. Large numbers of animals died in harsh winters.",
+                  "D. The government refused to fund the project."
+                ]
+              },
+              {
+                "id": 37,
+                "text": "What benefit of European beaver reintroduction is mentioned in the passage?",
+                "options": [
+                  "A. They create habitats by building dams that slow water flow.",
+                  "B. They improve soil quality by digging burrows.",
+                  "C. They help control invasive fish species.",
+                  "D. They attract ecotourists to rural areas."
+                ]
+              },
+              {
+                "id": 38,
+                "text": "How do whales contribute to marine ecosystems according to the passage?",
+                "options": [
+                  "A. They control fish populations by predation.",
+                  "B. Their waste products provide nutrients that support ocean food chains.",
+                  "C. They create underwater habitats for smaller species.",
+                  "D. Their migration patterns distribute ocean heat."
+                ]
+              },
+              {
+                "id": 39,
+                "text": "What financial figure is mentioned in connection with the Yellowstone wolf reintroduction?",
+                "options": [
+                  "A. $35 million spent on conservation annually.",
+                  "B. $35 million generated in tourism revenue each year.",
+                  "C. $35 million paid in compensation to farmers.",
+                  "D. $35 million invested in the wolf reintroduction programme."
+                ]
+              },
+              {
+                "id": 40,
+                "text": "What is the writer's overall view of rewilding?",
+                "options": [
+                  "A. It is a dangerous experiment that should be halted.",
+                  "B. It is both ecologically and economically beneficial, despite challenges.",
+                  "C. It is only suitable for large, uninhabited wilderness areas.",
+                  "D. It requires complete removal of human presence from all rewilded areas."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "answerKey": {
+      "1": "tea",
+      "2": "reel",
+      "3": "women",
+      "4": "royalty",
+      "5": "currency",
+      "6": "paper",
+      "7": "wool",
+      "8": "monks",
+      "9": "TRUE",
+      "10": "NOT GIVEN",
+      "11": "NOT GIVEN",
+      "12": "TRUE",
+      "13": "TRUE",
+      "14": "B",
+      "15": "C",
+      "16": "C",
+      "17": "B",
+      "18": "E",
+      "19": "A",
+      "20": "F",
+      "21": "B",
+      "22": "D",
+      "23": "emotional regulation",
+      "24": "prefrontal cortex",
+      "25": "amygdala",
+      "26": "implementation intention",
+      "27": "iv",
+      "28": "v",
+      "29": "iii",
+      "30": "ii",
+      "31": "vi",
+      "32": "i",
+      "33": "B",
+      "34": "B",
+      "35": "C",
+      "36": "C",
+      "37": "A",
+      "38": "B",
+      "39": "B",
+      "40": "B"
+    }
+  },
+  {
+    "id": "ielts-reading-full-02",
+    "title": "IELTS Academic Reading - Practice Test 2",
+    "skill": "Reading",
+    "source": "IELTS9s Original",
+    "attempts": 0,
+    "parts": [
+      {
+        "id": "full-02-p1",
+        "number": 1,
+        "title": "TEST 2 - PASSAGE 1",
+        "passageHtml": "<p>Content for Test 2 Passage 1...</p>",
+        "questionTypes": [],
+        "questionGroups": []
+      },
+      {
+        "id": "full-02-p2",
+        "number": 2,
+        "title": "TEST 2 - PASSAGE 2",
+        "passageHtml": "<p>Content for Test 2 Passage 2...</p>",
+        "questionTypes": [],
+        "questionGroups": []
+      },
+      {
+        "id": "full-02-p3",
+        "number": 3,
+        "title": "TEST 2 - PASSAGE 3",
+        "passageHtml": "<p>Content for Test 2 Passage 3...</p>",
+        "questionTypes": [],
+        "questionGroups": []
+      }
+    ],
+    "answerKey": {}
+  }
+]

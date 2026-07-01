@@ -2,37 +2,30 @@
 
 <div class="hub-page">
 
-  <!-- TOPBAR -->
-  <header class="hub-topbar">
-    <div class="hub-topbar__left">
-      <h1>Kho Dạng Bài</h1>
-      <p>Luyện từng dạng câu hỏi Reading & Listening</p>
-    </div>
-    <span class="hub-topbar__badge" *ngIf="!loading">
-      {{ totalQuestions }} câu · {{ totalTypes }} dạng
-    </span>
-  </header>
-
   <!-- HERO -->
   <section class="hub-hero">
-    <div class="hub-hero__text">
-      <h2>Chinh phục từng dạng bài — tiến bộ rõ ràng hơn</h2>
-      <p>Thay vì làm cả đề, hãy tập trung vào đúng điểm yếu. Mỗi dạng câu hỏi có chiến lược riêng — luyện đúng trọng tâm, tăng điểm nhanh hơn.</p>
+    <div>
+      <p class="hub-kicker">Practice by Question Type</p>
+      <h1>Kho Dạng Bài</h1>
+      <p class="hub-meta">Thay vì làm cả đề, hãy tập trung vào đúng điểm yếu. Luyện đúng trọng tâm, tăng điểm nhanh hơn.</p>
     </div>
-    <div class="hub-stats">
-      <div class="hub-stat">
-        <span class="hub-stat__num">{{ totalQuestions }}</span>
-        <span class="hub-stat__label">Câu hỏi</span>
-      </div>
-      <div class="hub-stat-div"></div>
-      <div class="hub-stat">
-        <span class="hub-stat__num">{{ totalTypes }}</span>
-        <span class="hub-stat__label">Dạng bài</span>
-      </div>
-      <div class="hub-stat-div"></div>
-      <div class="hub-stat">
-        <span class="hub-stat__num">{{ totalSources }}</span>
-        <span class="hub-stat__label">Đề nguồn</span>
+
+    <div class="hub-stats-promo">
+      <div class="hub-stats">
+        <div class="hub-stat">
+          <span class="hub-stat__num">{{ totalQuestions }}</span>
+          <span class="hub-stat__label">Câu hỏi</span>
+        </div>
+        <div class="hub-stat-div"></div>
+        <div class="hub-stat">
+          <span class="hub-stat__num">{{ totalTypes }}</span>
+          <span class="hub-stat__label">Dạng bài</span>
+        </div>
+        <div class="hub-stat-div"></div>
+        <div class="hub-stat">
+          <span class="hub-stat__num">{{ totalSources }}</span>
+          <span class="hub-stat__label">Đề nguồn</span>
+        </div>
       </div>
     </div>
   </section>

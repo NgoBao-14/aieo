@@ -82,7 +82,7 @@ export class TestManagementComponent implements OnInit {
 
   loadTests() {
     this.loading = true;
-    this.testDataService.getTests().subscribe(tests => {
+    this.testDataService.getTests({ preferCloud: true }).subscribe(tests => {
       this.tests = tests;
       this.filterTests();
       this.loading = false;

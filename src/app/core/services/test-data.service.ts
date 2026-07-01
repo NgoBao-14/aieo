@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, firstValueFrom, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, firstValueFrom, forkJoin, from, map, of, shareReplay, switchMap } from 'rxjs';
 import { doc, setDoc } from 'firebase/firestore';
 import { Submission, Test } from '../../models/app.models';
 import { UserProfileService } from './user-profile.service';
@@ -11,29 +11,26 @@ const SUBMISSIONS_KEY = 'ielts9s-submissions';
 
 @Injectable({ providedIn: 'root' })
 export class TestDataService {
+  private localTests$?: Observable<Test[]>;
+
   constructor(
     private http: HttpClient,
     private userProfileService: UserProfileService,
     private cloudTestService: CloudTestService
   ) {}
 
-  getTests(filters?: { skill?: string; source?: string }): Observable<Test[]> {
-    const assetTests$ = forkJoin([
-      this.http.get<Test[]>('assets/data/reading-tests.json'),
-      this.http.get<Test[]>('assets/data/listening-tests.json')
-    ]).pipe(
-      map(([readingTests, listeningTests]) => [...readingTests, ...listeningTests])
-    );
+  getTests(filters?: { skill?: string; source?: string; preferCloud?: boolean }): Observable<Test[]> {
+    const localTests$ = this.getLocalTests();
 
-    const source$ = this.cloudTestService.isEnabled()
+    const source$ = filters?.preferCloud && this.cloudTestService.isEnabled()
       ? from(this.cloudTestService.getTests(filters?.skill as Test['skill'] | undefined)).pipe(
-          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : assetTests$),
+          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : localTests$),
           catchError((err) => {
             console.error('Firebase failed to fetch tests, falling back to local files:', err);
-            return assetTests$;
+            return localTests$;
           })
         )
-      : assetTests$;
+      : localTests$;
 
     return source$.pipe(
       map((tests) => tests.filter((test) => {
@@ -45,15 +42,21 @@ export class TestDataService {
   }
 
   getTestById(testId: string): Observable<Test | null> {
-    if (this.cloudTestService.isEnabled()) {
-      return from(this.cloudTestService.getTestById(testId)).pipe(
-        switchMap((cloudTest) => cloudTest ? of(cloudTest) : this.getTests().pipe(
-          map((tests) => tests.find((test) => test.id === testId) ?? null)
-        ))
-      );
-    }
+    return this.getLocalTests().pipe(
+      switchMap((tests) => {
+        const localTest = tests.find((test) => test.id === testId) ?? null;
+        if (localTest || !this.cloudTestService.isEnabled()) {
+          return of(localTest);
+        }
 
-    return this.getTests().pipe(map((tests) => tests.find((test) => test.id === testId) ?? null));
+        return from(this.cloudTestService.getTestById(testId)).pipe(
+          catchError((err) => {
+            console.error('Firebase failed to fetch test detail:', err);
+            return of(null);
+          })
+        );
+      })
+    );
   }
 
   async getTestSnapshot(testId: string): Promise<Test | null> {
@@ -160,6 +163,20 @@ export class TestDataService {
     if (score >= 15) { return 5; }
     if (score >= 13) { return 4.5; }
     return 4;
+  }
+
+  private getLocalTests(): Observable<Test[]> {
+    if (!this.localTests$) {
+      this.localTests$ = forkJoin([
+        this.http.get<Test[]>('assets/data/reading-tests.json'),
+        this.http.get<Test[]>('assets/data/listening-tests.json')
+      ]).pipe(
+        map(([readingTests, listeningTests]) => [...readingTests, ...listeningTests]),
+        shareReplay({ bufferSize: 1, refCount: false })
+      );
+    }
+
+    return this.localTests$;
   }
 
   private readSubmissions(): Submission[] {
