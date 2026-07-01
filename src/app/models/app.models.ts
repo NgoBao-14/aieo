@@ -6,6 +6,15 @@ export interface AppUser {
   provider: 'firebase' | 'demo';
 }
 
+export interface UserPackage {
+  create_at: string;
+  days: number;
+  expired_date: string;
+  number_test: number;
+  type: 1 | 2; // 1 is standard, 2 is premium
+  uid: string;
+}
+
 export interface UserProfile {
   uid: string;
   displayName: string;
@@ -18,6 +27,7 @@ export interface UserProfile {
     listening: Record<string, number>;
   };
   createdAt: string;
+  package?: UserPackage;
 }
 
 export interface Question {

@@ -1,0 +1,168 @@
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6fc;
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #e2e6f0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* Logo */
+.admin-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px;
+  border-bottom: 1px solid #f1f3f9;
+
+  .logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #19ad50;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 16px;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+
+    strong {
+      color: #1a1c23;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    span {
+      color: #737989;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+  }
+}
+
+/* Menu */
+.admin-menu {
+  flex: 1;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.menu-group {
+  margin-bottom: 24px;
+}
+
+.group-label {
+  display: block;
+  padding: 0 20px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #9ea3b1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.group-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-right: 4px solid transparent;
+  transition: all 0.15s ease;
+
+  .icon {
+    font-size: 16px;
+    opacity: 0.85;
+  }
+
+  &:hover {
+    background: #f8fafc;
+    color: #19ad50;
+  }
+
+  &.active {
+    background: #f0fdf4;
+    color: #19ad50;
+    border-right-color: #19ad50;
+  }
+}
+
+/* Logout */
+.admin-logout-wrap {
+  padding: 20px;
+  border-top: 1px solid #f1f3f9;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  color: #e53e3e;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background: #fff5f5;
+    border-color: #fca5a5;
+  }
+}
+
+/* MAIN WORKSPACE */
+.admin-workspace {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+}
+
+@media (max-width: 992px) {
+  .admin-shell {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+  .admin-logo {
+    padding: 16px 20px;
+  }
+  .admin-menu {
+    display: none; /* simple toggle or keep collapsed on mobile */
+  }
+  .admin-workspace {
+    padding: 16px 14px;
+  }
+}

@@ -14,6 +14,8 @@ import { SessionDetailComponent } from './pages/roadmap/session/session-detail.c
 import { AdminDashboardComponent } from './pages/admin/dashboard/admin-dashboard.component';
 import { TestManagementComponent } from './pages/admin/test-management/test-management.component';
 import { TestFormComponent } from './pages/admin/test-management/test-form.component';
+import { AdminLayoutComponent } from './pages/admin/layout/admin-layout.component';
+import { AdminUpgradeComponent } from './pages/admin/upgrade/admin-upgrade.component';
 
 const routes: Routes = [
   // ── Landing page — full width, no sidebar ────────────────────
@@ -43,11 +45,18 @@ const routes: Routes = [
   { path: 'practice/:testId', component: PracticeDetailComponent },
 
   // ── Admin area ─────────────────────────────────────────────────
-  { path: 'admin',                     redirectTo: 'admin/dashboard', pathMatch: 'full' },
-  { path: 'admin/dashboard',           component: AdminDashboardComponent },
-  { path: 'admin/tests',               component: TestManagementComponent },
-  { path: 'admin/tests/new',           component: TestFormComponent },
-  { path: 'admin/tests/:testId/edit',  component: TestFormComponent },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'tests', component: TestManagementComponent },
+      { path: 'tests/new', component: TestFormComponent },
+      { path: 'tests/:testId/edit', component: TestFormComponent },
+      { path: 'upgrade', component: AdminUpgradeComponent }
+    ]
+  },
 
   { path: '**', redirectTo: '' }
 ];

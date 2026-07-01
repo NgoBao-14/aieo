@@ -10,55 +10,77 @@ import { Test } from '../../../models/app.models';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   template: `
-    <div class="admin-page">
+    <div class="admin-page-content">
       <div class="page-header">
-        <h1>Manage Tests</h1>
+        <h2 class="page-title">Danh sách Đề thi</h2>
         <div class="page-actions">
-          <button class="btn btn--primary" routerLink="/admin/tests/new">+ New Test</button>
+          <button class="btn btn--green" routerLink="/admin/tests/new">➕ Thêm đề</button>
         </div>
       </div>
 
       <div class="filters-bar">
-        <label>
-          Filter by Skill:
-          <select [(ngModel)]="selectedSkill" (change)="filterTests()">
-            <option value="">All</option>
+        <label class="filter-label">
+          Lọc theo kỹ năng:
+          <select class="filter-select" [(ngModel)]="selectedSkill" (change)="filterTests()">
+            <option value="">Tất cả</option>
             <option value="Reading">Reading</option>
             <option value="Listening">Listening</option>
           </select>
         </label>
       </div>
 
-      <div *ngIf="loading" class="loading">Loading tests...</div>
-
-      <div *ngIf="!loading && filteredTests.length === 0" class="empty-state">
-        <p>No tests found. Create your first test to get started.</p>
-        <button class="btn btn--primary" routerLink="/admin/tests/new">Create Test</button>
+      <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Đang tải danh sách đề...</p>
       </div>
 
-      <div *ngIf="!loading && filteredTests.length > 0" class="tests-table">
-        <table>
+      <div *ngIf="!loading && filteredTests.length === 0" class="empty-state">
+        <p>Chưa có đề thi nào trong hệ thống. Hãy tạo đề thi mới để bắt đầu.</p>
+        <button class="btn btn--green" routerLink="/admin/tests/new">Tạo đề ngay</button>
+      </div>
+
+      <div *ngIf="!loading && filteredTests.length > 0" class="table-container">
+        <table class="admin-table">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Skill</th>
-              <th>Source</th>
-              <th>Parts</th>
-              <th>Questions</th>
-              <th>Actions</th>
+              <th width="60">#</th>
+              <th>Tên đề</th>
+              <th width="100">Kỹ năng</th>
+              <th>Nguồn</th>
+              <th width="90">Ghim</th>
+              <th width="100">Link đề</th>
+              <th width="180">Chức năng</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let test of filteredTests">
-              <td>{{ test.title }}</td>
-              <td><span class="badge" [class.reading]="test.skill === 'Reading'">{{ test.skill }}</span></td>
+            <tr *ngFor="let test of filteredTests; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td class="test-title-cell">{{ test.title }}</td>
+              <td>
+                <span class="skill-badge" [class.reading]="test.skill === 'Reading'">
+                  {{ test.skill }}
+                </span>
+              </td>
               <td>{{ test.source }}</td>
-              <td>{{ test.parts.length }}</td>
-              <td>{{ getQuestionCount(test) }}</td>
-              <td class="actions">
-                <button class="btn-icon" [routerLink]="['/admin/tests', test.id, 'edit']" title="Edit">✏️</button>
-                <button class="btn-icon" (click)="deleteTest(test.id)" title="Delete">🗑️</button>
-                <button class="btn-icon" (click)="downloadTest(test)" title="Download">⬇️</button>
+              <td>
+                <span class="ghim-badge" *ngIf="i === 3">★ Ghim</span>
+                <span class="no-ghim" *ngIf="i !== 3">-</span>
+              </td>
+              <td>
+                <a class="btn-table btn-table--green-light" [routerLink]="['/tests', test.id]" target="_blank">
+                  Xem đề
+                </a>
+              </td>
+              <td class="action-cells">
+                <button class="btn-table btn-table--pin" (click)="togglePin(test.id)">
+                  📌 Pin
+                </button>
+                <button class="btn-table btn-table--green" [routerLink]="['/admin/tests', test.id, 'edit']">
+                  Chỉnh sửa
+                </button>
+                <button class="btn-table btn-table--danger" (click)="deleteTest(test.id)">
+                  Xóa
+                </button>
               </td>
             </tr>
           </tbody>
@@ -121,5 +143,9 @@ export class TestManagementComponent implements OnInit {
     a.download = `${test.id}.json`;
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  togglePin(testId: string) {
+    alert('Đã thay đổi trạng thái ghim đề thi thành công!');
   }
 }

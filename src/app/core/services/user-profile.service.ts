@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { AppUser, Test, UserProfile } from '../../models/app.models';
+import { AppUser, Test, UserProfile, UserPackage } from '../../models/app.models';
 import { getFirebaseDb, isFirebaseEnabled } from '../firebase/firebase.client';
 
 const PROFILE_KEY = 'ielts9s-profiles';
@@ -10,8 +10,56 @@ export class UserProfileService {
   async ensureProfile(user: AppUser): Promise<UserProfile> {
     const existing = await this.getUserProfile(user.uid);
     if (existing) {
+      // Self-healing: if Firebase is enabled but the document doesn't exist on Firestore, recreate it
+      if (isFirebaseEnabled()) {
+        const db = getFirebaseDb();
+        if (db) {
+          try {
+            const snapshot = await getDoc(doc(db, 'users', user.uid));
+            if (!snapshot.exists()) {
+              await setDoc(doc(db, 'users', user.uid), {
+                uid: existing.uid,
+                displayName: existing.displayName,
+                email: existing.email,
+                photoURL: existing.photoURL,
+                rank: existing.rank,
+                targetBand: existing.targetBand,
+                stats: existing.stats,
+                createdAt: existing.createdAt
+              });
+
+              if (!existing.package) {
+                existing.package = {
+                  create_at: new Date().toISOString(),
+                  days: 30,
+                  expired_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                  number_test: 0,
+                  type: 1,
+                  uid: user.uid
+                };
+                const profiles = this.readProfiles();
+                profiles[user.uid] = existing;
+                localStorage.setItem(PROFILE_KEY, JSON.stringify(profiles));
+              }
+
+              await setDoc(doc(db, 'users', user.uid, 'data', 'package'), existing.package);
+            }
+          } catch (err) {
+            console.error('Error syncing user profile to Firestore:', err);
+          }
+        }
+      }
       return existing;
     }
+
+    const defaultPackage: UserPackage = {
+      create_at: new Date().toISOString(),
+      days: 30,
+      expired_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      number_test: 0,
+      type: 1, // 1 is standard
+      uid: user.uid
+    };
 
     const profile: UserProfile = {
       uid: user.uid,
@@ -24,7 +72,8 @@ export class UserProfileService {
         reading: {},
         listening: {}
       },
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      package: defaultPackage
     };
 
     const profiles = this.readProfiles();
@@ -34,7 +83,20 @@ export class UserProfileService {
     if (isFirebaseEnabled()) {
       const db = getFirebaseDb();
       if (db) {
-        await setDoc(doc(db, 'users', user.uid), profile);
+        // Write user profile main doc
+        await setDoc(doc(db, 'users', user.uid), {
+          uid: profile.uid,
+          displayName: profile.displayName,
+          email: profile.email,
+          photoURL: profile.photoURL,
+          rank: profile.rank,
+          targetBand: profile.targetBand,
+          stats: profile.stats,
+          createdAt: profile.createdAt
+        });
+
+        // Write user package to users/{uid}/data/package subcollection path
+        await setDoc(doc(db, 'users', user.uid, 'data', 'package'), defaultPackage);
       }
     }
 
@@ -47,7 +109,18 @@ export class UserProfileService {
       if (db) {
         const snapshot = await getDoc(doc(db, 'users', uid));
         if (snapshot.exists()) {
-          return snapshot.data() as UserProfile;
+          const profile = snapshot.data() as UserProfile;
+
+          try {
+            const pkgSnap = await getDoc(doc(db, 'users', uid, 'data', 'package'));
+            if (pkgSnap.exists()) {
+              profile.package = pkgSnap.data() as UserPackage;
+            }
+          } catch (err) {
+            console.error('Error fetching user package from Firestore:', err);
+          }
+
+          return profile;
         }
       }
     }
@@ -89,6 +162,11 @@ export class UserProfileService {
     });
 
     const nextRank: UserProfile['rank'] = bandScore >= 8 ? 'master' : bandScore >= 7 ? 'knight' : bandScore >= 6 ? 'scout' : 'novice';
+    
+    if (profile.package) {
+      profile.package.number_test = (profile.package.number_test || 0) + 1;
+    }
+
     const updatedProfile: UserProfile = {
       ...profile,
       stats: nextStats,
@@ -106,6 +184,12 @@ export class UserProfileService {
           stats: nextStats,
           rank: nextRank
         });
+
+        if (profile.package) {
+          await updateDoc(doc(db, 'users', userId, 'data', 'package'), {
+            number_test: profile.package.number_test
+          });
+        }
       }
     }
   }
