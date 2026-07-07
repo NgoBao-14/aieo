@@ -18,14 +18,12 @@ import { AdminLayoutComponent } from './pages/admin/layout/admin-layout.componen
 import { AdminUpgradeComponent } from './pages/admin/upgrade/admin-upgrade.component';
 
 const routes: Routes = [
-  // ── Landing page — full width, no sidebar ────────────────────
-  { path: '', component: HomeComponent },
-
   // ── Learner area — shared sidebar layout ─────────────────────
   {
     path: '',
     component: MainLayoutComponent,
     children: [
+      { path: '',           component: HomeComponent, pathMatch: 'full' },
       { path: 'vocabulary', component: VocabularyComponent },
       { path: 'dictionary', component: DictionaryComponent },
       { path: 'roadmap',        component: RoadmapComponent },

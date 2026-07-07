@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TestDataService } from '../../../core/services/test-data.service';
+import { CloudTestService } from '../../../core/services/cloud-test.service';
 import { Test } from '../../../models/app.models';
 
 @Component({
@@ -96,7 +97,10 @@ export class TestManagementComponent implements OnInit {
   selectedSkill = '';
   loading = true;
 
-  constructor(private testDataService: TestDataService) {}
+  constructor(
+    private testDataService: TestDataService,
+    private cloudTestService: CloudTestService
+  ) {}
 
   ngOnInit() {
     this.loadTests();
@@ -128,9 +132,16 @@ export class TestManagementComponent implements OnInit {
   }
 
   deleteTest(testId: string) {
-    if (confirm('Are you sure you want to delete this test? This cannot be undone.')) {
-      // TODO: Implement delete functionality
-      alert('Delete functionality to be implemented');
+    const test = this.tests.find(t => t.id === testId);
+    if (!test) return;
+
+    if (confirm(`Are you sure you want to delete this test (${test.title})? This cannot be undone.`)) {
+      this.cloudTestService.deleteTest(testId, test.skill).then(() => {
+        alert('Test deleted successfully!');
+        this.loadTests();
+      }).catch(err => {
+        alert('Failed to delete test: ' + err.message);
+      });
     }
   }
 

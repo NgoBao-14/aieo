@@ -42,7 +42,7 @@ import { Observable } from 'rxjs';
         <h2>Quick Actions</h2>
         <div class="action-buttons">
           <button class="btn btn--primary" routerLink="/admin/tests/new">➕ Create New Test</button>
-          <button class="btn btn--ghost" routerLink="/admin/import-export">📤 Import from Excel</button>
+          <button class="btn btn--ghost" routerLink="/admin/tests/new">📤 Import from Excel</button>
           <button class="btn btn--ghost" routerLink="/admin/tests">📋 Manage Tests</button>
         </div>
       </section>

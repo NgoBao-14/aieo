@@ -13,13 +13,37 @@
     </nav>
 
     <ng-container *ngIf="user$ | async as user; else guestAction">
-      <div class="toeic-user">
-        <img [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
-        <div>
-          <strong>{{ user.displayName }}</strong>
-          <span>{{ user.email }}</span>
+      <div class="toeic-user-dropdown">
+        <button class="toeic-user-trigger" type="button">
+          <img class="toeic-user-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
+          <span class="toeic-user-name">{{ user.displayName }}</span>
+          <svg class="toeic-chevron" viewBox="0 0 24 24" width="16" height="16">
+            <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </button>
+        <div class="toeic-dropdown-menu">
+          <div class="toeic-dropdown-profile">
+            <img class="toeic-dropdown-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
+            <div class="toeic-dropdown-info">
+              <span class="toeic-dropdown-name">{{ user.displayName }}</span>
+              <span class="toeic-dropdown-email">{{ user.email }}</span>
+            </div>
+          </div>
+          <div class="toeic-dropdown-divider"></div>
+          <a routerLink="/dashboard" class="toeic-dropdown-item">
+            <span class="toeic-dropdown-icon">📊</span>
+            <span>Bảng điều khiển</span>
+          </a>
+          <a routerLink="/roadmap" class="toeic-dropdown-item">
+            <span class="toeic-dropdown-icon">🛣️</span>
+            <span>Lộ trình học tập</span>
+          </a>
+          <div class="toeic-dropdown-divider"></div>
+          <button class="toeic-dropdown-item logout-btn" type="button" (click)="logout()">
+            <span class="toeic-dropdown-icon">🚪</span>
+            <span>Đăng xuất</span>
+          </button>
         </div>
-        <button type="button" (click)="logout()">Đăng xuất</button>
       </div>
     </ng-container>
 
