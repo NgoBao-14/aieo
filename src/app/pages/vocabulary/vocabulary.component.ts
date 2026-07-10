@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 export interface VocabWord {
   word: string;
@@ -23,7 +26,26 @@ interface PosTab {
   templateUrl: './vocabulary.component.html',
   styleUrls: ['./vocabulary.component.scss']
 })
-export class VocabularyComponent {
+export class VocabularyComponent implements OnDestroy {
+  private routerSubscription: Subscription;
+
+  constructor(private router: Router) {
+    this.routerSubscription = this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects || event.url;
+      if (url === '/vocabulary' || url.startsWith('/vocabulary?')) {
+        this.flashcardMode = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
   // State quản lý giao diện
   selectedPos = 'noun';
   streakDays = 0;
@@ -115,6 +137,45 @@ export class VocabularyComponent {
     return Math.round((completed / posTab.totalDays) * 100);
   }
 
+  currentStudyTab = 'quiz';
+  selectedDayId = 'noun-1';
+  selectedDayNumber = 1;
+
+  // Quiz state
+  quizQuestions: any[] = [];
+  currentQuizIndex = 0;
+  quizScore = 0;
+  selectedAnswer: string | null = null;
+  answerChecked = false;
+  incorrectSelection: string | null = null;
+  showQuizResult = false;
+
+  // Listening Quiz state
+  listeningQuestions: any[] = [];
+  currentListeningIndex = 0;
+  listeningScore = 0;
+  selectedListeningAnswer: string | null = null;
+  listeningChecked = false;
+  incorrectListeningSelection: string | null = null;
+  showListeningResult = false;
+
+  // Matching game state
+  matchingWords: any[] = [];
+  matchingDefs: any[] = [];
+  selectedWordMatch: any = null;
+  selectedDefMatch: any = null;
+  matchedPairs = new Set<string>();
+  matchingStatusMessage = '';
+
+  // Writing state
+  writingQuestions: any[] = [];
+  currentWritingIndex = 0;
+  writingScore = 0;
+  writingInput = '';
+  writingChecked = false;
+  writingFeedback: 'correct' | 'incorrect' | null = null;
+  showWritingResult = false;
+
   selectPos(posId: string): void {
     this.selectedPos = posId;
     this.currentCardIndex = 0;
@@ -136,10 +197,20 @@ export class VocabularyComponent {
   }
 
   startLearning(dayId: string): void {
-    // Chuyển sang chế độ flashcard học từ
+    if (dayId !== 'default') {
+      this.selectedDayId = dayId;
+      const parts = dayId.split('-');
+      if (parts.length === 2) {
+        this.selectedDayNumber = parseInt(parts[1], 10);
+      }
+    } else {
+      this.selectedDayId = `${this.selectedPos}-1`;
+      this.selectedDayNumber = 1;
+    }
     this.flashcardMode = true;
-    this.currentCardIndex = 0;
     this.cardFlipped = false;
+    this.currentCardIndex = 0;
+    this.changeStudyTab('quiz'); // Default to Quiz mode per request
   }
 
   markDayCompleted(dayId: string, event: Event): void {
@@ -163,6 +234,258 @@ export class VocabularyComponent {
     this.flashcardMode = !this.flashcardMode;
     this.currentCardIndex = 0;
     this.cardFlipped = false;
+  }
+
+  changeStudyTab(tab: string): void {
+    this.currentStudyTab = tab;
+    if (tab === 'quiz') {
+      this.initQuiz();
+    } else if (tab === 'listening') {
+      this.initListening();
+    } else if (tab === 'matching') {
+      this.initMatching();
+    } else if (tab === 'writing') {
+      this.initWriting();
+    }
+  }
+
+  // Quiz Mode Logic
+  initQuiz(): void {
+    this.currentQuizIndex = 0;
+    this.quizScore = 0;
+    this.selectedAnswer = null;
+    this.answerChecked = false;
+    this.incorrectSelection = null;
+    this.showQuizResult = false;
+
+    const list = this.filteredWords;
+    if (list.length === 0) return;
+
+    this.quizQuestions = list.map(word => {
+      const options = new Set<string>();
+      options.add(word.word);
+      
+      const allWords = this.words.map(w => w.word);
+      while (options.size < Math.min(6, allWords.length)) {
+        const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
+        options.add(randomWord);
+      }
+
+      return {
+        word: word,
+        options: this.shuffleArray(Array.from(options)),
+        correctAnswer: word.word
+      };
+    });
+  }
+
+  selectQuizOption(option: string): void {
+    if (this.answerChecked) return;
+    this.selectedAnswer = option;
+    this.answerChecked = true;
+    const currentQ = this.quizQuestions[this.currentQuizIndex];
+    if (option === currentQ.correctAnswer) {
+      this.quizScore++;
+      this.learnedWords.add(currentQ.word.word);
+    } else {
+      this.incorrectSelection = option;
+    }
+  }
+
+  nextQuizQuestion(): void {
+    this.selectedAnswer = null;
+    this.answerChecked = false;
+    this.incorrectSelection = null;
+    if (this.currentQuizIndex < this.quizQuestions.length - 1) {
+      this.currentQuizIndex++;
+    } else {
+      this.showQuizResult = true;
+      if (this.quizScore >= this.quizQuestions.length / 2) {
+        this.learnedDays.add(this.selectedDayId);
+        this.totalLearnedCount = this.learnedDays.size;
+        if (this.totalLearnedCount > this.maxRecord) {
+          this.maxRecord = this.totalLearnedCount;
+        }
+        this.streakDays = 1;
+        this.todayWordsLearned = Math.min(10, this.todayWordsLearned + 3);
+      }
+    }
+  }
+
+  restartQuiz(): void {
+    this.initQuiz();
+  }
+
+  // Listening Mode Logic
+  initListening(): void {
+    this.currentListeningIndex = 0;
+    this.listeningScore = 0;
+    this.selectedListeningAnswer = null;
+    this.listeningChecked = false;
+    this.incorrectListeningSelection = null;
+    this.showListeningResult = false;
+
+    const list = this.filteredWords;
+    if (list.length === 0) return;
+
+    this.listeningQuestions = list.map(word => {
+      const options = new Set<string>();
+      options.add(word.word);
+      
+      const allWords = this.words.map(w => w.word);
+      while (options.size < Math.min(6, allWords.length)) {
+        const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
+        options.add(randomWord);
+      }
+
+      return {
+        word: word,
+        options: this.shuffleArray(Array.from(options)),
+        correctAnswer: word.word
+      };
+    });
+    
+    setTimeout(() => {
+      this.playWordAudio(this.listeningQuestions[0].word.word);
+    }, 300);
+  }
+
+  playWordAudio(word: string): void {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Trình duyệt của bạn không hỗ trợ phát âm thanh.');
+    }
+  }
+
+  selectListeningOption(option: string): void {
+    if (this.listeningChecked) return;
+    this.selectedListeningAnswer = option;
+    this.listeningChecked = true;
+    const currentQ = this.listeningQuestions[this.currentListeningIndex];
+    if (option === currentQ.correctAnswer) {
+      this.listeningScore++;
+    } else {
+      this.incorrectListeningSelection = option;
+    }
+  }
+
+  nextListeningQuestion(): void {
+    this.selectedListeningAnswer = null;
+    this.listeningChecked = false;
+    this.incorrectListeningSelection = null;
+    if (this.currentListeningIndex < this.listeningQuestions.length - 1) {
+      this.currentListeningIndex++;
+      setTimeout(() => {
+        this.playWordAudio(this.listeningQuestions[this.currentListeningIndex].word.word);
+      }, 200);
+    } else {
+      this.showListeningResult = true;
+    }
+  }
+
+  restartListening(): void {
+    this.initListening();
+  }
+
+  // Matching Mode Logic
+  initMatching(): void {
+    this.matchedPairs.clear();
+    this.selectedWordMatch = null;
+    this.selectedDefMatch = null;
+    this.matchingStatusMessage = 'Hãy ghép từ tiếng Anh với nghĩa tương ứng!';
+
+    const list = this.shuffleArray([...this.filteredWords]).slice(0, 5);
+    if (list.length === 0) return;
+
+    this.matchingWords = this.shuffleArray(list.map(w => ({ word: w.word, matched: false })));
+    this.matchingDefs = this.shuffleArray(list.map(w => ({ word: w.word, defVi: w.defVi, matched: false })));
+  }
+
+  selectWordMatch(item: any): void {
+    if (item.matched) return;
+    this.selectedWordMatch = item;
+    this.checkMatch();
+  }
+
+  selectDefMatch(item: any): void {
+    if (item.matched) return;
+    this.selectedDefMatch = item;
+    this.checkMatch();
+  }
+
+  checkMatch(): void {
+    if (this.selectedWordMatch && this.selectedDefMatch) {
+      if (this.selectedWordMatch.word === this.selectedDefMatch.word) {
+        this.selectedWordMatch.matched = true;
+        this.selectedDefMatch.matched = true;
+        this.matchedPairs.add(this.selectedWordMatch.word);
+        this.selectedWordMatch = null;
+        this.selectedDefMatch = null;
+        
+        if (this.matchedPairs.size === this.matchingWords.length) {
+          this.matchingStatusMessage = '🎉 Xuất sắc! Bạn đã ghép đúng tất cả các từ!';
+        } else {
+          this.matchingStatusMessage = 'Chính xác! Tiếp tục ghép các từ còn lại.';
+        }
+      } else {
+        this.matchingStatusMessage = '❌ Chưa chính xác, hãy thử lại!';
+        this.selectedWordMatch = null;
+        this.selectedDefMatch = null;
+      }
+    }
+  }
+
+  // Writing Mode Logic
+  initWriting(): void {
+    this.currentWritingIndex = 0;
+    this.writingScore = 0;
+    this.writingInput = '';
+    this.writingChecked = false;
+    this.writingFeedback = null;
+    this.showWritingResult = false;
+    this.writingQuestions = [...this.filteredWords];
+  }
+
+  checkWritingAnswer(): void {
+    if (this.writingChecked) return;
+    this.writingChecked = true;
+    const currentQ = this.writingQuestions[this.currentWritingIndex];
+    if (this.writingInput.trim().toLowerCase() === currentQ.word.toLowerCase()) {
+      this.writingFeedback = 'correct';
+      this.writingScore++;
+    } else {
+      this.writingFeedback = 'incorrect';
+    }
+  }
+
+  nextWritingQuestion(): void {
+    this.writingInput = '';
+    this.writingChecked = false;
+    this.writingFeedback = null;
+    if (this.currentWritingIndex < this.writingQuestions.length - 1) {
+      this.currentWritingIndex++;
+    } else {
+      this.showWritingResult = true;
+    }
+  }
+
+  restartWriting(): void {
+    this.initWriting();
+  }
+
+  // Helper utils
+  shuffleArray(array: any[]): any[] {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
   }
 
   flipCard(): void {
