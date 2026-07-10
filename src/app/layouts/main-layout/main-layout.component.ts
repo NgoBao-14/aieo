@@ -16,6 +16,7 @@ export class MainLayoutComponent implements OnInit {
   currentSessionId = 0;
   streak = 0;
   bandEstimate = 0;
+  mobileMenuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -28,6 +29,10 @@ export class MainLayoutComponent implements OnInit {
     this.currentSessionId = p.currentSessionId;
     this.streak = p.streak;
     this.bandEstimate = p.bandEstimate;
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   async login(): Promise<void> {

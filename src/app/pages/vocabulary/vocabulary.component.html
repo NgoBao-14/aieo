@@ -1,144 +1,220 @@
-<div class="vocab-page">
-  <section class="vocab-hero">
-    <div>
-      <p class="vocab-kicker">IELTS Word Bank</p>
-      <h1>Từ vựng IELTS</h1>
-      <p class="vocab-meta">{{ filteredWords.length }} từ trong bộ lọc · {{ savedWords.size }} đã lưu</p>
-    </div>
-    <div class="vocab-stats-promo">
-      <div class="vocab-progress-pill">
-        <div class="vocab-progress-pill__bar" [style.width.%]="learnedPercent"></div>
-        <span>{{ learnedPercent }}% đã thuộc</span>
-      </div>
-      <button class="btn-mode" (click)="toggleFlashcard()">
-        {{ flashcardMode ? '📋 Danh sách' : '🃏 Flashcard' }}
-      </button>
-    </div>
-  </section>
-
-  <div class="vocab-filters">
-    <div class="vocab-filter-row">
-      <span class="vocab-filter-label">Chủ đề</span>
-      <div class="vocab-chips">
-        <button class="vocab-chip" [class.active]="selectedTopic === ''" (click)="selectTopic('')">Tất cả</button>
-        <button
-          *ngFor="let topic of topics"
-          class="vocab-chip"
-          [class.active]="selectedTopic === topic.id"
-          (click)="selectTopic(topic.id)">
-          {{ topic.icon }} {{ topic.name }}
-        </button>
-      </div>
+<div class="vocab-layout-container">
+  <!-- SIDEBAR BÊN TRÁI -->
+  <aside class="vocab-sidebar">
+    <div class="vocab-sidebar-header">
+      <h2>TỪ VỰNG IELTS</h2>
+      <span class="vocab-badge-total">3000+ Từ</span>
     </div>
 
-    <div class="vocab-filter-row">
-      <span class="vocab-filter-label">Band</span>
-      <div class="vocab-chips">
-        <button class="vocab-chip" [class.active]="selectedBand === ''" (click)="selectBand('')">Tất cả</button>
-        <button
-          *ngFor="let b of bands"
-          class="vocab-chip vocab-chip--band"
-          [class.active]="selectedBand === b"
-          (click)="selectBand(b)">
-          {{ b }}+
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <ng-container *ngIf="flashcardMode && filteredWords.length">
-    <div class="flashcard-wrap">
-      <div class="flashcard" [class.flipped]="cardFlipped" (click)="flipCard()">
-        <div class="flashcard__inner">
-          <div class="flashcard__front">
-            <span class="flashcard__band">Band {{ currentCard.band }}+</span>
-            <h2>{{ currentCard.word }}</h2>
-            <p class="flashcard__phonetic">{{ currentCard.phonetic }}</p>
-            <p class="flashcard__hint">Nhấn để xem nghĩa</p>
-          </div>
-          <div class="flashcard__back">
-            <span class="flashcard__pos">{{ currentCard.pos }}</span>
-            <h3 class="flashcard__vi">{{ currentCard.defVi }}</h3>
-            <p class="flashcard__en">{{ currentCard.defEn }}</p>
-            <p class="flashcard__example">"{{ currentCard.example }}"</p>
-          </div>
+    <!-- Khối Streak hàng ngày -->
+    <div class="vocab-streak-card">
+      <div class="streak-header">
+        <span class="streak-fire-icon" [class.active]="streakDays > 0">💧</span>
+        <div class="streak-info">
+          <span class="streak-number">{{ streakDays }}</span>
+          <span class="streak-lbl">NGÀY LIÊN TIẾP</span>
         </div>
       </div>
 
-      <div class="flashcard-nav">
-        <button class="fc-nav-btn" (click)="prevCard()">←</button>
-        <span class="fc-counter">{{ currentCardIndex + 1 }} / {{ filteredWords.length }}</span>
-        <button class="fc-nav-btn" (click)="nextCard()">→</button>
+      <div class="streak-progress-section">
+        <div class="streak-progress-txt">
+          <span>Hôm nay</span>
+          <strong>{{ todayWordsLearned }}/10 từ</strong>
+        </div>
+        <div class="streak-progress-bar-bg">
+          <div class="streak-progress-bar-fill" [style.width.%]="todayWordsLearned * 10"></div>
+        </div>
+        <p class="streak-tip" *ngIf="todayWordsLearned === 0">
+          Học từ đầu tiên hôm nay để bắt đầu chuỗi
+        </p>
+        <p class="streak-tip success" *ngIf="todayWordsLearned > 0">
+          Tuyệt vời! Tiếp tục duy trì nhé!
+        </p>
       </div>
 
-      <div class="flashcard-actions">
-        <button class="fc-btn fc-btn--skip" (click)="nextCard()">Bỏ qua</button>
-        <button
-          class="fc-btn fc-btn--save"
-          [class.saved]="savedWords.has(currentCard.word)"
-          (click)="toggleSave(currentCard.word)">
-          {{ savedWords.has(currentCard.word) ? '♥ Đã lưu' : '♡ Lưu từ' }}
-        </button>
-        <button
-          class="fc-btn fc-btn--ok"
-          [class.learned]="learnedWords.has(currentCard.word)"
-          (click)="toggleLearned(currentCard.word); nextCard()">
-          {{ learnedWords.has(currentCard.word) ? '✓ Đã thuộc' : '✓ Thuộc rồi' }}
-        </button>
+      <div class="streak-stats-row">
+        <div class="stat-col">
+          <strong>{{ totalLearnedCount }}</strong>
+          <span>TỪ TỔNG</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-col">
+          <strong>{{ maxRecord }}</strong>
+          <span>KỶ LỤC</span>
+        </div>
       </div>
     </div>
-  </ng-container>
 
-  <ng-container *ngIf="!flashcardMode">
-    <div class="word-grid" *ngIf="filteredWords.length; else emptyState">
-      <article
-        class="word-card"
-        *ngFor="let word of filteredWords"
-        [class.learned]="learnedWords.has(word.word)">
+    <!-- Khối Lộ trình & Cá nhân -->
+    <div class="vocab-sidebar-menu">
+      <div class="menu-item active">
+        <div class="menu-icon font-icon">📘</div>
+        <div class="menu-txt">
+          <strong>Lộ trình học</strong>
+          <span>20 ngày · 1000 từ</span>
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon font-icon tag-icon">🔖</div>
+        <div class="menu-txt">
+          <strong>Của tôi</strong>
+          <span>Từ đã lưu, ôn cá nhân</span>
+        </div>
+      </div>
+    </div>
+  </aside>
 
-        <div class="word-card__top">
-          <div>
-            <h3 class="word-card__word">{{ word.word }}</h3>
-            <span class="word-card__phonetic">{{ word.phonetic }}</span>
-          </div>
-          <div class="word-card__tags">
-            <span class="word-card__pos">{{ word.pos }}</span>
-            <span class="word-card__band">B{{ word.band }}</span>
-          </div>
+  <!-- NỘI DUNG CHÍNH BÊN PHẢI -->
+  <main class="vocab-main-content">
+    
+    <!-- GIAO DIỆN FLASHCARD KHI ĐANG HỌC -->
+    <ng-container *ngIf="flashcardMode && filteredWords.length">
+      <div class="flashcard-workspace">
+        <div class="workspace-header">
+          <button class="btn-back" (click)="toggleFlashcard()">← Quay lại danh sách</button>
+          <h3>Chế độ Flashcard ({{ selectedPos === 'noun' ? 'Danh từ' : selectedPos === 'verb' ? 'Động từ' : selectedPos === 'adj' ? 'Tính từ' : 'Trạng từ' }})</h3>
         </div>
 
-        <p class="word-card__vi">{{ word.defVi }}</p>
-        <p class="word-card__en">{{ word.defEn }}</p>
-        <p class="word-card__example">"{{ word.example }}"</p>
+        <div class="flashcard-wrap">
+          <div class="flashcard" [class.flipped]="cardFlipped" (click)="flipCard()">
+            <div class="flashcard__inner">
+              <div class="flashcard__front">
+                <span class="flashcard__band">Band {{ currentCard.band }}+</span>
+                <h2>{{ currentCard.word }}</h2>
+                <p class="flashcard__phonetic">{{ currentCard.phonetic }}</p>
+                <p class="flashcard__hint">Nhấn để xem nghĩa</p>
+              </div>
+              <div class="flashcard__back">
+                <span class="flashcard__pos">{{ currentCard.pos }}</span>
+                <h3 class="flashcard__vi">{{ currentCard.defVi }}</h3>
+                <p class="flashcard__en">{{ currentCard.defEn }}</p>
+                <p class="flashcard__example">"{{ currentCard.example }}"</p>
+              </div>
+            </div>
+          </div>
 
-        <div class="word-card__footer">
-          <span class="word-card__topic">{{ getTopicLabel(word.topic) }}</span>
-          <div class="word-card__actions">
+          <div class="flashcard-nav">
+            <button class="fc-nav-btn" (click)="prevCard()">←</button>
+            <span class="fc-counter">{{ currentCardIndex + 1 }} / {{ filteredWords.length }}</span>
+            <button class="fc-nav-btn" (click)="nextCard()">→</button>
+          </div>
+
+          <div class="flashcard-actions">
+            <button class="fc-btn fc-btn--skip" (click)="nextCard()">Bỏ qua</button>
             <button
-              class="word-btn btn-save"
-              [class.active]="savedWords.has(word.word)"
-              (click)="toggleSave(word.word)"
-              title="Lưu từ">
-              {{ savedWords.has(word.word) ? '♥' : '♡' }}
+              class="fc-btn fc-btn--save"
+              [class.saved]="savedWords.has(currentCard.word)"
+              (click)="toggleSave(currentCard.word)">
+              {{ savedWords.has(currentCard.word) ? '♥ Đã lưu' : '♡ Lưu từ' }}
             </button>
             <button
-              class="word-btn btn-learned"
-              [class.active]="learnedWords.has(word.word)"
-              (click)="toggleLearned(word.word)"
-              title="Thuộc rồi">
-              {{ learnedWords.has(word.word) ? '✓' : '○' }}
+              class="fc-btn fc-btn--ok"
+              [class.learned]="learnedWords.has(currentCard.word)"
+              (click)="toggleLearned(currentCard.word); nextCard()">
+              {{ learnedWords.has(currentCard.word) ? '✓ Đã thuộc' : '✓ Thuộc rồi' }}
             </button>
           </div>
         </div>
-      </article>
-    </div>
-
-    <ng-template #emptyState>
-      <div class="vocab-empty">
-        <p class="vocab-empty__icon">📭</p>
-        <p class="vocab-empty__title">Không tìm thấy từ vựng</p>
-        <p class="vocab-empty__sub">Thử chọn chủ đề khác hoặc bỏ bộ lọc band.</p>
       </div>
-    </ng-template>
-  </ng-container>
+    </ng-container>
+
+    <!-- GIAO DIỆN BẢNG ĐIỀU KHIỂN CHÍNH -->
+    <ng-container *ngIf="!flashcardMode">
+      <!-- THẺ HERO XANH ĐẬM -->
+      <div class="vocab-hero-card">
+        <div class="hero-main-info">
+          <div class="hero-meta">
+            <span>TỪ VỰNG IELTS · 20 NGÀY HỌC</span>
+            <span class="hero-badge-days">💧 {{ streakDays }} ngày</span>
+          </div>
+          
+          <h1 class="hero-title">
+            {{ selectedPos === 'noun' ? 'Danh từ' : selectedPos === 'verb' ? 'Động từ' : selectedPos === 'adj' ? 'Tính từ' : 'Trạng từ' }} · Ngày 1
+          </h1>
+          <p class="hero-subtitle">TỪ 1-50 · 50 từ</p>
+
+          <!-- Tiến trình & Nút bấm -->
+          <div class="hero-actions-row">
+            <div class="hero-progress-wrapper">
+              <div class="hero-progress-bar-container">
+                <div class="hero-progress-bar-fill" [style.width.%]="learnedPercent"></div>
+                <div class="hero-progress-bullet" [style.left.%]="learnedPercent"></div>
+              </div>
+              <span class="hero-progress-fraction">{{ learnedPercent }}%</span>
+            </div>
+            
+            <div class="hero-btn-group">
+              <button class="btn-start-study" (click)="startLearning('default')">Bắt đầu học →</button>
+              <button class="btn-dictation" (click)="triggerDictionary()">Nghe chép</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thống kê tiến độ các từ loại ở góc phải thẻ Hero -->
+        <div class="hero-stats-panel">
+          <div class="stat-progress-line" *ngFor="let tab of posTabs">
+            <div class="stat-line-left">
+              <span class="stat-icon">{{ tab.icon }}</span>
+              <span class="stat-name">{{ tab.name }}</span>
+            </div>
+            <div class="stat-line-right">
+              <div class="mini-progress-bg">
+                <div class="mini-progress-fill" [style.width.%]="getPosProgressPercent(tab)"></div>
+              </div>
+              <span class="stat-fraction">
+                {{ getLearnedDaysCount(tab.id) }}/{{ tab.totalDays }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THANH TABS TỪ LOẠI -->
+      <nav class="vocab-tabs-bar">
+        <button
+          *ngFor="let tab of posTabs"
+          class="tab-btn"
+          [class.active]="selectedPos === tab.id"
+          (click)="selectPos(tab.id)">
+          <span class="tab-icon">{{ tab.icon }}</span>
+          <span class="tab-label">{{ tab.name }}</span>
+          <span class="tab-count">{{ getLearnedDaysCount(tab.id) }}/{{ tab.totalDays }}</span>
+        </button>
+      </nav>
+
+      <!-- DANH SÁCH CÁC NGÀY HỌC -->
+      <div class="vocab-days-list">
+        <div
+          class="day-card-row"
+          *ngFor="let day of getDaysForActivePos()"
+          [class.completed]="learnedDays.has(day.id)"
+          (click)="startLearning(day.id)">
+          
+          <div class="day-left-section">
+            <div class="day-badge-circle" (click)="markDayCompleted(day.id, $event)">
+              <span class="day-number" *ngIf="!learnedDays.has(day.id)">{{ day.dayNumber }}</span>
+              <span class="day-check" *ngIf="learnedDays.has(day.id)">✓</span>
+            </div>
+            <div class="day-text-info">
+              <h3>Ngày {{ day.dayNumber }}</h3>
+              <p>{{ day.range }}</p>
+            </div>
+          </div>
+
+          <div class="day-right-actions">
+            <button class="btn-card-learn" (click)="startLearning(day.id)">Học</button>
+            <button class="btn-card-dictation" (click)="$event.stopPropagation(); triggerDictionary()">Nghe chép</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </main>
 </div>
+
+<!-- NÚT TRA TỪ NỔI Ở CẠNH PHẢI -->
+<div class="floating-dict-btn" (click)="triggerDictionary()">
+  <span class="dict-icon">🕵️‍♂️</span>
+  <span class="dict-txt">Tra từ</span>
+</div>
+

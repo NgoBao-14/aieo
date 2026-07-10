@@ -4,91 +4,97 @@
       <span class="toeic-logo__main">IELTS</span><span class="toeic-logo__accent">9S</span>
     </a>
 
-    <nav class="toeic-header__nav" aria-label="Primary navigation">
-      <a routerLink="/tests" routerLinkActive="active">Luyện đề</a>
-      <a routerLink="/vocabulary" routerLinkActive="active">Từ vựng</a>
-      <a routerLink="/dictionary" routerLinkActive="active">Từ điển</a>
-      <a routerLink="/exercises" routerLinkActive="active">Dạng bài</a>
-      <a routerLink="/roadmap" routerLinkActive="active">Khoá học</a>
+    <!-- Hamburger Button for Mobile -->
+    <button class="toeic-hamburger" (click)="toggleMobileMenu()" aria-label="Toggle menu" [class.active]="mobileMenuOpen">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
+    <nav class="toeic-header__nav" aria-label="Primary navigation" [class.mobile-open]="mobileMenuOpen">
+      <a routerLink="/tests" routerLinkActive="active" (click)="mobileMenuOpen = false">
+        <span class="menu-card-icon">📒</span>
+        <span class="menu-card-txt">Luyện đề</span>
+      </a>
+      <a routerLink="/vocabulary" routerLinkActive="active" (click)="mobileMenuOpen = false">
+        <span class="menu-card-icon">📖</span>
+        <span class="menu-card-txt">Từ vựng</span>
+      </a>
+      <a routerLink="/dictionary" routerLinkActive="active" (click)="mobileMenuOpen = false">
+        <span class="menu-card-icon">🔠</span>
+        <span class="menu-card-txt">Dictation</span>
+      </a>
+      <a routerLink="/roadmap" routerLinkActive="active" (click)="mobileMenuOpen = false">
+        <span class="menu-card-icon">🏠</span>
+        <span class="menu-card-txt">Khoá học</span>
+      </a>
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="mobileMenuOpen = false">
+        <span class="menu-card-icon">🎓</span>
+        <span class="menu-card-txt">Thông tin</span>
+      </a>
+
+      <!-- Đăng nhập / Đăng xuất dạng card trên Mobile -->
+      <ng-container *ngIf="user$ | async as user; else loginMobile">
+        <button class="menu-card-btn menu-card-logout" (click)="logout(); mobileMenuOpen = false">
+          <span class="menu-card-icon">🚪</span>
+          <span class="menu-card-txt">Đăng xuất</span>
+        </button>
+      </ng-container>
+      <ng-template #loginMobile>
+        <button class="menu-card-btn menu-card-login" (click)="login(); mobileMenuOpen = false">
+          <span class="menu-card-icon">🔑</span>
+          <span class="menu-card-txt">Đăng nhập</span>
+        </button>
+      </ng-template>
     </nav>
 
-    <ng-container *ngIf="user$ | async as user; else guestAction">
-      <div class="toeic-user-dropdown">
-        <button class="toeic-user-trigger" type="button">
-          <img class="toeic-user-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
-          <span class="toeic-user-name">{{ user.displayName }}</span>
-          <svg class="toeic-chevron" viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
-          </svg>
-        </button>
-        <div class="toeic-dropdown-menu">
-          <div class="toeic-dropdown-profile">
-            <img class="toeic-dropdown-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
-            <div class="toeic-dropdown-info">
-              <span class="toeic-dropdown-name">{{ user.displayName }}</span>
-              <span class="toeic-dropdown-email">{{ user.email }}</span>
-            </div>
-          </div>
-          <div class="toeic-dropdown-divider"></div>
-          <a routerLink="/dashboard" class="toeic-dropdown-item">
-            <span class="toeic-dropdown-icon">📊</span>
-            <span>Bảng điều khiển</span>
-          </a>
-          <a routerLink="/roadmap" class="toeic-dropdown-item">
-            <span class="toeic-dropdown-icon">🛣️</span>
-            <span>Lộ trình học tập</span>
-          </a>
-          <div class="toeic-dropdown-divider"></div>
-          <button class="toeic-dropdown-item logout-btn" type="button" (click)="logout()">
-            <span class="toeic-dropdown-icon">🚪</span>
-            <span>Đăng xuất</span>
+    <!-- Khu vực đăng nhập Desktop (ẩn trên Mobile) -->
+    <div class="toeic-header-actions">
+      <ng-container *ngIf="user$ | async as user; else guestAction">
+        <div class="toeic-user-dropdown">
+          <button class="toeic-user-trigger" type="button">
+            <img class="toeic-user-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
+            <span class="toeic-user-name">{{ user.displayName }}</span>
+            <svg class="toeic-chevron" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
+            </svg>
           </button>
+          <div class="toeic-dropdown-menu">
+            <div class="toeic-dropdown-profile">
+              <img class="toeic-dropdown-avatar" [src]="user.photoURL || 'assets/avatar-default.png'" [alt]="user.displayName || 'User'" />
+              <div class="toeic-dropdown-info">
+                <span class="toeic-dropdown-name">{{ user.displayName }}</span>
+                <span class="toeic-dropdown-email">{{ user.email }}</span>
+              </div>
+            </div>
+            <div class="toeic-dropdown-divider"></div>
+            <a routerLink="/dashboard" class="toeic-dropdown-item" (click)="mobileMenuOpen = false">
+              <span class="toeic-dropdown-icon">📊</span>
+              <span>Bảng điều khiển</span>
+            </a>
+            <a routerLink="/roadmap" class="toeic-dropdown-item" (click)="mobileMenuOpen = false">
+              <span class="toeic-dropdown-icon">🛣️</span>
+              <span>Lộ trình học tập</span>
+            </a>
+            <div class="toeic-dropdown-divider"></div>
+            <button class="toeic-dropdown-item logout-btn" type="button" (click)="logout(); mobileMenuOpen = false">
+              <span class="toeic-dropdown-icon">🚪</span>
+              <span>Đăng xuất</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
 
-    <ng-template #guestAction>
-      <button class="google-login" type="button" (click)="login()">
-        <span class="google-login__mark">G</span>
-        Đăng nhập với Google
-      </button>
-    </ng-template>
+      <ng-template #guestAction>
+        <button class="google-login" type="button" (click)="login(); mobileMenuOpen = false">
+          <span class="google-login__mark">G</span>
+          Đăng nhập với Google
+        </button>
+      </ng-template>
+    </div>
   </header>
 
   <div class="toeic-body">
-    <aside class="toeic-side">
-      <div class="toeic-side__panel">
-        <div class="toeic-side__title">
-          <h2>Luyện đề online</h2>
-          <span>Độc quyền học viên IELTS9S</span>
-        </div>
-
-        <nav class="toeic-side__nav" aria-label="Study navigation">
-          <a routerLink="/tests" routerLinkActive="active">
-            <span class="toeic-side__icon">🎧</span>
-            <span>
-              <strong>Luyện đề IELTS</strong>
-              <small>Listening & Reading, giải chi tiết</small>
-            </span>
-          </a>
-          <a routerLink="/exercises" routerLinkActive="active">
-            <span class="toeic-side__icon">🎯</span>
-            <span>
-              <strong>Dạng bài</strong>
-              <small>Luyện kỹ năng theo từng dạng</small>
-            </span>
-          </a>
-          <a routerLink="/dashboard" routerLinkActive="active">
-            <span class="toeic-side__icon">📊</span>
-            <span>
-              <strong>Thống kê</strong>
-              <small>Điểm & lịch sử làm bài</small>
-            </span>
-          </a>
-        </nav>
-      </div>
-    </aside>
-
     <main class="toeic-main">
       <router-outlet></router-outlet>
     </main>
