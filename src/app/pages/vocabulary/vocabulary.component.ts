@@ -10,6 +10,8 @@ export interface VocabWord {
   defVi: string;
   defEn: string;
   example: string;
+  exampleVi?: string;
+  note?: string;
   topic: string;
   band: number;
 }
@@ -71,7 +73,120 @@ export class VocabularyComponent implements OnDestroy {
   ];
 
   readonly words: VocabWord[] = [
-    // Danh từ (noun)
+    // Danh từ (noun) - Words from screenshot
+    {
+      word: 'industry',
+      phonetic: "/'ɪndəstri/",
+      pos: 'noun',
+      defVi: 'Ngành công nghiệp, Công nghiệp',
+      defEn: 'economic activity concerned with the processing of raw materials and manufacture of goods in factories',
+      example: "The country's economy relies heavily on its manufacturing industry.",
+      exampleVi: 'Nền kinh tế của đất nước phụ thuộc nhiều vào ngành công nghiệp sản xuất.',
+      note: 'Thường dùng số ít (industry) khi nói về toàn bộ lĩnh vực sản xuất/kinh doanh, và số nhiều (industries) khi nói về các loại hình kinh doanh khác nhau.',
+      topic: 'business',
+      band: 5
+    },
+    {
+      word: 'brochure',
+      phonetic: "/'broʊʃʊr/",
+      pos: 'noun',
+      defVi: 'Sách quảng cáo, tờ rơi',
+      defEn: 'a small book or magazine containing pictures and information about a product or service',
+      example: 'Please read our brochure for more details about the tour.',
+      exampleVi: 'Vui lòng đọc sách quảng cáo của chúng tôi để biết thêm chi tiết về chuyến tham quan.',
+      topic: 'business',
+      band: 5
+    },
+    {
+      word: 'problem',
+      phonetic: "/'prɑːbləm/",
+      pos: 'noun',
+      defVi: 'Vấn đề, điều khó khăn',
+      defEn: 'a matter or situation regarded as unwelcome or harmful and needing to be overcome',
+      example: 'We are working to solve the customer service problem.',
+      exampleVi: 'Chúng tôi đang làm việc để giải quyết vấn đề dịch vụ khách hàng.',
+      topic: 'general',
+      band: 4
+    },
+    {
+      word: 'order',
+      phonetic: "/'bːrdər/",
+      pos: 'noun',
+      defVi: 'Đơn đặt hàng, trật tự',
+      defEn: 'a request to make, supply, or deliver food or goods',
+      example: 'I would like to place an order for a new laptop.',
+      exampleVi: 'Tôi muốn đặt một đơn hàng cho máy tính xách tay mới.',
+      topic: 'business',
+      band: 4
+    },
+    {
+      word: 'unit',
+      phonetic: "/'juːnɪt/",
+      pos: 'noun',
+      defVi: 'Đơn vị, bộ phận',
+      defEn: 'an individual thing or person regarded as single and complete',
+      example: 'The course is divided into ten learning units.',
+      exampleVi: 'Khóa học được chia thành mười đơn vị học tập.',
+      topic: 'education',
+      band: 4
+    },
+    {
+      word: 'sporting',
+      phonetic: "/'spɔːrtɪŋ/",
+      pos: 'noun',
+      defVi: 'Thể thao, hoạt động thể thao',
+      defEn: 'connected with or interested in sports',
+      example: 'It was a great sporting event.',
+      exampleVi: 'Đó là một sự kiện thể thao tuyệt vời.',
+      topic: 'sports',
+      band: 5
+    },
+    {
+      word: 'list',
+      phonetic: "/'lɪst/",
+      pos: 'noun',
+      defVi: 'Danh sách',
+      defEn: 'a number of connected items or names written consecutively',
+      example: 'She made a list of things to buy.',
+      exampleVi: 'Cô ấy đã lập một danh sách những thứ cần mua.',
+      topic: 'general',
+      band: 4
+    },
+    {
+      word: 'choice',
+      phonetic: "/'tʃɔɪs/",
+      pos: 'noun',
+      defVi: 'Sự lựa chọn',
+      defEn: 'an act of selecting or making a decision when faced with two or more possibilities',
+      example: 'You have a choice between coffee and tea.',
+      exampleVi: 'Bạn có sự lựa chọn giữa cà phê và trà.',
+      topic: 'general',
+      band: 4
+    },
+    {
+      word: 'mailing',
+      phonetic: "/'meɪlɪŋ/",
+      pos: 'noun',
+      defVi: 'Gửi thư, đợt gửi thư',
+      defEn: 'the action of sending mail',
+      example: 'We are preparing the promotional mailing list.',
+      exampleVi: 'Chúng tôi đang chuẩn bị danh sách gửi thư quảng cáo.',
+      topic: 'business',
+      band: 5
+    },
+    {
+      word: 'advertisement',
+      phonetic: "/əd'vɜːrtɪsmənt/",
+      pos: 'noun',
+      defVi: 'Quảng cáo',
+      defEn: 'a notice or announcement in a public medium promoting a product, service, or event',
+      example: 'The advertisement attracted many customers.',
+      exampleVi: 'Quảng cáo đã thu hút nhiều khách hàng.',
+      topic: 'business',
+      band: 5
+    },
+
+    // Old Nouns
     { word: 'biodiversity', phonetic: '/ˌbaɪəʊdaɪˈvɜːsəti/', pos: 'noun', defVi: 'Đa dạng sinh học', defEn: 'the variety of plant and animal life in a habitat', example: 'Deforestation leads to a dramatic loss of biodiversity.', topic: 'environment', band: 7 },
     { word: 'deforestation', phonetic: '/diːˌfɒrɪˈsteɪʃən/', pos: 'noun', defVi: 'Nạn phá rừng', defEn: 'the action of clearing a wide area of trees', example: 'Rampant deforestation has severely impacted wildlife habitats.', topic: 'environment', band: 6 },
     { word: 'emissions', phonetic: '/ɪˈmɪʃənz/', pos: 'noun', defVi: 'Khí thải', defEn: 'the production and discharge of gas into the atmosphere', example: 'Countries must reduce carbon emissions to meet climate targets.', topic: 'environment', band: 6 },
@@ -182,15 +297,29 @@ export class VocabularyComponent implements OnDestroy {
     this.cardFlipped = false;
   }
 
+  getStartDayForPos(posId: string): number {
+    let startDay = 1;
+    for (const tab of this.posTabs) {
+      if (tab.id === posId) {
+        break;
+      }
+      startDay += tab.totalDays;
+    }
+    return startDay;
+  }
+
   getDaysForActivePos(): any[] {
     const tab = this.posTabs.find(t => t.id === this.selectedPos);
     if (!tab) return [];
+    
+    const startDay = this.getStartDayForPos(this.selectedPos);
     const list = [];
     for (let i = 1; i <= tab.totalDays; i++) {
+      const dayNum = startDay + i - 1;
       list.push({
         id: `${tab.id}-${i}`,
-        dayNumber: i,
-        range: `Từ ${(i - 1) * 50 + 1}-${i * 50}`
+        dayNumber: dayNum,
+        range: `Từ ${(dayNum - 1) * 50 + 1}-${dayNum * 50}`
       });
     }
     return list;
@@ -201,16 +330,18 @@ export class VocabularyComponent implements OnDestroy {
       this.selectedDayId = dayId;
       const parts = dayId.split('-');
       if (parts.length === 2) {
-        this.selectedDayNumber = parseInt(parts[1], 10);
+        const localDayNum = parseInt(parts[1], 10);
+        const startDay = this.getStartDayForPos(parts[0]);
+        this.selectedDayNumber = startDay + localDayNum - 1;
       }
     } else {
       this.selectedDayId = `${this.selectedPos}-1`;
-      this.selectedDayNumber = 1;
+      this.selectedDayNumber = this.getStartDayForPos(this.selectedPos);
     }
     this.flashcardMode = true;
     this.cardFlipped = false;
     this.currentCardIndex = 0;
-    this.changeStudyTab('quiz'); // Default to Quiz mode per request
+    this.changeStudyTab('flashcard');
   }
 
   markDayCompleted(dayId: string, event: Event): void {
@@ -330,18 +461,18 @@ export class VocabularyComponent implements OnDestroy {
 
     this.listeningQuestions = list.map(word => {
       const options = new Set<string>();
-      options.add(word.word);
+      options.add(word.defVi);
       
-      const allWords = this.words.map(w => w.word);
-      while (options.size < Math.min(6, allWords.length)) {
-        const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
-        options.add(randomWord);
+      const allDefs = this.words.map(w => w.defVi);
+      while (options.size < Math.min(6, allDefs.length)) {
+        const randomDef = allDefs[Math.floor(Math.random() * allDefs.length)];
+        options.add(randomDef);
       }
 
       return {
         word: word,
         options: this.shuffleArray(Array.from(options)),
-        correctAnswer: word.word
+        correctAnswer: word.defVi
       };
     });
     
@@ -350,15 +481,22 @@ export class VocabularyComponent implements OnDestroy {
     }, 300);
   }
 
-  playWordAudio(word: string): void {
+  playWordAudio(word: string, region: string = 'US'): void {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(word);
-      utterance.lang = 'en-US';
+      utterance.lang = region === 'GB' ? 'en-GB' : 'en-US';
       utterance.rate = 0.85;
       window.speechSynthesis.speak(utterance);
     } else {
       alert('Trình duyệt của bạn không hỗ trợ phát âm thanh.');
+    }
+  }
+
+  selectCardIndex(index: number): void {
+    this.cardFlipped = false;
+    if (index >= 0 && index < this.filteredWords.length) {
+      this.currentCardIndex = index;
     }
   }
 
@@ -392,70 +530,201 @@ export class VocabularyComponent implements OnDestroy {
     this.initListening();
   }
 
-  // Matching Mode Logic
-  initMatching(): void {
-    this.matchedPairs.clear();
-    this.selectedWordMatch = null;
-    this.selectedDefMatch = null;
-    this.matchingStatusMessage = 'Hãy ghép từ tiếng Anh với nghĩa tương ứng!';
+  // Scramble Game State
+  scrambleQuestions: any[] = [];
+  currentScrambleIndex = 0;
+  scrambleLetters: any[] = [];
+  assembledLetters: any[] = [];
+  scrambleChecked = false;
+  scrambleFeedback: 'correct' | 'incorrect' | null = null;
+  showScrambleResult = false;
+  scrambleScore = 0;
 
-    const list = this.shuffleArray([...this.filteredWords]).slice(0, 5);
+  initMatching(): void {
+    this.initScramble();
+  }
+
+  initScramble(): void {
+    this.currentScrambleIndex = 0;
+    this.scrambleScore = 0;
+    this.showScrambleResult = false;
+    this.scrambleFeedback = null;
+    this.scrambleChecked = false;
+
+    const list = this.filteredWords;
     if (list.length === 0) return;
 
-    this.matchingWords = this.shuffleArray(list.map(w => ({ word: w.word, matched: false })));
-    this.matchingDefs = this.shuffleArray(list.map(w => ({ word: w.word, defVi: w.defVi, matched: false })));
+    this.scrambleQuestions = list.map(word => {
+      return {
+        word: word,
+        correctAnswer: word.word.toLowerCase()
+      };
+    });
+
+    this.setupCurrentScramble();
   }
 
-  selectWordMatch(item: any): void {
-    if (item.matched) return;
-    this.selectedWordMatch = item;
-    this.checkMatch();
+  setupCurrentScramble(): void {
+    const currentQ = this.scrambleQuestions[this.currentScrambleIndex];
+    if (!currentQ) return;
+
+    this.scrambleFeedback = null;
+    this.scrambleChecked = false;
+    
+    const chars = currentQ.word.word.toLowerCase().split('');
+    let shuffled = this.shuffleArray(chars);
+    let attempts = 0;
+    while (shuffled.join('') === currentQ.word.word.toLowerCase() && attempts < 10 && chars.length > 1) {
+      shuffled = this.shuffleArray(chars);
+      attempts++;
+    }
+
+    this.scrambleLetters = shuffled.map((char: string, index: number) => {
+      return { id: index, char: char, used: false };
+    });
+
+    this.assembledLetters = Array(chars.length).fill(null);
   }
 
-  selectDefMatch(item: any): void {
-    if (item.matched) return;
-    this.selectedDefMatch = item;
-    this.checkMatch();
-  }
-
-  checkMatch(): void {
-    if (this.selectedWordMatch && this.selectedDefMatch) {
-      if (this.selectedWordMatch.word === this.selectedDefMatch.word) {
-        this.selectedWordMatch.matched = true;
-        this.selectedDefMatch.matched = true;
-        this.matchedPairs.add(this.selectedWordMatch.word);
-        this.selectedWordMatch = null;
-        this.selectedDefMatch = null;
-        
-        if (this.matchedPairs.size === this.matchingWords.length) {
-          this.matchingStatusMessage = '🎉 Xuất sắc! Bạn đã ghép đúng tất cả các từ!';
-        } else {
-          this.matchingStatusMessage = 'Chính xác! Tiếp tục ghép các từ còn lại.';
-        }
-      } else {
-        this.matchingStatusMessage = '❌ Chưa chính xác, hãy thử lại!';
-        this.selectedWordMatch = null;
-        this.selectedDefMatch = null;
-      }
+  clickScrambleLetter(item: any): void {
+    if (this.scrambleChecked) return;
+    const firstEmptyIndex = this.assembledLetters.findIndex(x => x === null);
+    if (firstEmptyIndex !== -1) {
+      this.assembledLetters[firstEmptyIndex] = item;
+      item.used = true;
     }
   }
 
+  clickAssembledLetter(index: number): void {
+    if (this.scrambleChecked) return;
+    const item = this.assembledLetters[index];
+    if (item !== null) {
+      item.used = false;
+      this.assembledLetters[index] = null;
+    }
+  }
+
+  isAssembledIncomplete(): boolean {
+    return this.assembledLetters.some(x => x === null);
+  }
+
+  checkScrambleAnswer(): void {
+    if (this.scrambleChecked) return;
+    
+    const wordStr = this.assembledLetters.map(x => x ? x.char : '').join('');
+    const correctStr = this.scrambleQuestions[this.currentScrambleIndex].correctAnswer;
+    
+    this.scrambleChecked = true;
+    if (wordStr === correctStr) {
+      this.scrambleFeedback = 'correct';
+      this.scrambleScore++;
+    } else {
+      this.scrambleFeedback = 'incorrect';
+    }
+  }
+
+  revealScrambleAnswer(): void {
+    if (this.scrambleChecked) return;
+    const currentQ = this.scrambleQuestions[this.currentScrambleIndex];
+    if (!currentQ) return;
+    
+    const chars = currentQ.word.word.toLowerCase().split('');
+    this.assembledLetters = chars.map((char: string, index: number) => {
+      return { id: index, char: char, used: true };
+    });
+    this.scrambleLetters.forEach(l => l.used = true);
+    
+    this.scrambleChecked = true;
+    this.scrambleFeedback = 'incorrect';
+  }
+
+  nextScrambleQuestion(): void {
+    this.scrambleFeedback = null;
+    this.scrambleChecked = false;
+    if (this.currentScrambleIndex < this.scrambleQuestions.length - 1) {
+      this.currentScrambleIndex++;
+      this.setupCurrentScramble();
+    } else {
+      this.showScrambleResult = true;
+    }
+  }
+
+  restartScramble(): void {
+    this.initScramble();
+  }
+
   // Writing Mode Logic
+  // Writing Mode Logic
+  writingInputs: { val: string }[] = [];
+
   initWriting(): void {
     this.currentWritingIndex = 0;
     this.writingScore = 0;
-    this.writingInput = '';
     this.writingChecked = false;
     this.writingFeedback = null;
     this.showWritingResult = false;
     this.writingQuestions = [...this.filteredWords];
+    this.setupCurrentWriting();
+  }
+
+  setupCurrentWriting(): void {
+    const currentQ = this.writingQuestions[this.currentWritingIndex];
+    if (!currentQ) return;
+
+    this.writingChecked = false;
+    this.writingFeedback = null;
+    this.writingInputs = Array(currentQ.word.length).fill(null).map(() => ({ val: '' }));
+    
+    // Auto focus first input box
+    setTimeout(() => {
+      const firstInput = document.getElementById('writing-input-0') as HTMLInputElement;
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }, 150);
+  }
+
+  onCharInput(event: any, index: number): void {
+    let value = event.target.value;
+    if (value.length > 1) {
+      value = value.charAt(value.length - 1);
+      this.writingInputs[index].val = value;
+    }
+    if (value && index < this.writingInputs.length - 1) {
+      setTimeout(() => {
+        const nextInput = document.getElementById(`writing-input-${index + 1}`) as HTMLInputElement;
+        if (nextInput) {
+          nextInput.focus();
+          nextInput.select();
+        }
+      }, 50); // macro-task delay gives IME (Unikey/EVKey) time to finish its keyup cycle
+    }
+  }
+
+  onCharKeydown(event: any, index: number): void {
+    if (event.key === 'Backspace' && !this.writingInputs[index].val && index > 0) {
+      this.writingInputs[index - 1].val = '';
+      setTimeout(() => {
+        const prevInput = document.getElementById(`writing-input-${index - 1}`) as HTMLInputElement;
+        if (prevInput) {
+          prevInput.focus();
+        }
+      }, 30);
+    }
+  }
+
+  isWritingIncomplete(): boolean {
+    return this.writingInputs.some(x => !x.val || x.val.trim() === '');
   }
 
   checkWritingAnswer(): void {
     if (this.writingChecked) return;
-    this.writingChecked = true;
+    
+    const userWord = this.writingInputs.map(x => x.val).join('').toLowerCase();
     const currentQ = this.writingQuestions[this.currentWritingIndex];
-    if (this.writingInput.trim().toLowerCase() === currentQ.word.toLowerCase()) {
+    
+    this.writingChecked = true;
+    if (userWord === currentQ.word.toLowerCase()) {
       this.writingFeedback = 'correct';
       this.writingScore++;
     } else {
@@ -463,12 +732,22 @@ export class VocabularyComponent implements OnDestroy {
     }
   }
 
+  revealWritingAnswer(): void {
+    if (this.writingChecked) return;
+    const currentQ = this.writingQuestions[this.currentWritingIndex];
+    if (!currentQ) return;
+    
+    this.writingInputs = currentQ.word.split('').map((char: string) => ({ val: char }));
+    this.writingChecked = true;
+    this.writingFeedback = 'incorrect';
+  }
+
   nextWritingQuestion(): void {
-    this.writingInput = '';
     this.writingChecked = false;
     this.writingFeedback = null;
     if (this.currentWritingIndex < this.writingQuestions.length - 1) {
       this.currentWritingIndex++;
+      this.setupCurrentWriting();
     } else {
       this.showWritingResult = true;
     }
@@ -476,6 +755,10 @@ export class VocabularyComponent implements OnDestroy {
 
   restartWriting(): void {
     this.initWriting();
+  }
+
+  trackByIndex(index: number, item: any): any {
+    return index;
   }
 
   // Helper utils
