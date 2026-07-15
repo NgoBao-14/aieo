@@ -330,7 +330,24 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   ];
 
   get filteredWords(): VocabWord[] {
-    return this.words.filter(w => w.pos === this.selectedPos);
+    const allPosWords = this.words.filter(w => w.pos === this.selectedPos);
+    if (!allPosWords.length) return [];
+
+    const parts = this.selectedDayId.split('-');
+    const localDayNum = parts.length === 2 ? parseInt(parts[1], 10) : 1;
+
+    const tab = this.posTabs.find(t => t.id === this.selectedPos);
+    const totalDays = tab ? tab.totalDays : 6;
+
+    const wordsPerDay = Math.max(1, Math.ceil(allPosWords.length / totalDays));
+    const startIdx = ((localDayNum - 1) * wordsPerDay) % allPosWords.length;
+    const endIdx = startIdx + wordsPerDay;
+
+    if (endIdx <= allPosWords.length) {
+      return allPosWords.slice(startIdx, endIdx);
+    } else {
+      return [...allPosWords.slice(startIdx), ...allPosWords.slice(0, endIdx - allPosWords.length)];
+    }
   }
 
   get currentCard(): VocabWord {
@@ -395,6 +412,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
 
   selectPos(posId: string): void {
     this.selectedPos = posId;
+    this.selectedDayId = `${posId}-1`;
     this.currentCardIndex = 0;
     this.cardFlipped = false;
   }

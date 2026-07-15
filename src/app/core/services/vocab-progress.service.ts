@@ -112,6 +112,14 @@ export class VocabProgressService {
       if (db) {
         try {
           await setDoc(doc(db, 'users', userId, 'data', 'vocabulary'), {
+            streakDays: progress.streakDays,
+            todayWordsLearned: progress.todayWordsLearned,
+            totalLearnedCount: progress.totalLearnedCount,
+            maxRecord: progress.maxRecord,
+            savedWords: progress.savedWords,
+            learnedWords: progress.learnedWords,
+            learnedDays: progress.learnedDays,
+            lastStudyDate: progress.lastStudyDate || '',
             nounCount: progress.nounCount,
             verbCount: progress.verbCount,
             adjCount: progress.adjCount,
