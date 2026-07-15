@@ -1,7 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../../core/services/auth.service';
+import { VocabProgressService } from '../../core/services/vocab-progress.service';
 
 export interface VocabWord {
   word: string;
@@ -28,10 +30,17 @@ interface PosTab {
   templateUrl: './vocabulary.component.html',
   styleUrls: ['./vocabulary.component.scss']
 })
-export class VocabularyComponent implements OnDestroy {
+export class VocabularyComponent implements OnInit, OnDestroy {
   private routerSubscription: Subscription;
+  private authSubscription?: Subscription;
+  userId = '';
+  lastStudyDate = '';
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private vocabProgressService: VocabProgressService
+  ) {
     this.routerSubscription = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -42,10 +51,96 @@ export class VocabularyComponent implements OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.authSubscription = this.authService.user$.subscribe(async (user) => {
+      this.userId = user?.uid || 'demo-user';
+      await this.loadProgress();
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+  }
+
+  async loadProgress(): Promise<void> {
+    const progress = await this.vocabProgressService.loadProgress(this.userId);
+    this.streakDays = progress.streakDays;
+    this.todayWordsLearned = progress.todayWordsLearned;
+    this.savedWords = new Set(progress.savedWords);
+    this.learnedWords = new Set(progress.learnedWords);
+    this.learnedDays = new Set(progress.learnedDays);
+    this.lastStudyDate = progress.lastStudyDate || '';
+    this.sessionHistoryIndex = progress.index || [];
+
+    // Tự động tính toán lại số từ tổng bằng số từ đã học thực tế
+    this.totalLearnedCount = this.learnedWords.size;
+    this.updatePosCounts();
+    
+    // Tự động sửa chữa giá trị kỷ lục
+    const oldMax = progress.maxRecord || 0;
+    if (oldMax <= this.learnedWords.size && this.learnedWords.size > 0) {
+      this.maxRecord = this.learnedWords.size;
+    } else {
+      this.maxRecord = oldMax;
+    }
+
+    // Kiểm tra reset ngày mới
+    const today = new Date().toISOString().slice(0, 10);
+    if (this.lastStudyDate !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      if (this.lastStudyDate !== yesterday && this.lastStudyDate) {
+        this.streakDays = 0; // Đứt chuỗi streak
+      }
+      this.todayWordsLearned = 0;
+      this.lastStudyDate = today;
+      await this.saveCurrentProgress();
+    }
+  }
+
+  updatePosCounts(): void {
+    this.nounCount = 0;
+    this.verbCount = 0;
+    this.adjCount = 0;
+    this.advCount = 0;
+    for (const word of this.learnedWords) {
+      const wordObj = this.words.find(w => w.word === word);
+      if (wordObj) {
+        if (wordObj.pos === 'noun') this.nounCount++;
+        else if (wordObj.pos === 'verb') this.verbCount++;
+        else if (wordObj.pos === 'adj') this.adjCount++;
+        else if (wordObj.pos === 'adv') this.advCount++;
+      }
+    }
+  }
+
+  async saveCurrentProgress(): Promise<void> {
+    if (!this.userId) return;
+    this.totalLearnedCount = this.learnedWords.size;
+    if (this.totalLearnedCount > this.maxRecord) {
+      this.maxRecord = this.totalLearnedCount;
+    }
+    this.updatePosCounts();
+    const progress = {
+      streakDays: this.streakDays,
+      todayWordsLearned: this.todayWordsLearned,
+      totalLearnedCount: this.totalLearnedCount,
+      maxRecord: this.maxRecord,
+      savedWords: Array.from(this.savedWords),
+      learnedWords: Array.from(this.learnedWords),
+      learnedDays: Array.from(this.learnedDays),
+      lastStudyDate: this.lastStudyDate,
+      nounCount: this.nounCount,
+      verbCount: this.verbCount,
+      adjCount: this.adjCount,
+      advCount: this.advCount,
+      index: this.sessionHistoryIndex
+    };
+    await this.vocabProgressService.saveProgress(this.userId, progress);
   }
 
   // State quản lý giao diện
@@ -54,6 +149,13 @@ export class VocabularyComponent implements OnDestroy {
   todayWordsLearned = 0;
   totalLearnedCount = 0;
   maxRecord = 0;
+  
+  nounCount = 0;
+  verbCount = 0;
+  adjCount = 0;
+  advCount = 0;
+  sessionHistoryIndex: any[] = [];
+  sessionStartLearnedWords = new Set<string>();
 
   // Trạng thái lưu từ & học từ
   savedWords = new Set<string>();
@@ -326,6 +428,7 @@ export class VocabularyComponent implements OnDestroy {
   }
 
   startLearning(dayId: string): void {
+    this.sessionStartLearnedWords = new Set(this.learnedWords);
     if (dayId !== 'default') {
       this.selectedDayId = dayId;
       const parts = dayId.split('-');
@@ -348,23 +451,68 @@ export class VocabularyComponent implements OnDestroy {
     event.stopPropagation();
     if (this.learnedDays.has(dayId)) {
       this.learnedDays.delete(dayId);
-      if (this.totalLearnedCount > 0) this.totalLearnedCount--;
     } else {
       this.learnedDays.add(dayId);
-      this.totalLearnedCount++;
-      if (this.totalLearnedCount > this.maxRecord) {
-        this.maxRecord = this.totalLearnedCount;
-      }
       // Cộng streak & học từ hôm nay
-      this.streakDays = 1;
+      const today = new Date().toISOString().slice(0, 10);
+      if (this.lastStudyDate !== today) {
+        this.streakDays = this.streakDays + 1;
+        this.lastStudyDate = today;
+      } else if (this.streakDays === 0) {
+        this.streakDays = 1;
+      }
       this.todayWordsLearned = Math.min(10, this.todayWordsLearned + 3);
     }
+    this.totalLearnedCount = this.learnedWords.size;
+    if (this.totalLearnedCount > this.maxRecord) {
+      this.maxRecord = this.totalLearnedCount;
+    }
+    this.saveCurrentProgress();
   }
 
   toggleFlashcard(): void {
+    if (this.flashcardMode) {
+      this.recordSession();
+    }
     this.flashcardMode = !this.flashcardMode;
     this.currentCardIndex = 0;
     this.cardFlipped = false;
+  }
+
+  recordSession(): void {
+    let sessionNouns = 0;
+    let sessionVerbs = 0;
+    let sessionAdjs = 0;
+    let sessionAdvs = 0;
+
+    for (const word of this.learnedWords) {
+      if (!this.sessionStartLearnedWords.has(word)) {
+        const wordObj = this.words.find(w => w.word === word);
+        if (wordObj) {
+          if (wordObj.pos === 'noun') sessionNouns++;
+          else if (wordObj.pos === 'verb') sessionVerbs++;
+          else if (wordObj.pos === 'adj') sessionAdjs++;
+          else if (wordObj.pos === 'adv') sessionAdvs++;
+        }
+      }
+    }
+
+    const totalSessionWords = sessionNouns + sessionVerbs + sessionAdjs + sessionAdvs;
+    if (totalSessionWords > 0) {
+      const newSessionIndex = this.sessionHistoryIndex.length + 1;
+      const record = {
+        sessionIndex: newSessionIndex,
+        date: new Date().toLocaleString('vi-VN'),
+        nouns: sessionNouns,
+        verbs: sessionVerbs,
+        adjs: sessionAdjs,
+        advs: sessionAdvs,
+        total: totalSessionWords
+      };
+      this.sessionHistoryIndex.push(record);
+      this.sessionStartLearnedWords = new Set(this.learnedWords);
+      this.saveCurrentProgress();
+    }
   }
 
   changeStudyTab(tab: string): void {
@@ -418,6 +566,7 @@ export class VocabularyComponent implements OnDestroy {
     if (option === currentQ.correctAnswer) {
       this.quizScore++;
       this.learnedWords.add(currentQ.word.word);
+      this.saveCurrentProgress();
     } else {
       this.incorrectSelection = option;
     }
@@ -433,13 +582,21 @@ export class VocabularyComponent implements OnDestroy {
       this.showQuizResult = true;
       if (this.quizScore >= this.quizQuestions.length / 2) {
         this.learnedDays.add(this.selectedDayId);
-        this.totalLearnedCount = this.learnedDays.size;
+        this.totalLearnedCount = this.learnedWords.size;
         if (this.totalLearnedCount > this.maxRecord) {
           this.maxRecord = this.totalLearnedCount;
         }
-        this.streakDays = 1;
+        const today = new Date().toISOString().slice(0, 10);
+        if (this.lastStudyDate !== today) {
+          this.streakDays = this.streakDays + 1;
+          this.lastStudyDate = today;
+        } else if (this.streakDays === 0) {
+          this.streakDays = 1;
+        }
         this.todayWordsLearned = Math.min(10, this.todayWordsLearned + 3);
       }
+      this.recordSession();
+      this.saveCurrentProgress();
     }
   }
 
@@ -507,6 +664,8 @@ export class VocabularyComponent implements OnDestroy {
     const currentQ = this.listeningQuestions[this.currentListeningIndex];
     if (option === currentQ.correctAnswer) {
       this.listeningScore++;
+      this.learnedWords.add(currentQ.word.word);
+      this.saveCurrentProgress();
     } else {
       this.incorrectListeningSelection = option;
     }
@@ -523,6 +682,7 @@ export class VocabularyComponent implements OnDestroy {
       }, 200);
     } else {
       this.showListeningResult = true;
+      this.recordSession();
     }
   }
 
@@ -618,6 +778,8 @@ export class VocabularyComponent implements OnDestroy {
     if (wordStr === correctStr) {
       this.scrambleFeedback = 'correct';
       this.scrambleScore++;
+      this.learnedWords.add(this.scrambleQuestions[this.currentScrambleIndex].word.word);
+      this.saveCurrentProgress();
     } else {
       this.scrambleFeedback = 'incorrect';
     }
@@ -646,6 +808,7 @@ export class VocabularyComponent implements OnDestroy {
       this.setupCurrentScramble();
     } else {
       this.showScrambleResult = true;
+      this.recordSession();
     }
   }
 
@@ -727,6 +890,8 @@ export class VocabularyComponent implements OnDestroy {
     if (userWord === currentQ.word.toLowerCase()) {
       this.writingFeedback = 'correct';
       this.writingScore++;
+      this.learnedWords.add(currentQ.word);
+      this.saveCurrentProgress();
     } else {
       this.writingFeedback = 'incorrect';
     }
@@ -750,6 +915,7 @@ export class VocabularyComponent implements OnDestroy {
       this.setupCurrentWriting();
     } else {
       this.showWritingResult = true;
+      this.recordSession();
     }
   }
 
@@ -795,6 +961,7 @@ export class VocabularyComponent implements OnDestroy {
     } else {
       this.savedWords.add(word);
     }
+    this.saveCurrentProgress();
   }
 
   toggleLearned(word: string): void {
@@ -803,6 +970,7 @@ export class VocabularyComponent implements OnDestroy {
     } else {
       this.learnedWords.add(word);
     }
+    this.saveCurrentProgress();
   }
 
   triggerDictionary(): void {
