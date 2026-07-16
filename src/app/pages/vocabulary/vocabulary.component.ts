@@ -16,6 +16,7 @@ export interface VocabWord {
   note?: string;
   topic: string;
   band: number;
+  collocations?: { phrase: string, vi: string }[];
 }
 
 interface PosTab {
@@ -186,7 +187,12 @@ export class VocabularyComponent implements OnInit, OnDestroy {
       exampleVi: 'Nền kinh tế của đất nước phụ thuộc nhiều vào ngành công nghiệp sản xuất.',
       note: 'Thường dùng số ít (industry) khi nói về toàn bộ lĩnh vực sản xuất/kinh doanh, và số nhiều (industries) khi nói về các loại hình kinh doanh khác nhau.',
       topic: 'business',
-      band: 5
+      band: 5,
+      collocations: [
+        { phrase: 'the automotive/textile/tourism industry', vi: 'ngành công nghiệp ô tô/dệt may/du lịch' },
+        { phrase: 'heavy/light industry', vi: 'công nghiệp nặng/nhẹ' },
+        { phrase: 'primary/secondary/tertiary industry', vi: 'công nghiệp sơ cấp/thứ cấp/thứ ba' }
+      ]
     },
     {
       word: 'brochure',

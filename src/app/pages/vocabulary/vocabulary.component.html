@@ -115,32 +115,73 @@
           <div *ngIf="currentStudyTab === 'flashcard'" class="flashcard-mode-container">
             <!-- Cột trái: Card và Điều hướng -->
             <div class="flashcard-left-pane">
-              <div class="flat-flashcard">
-                <span class="flashcard__band" *ngIf="currentCard.band">Band {{ currentCard.band }}+</span>
-                <h2 class="fc-word">{{ currentCard.word }}</h2>
-                <h3 class="fc-def-vi">{{ currentCard.defVi }}</h3>
-                
-                <!-- Ghi chú cách dùng màu đỏ -->
-                <p class="fc-note-text" *ngIf="currentCard.note">{{ currentCard.note }}</p>
-                
-                <!-- Phần âm thanh UK / US -->
-                <div class="fc-audio-section">
-                  <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'GB')">
-                    <span class="audio-icon">🔊</span> UK
-                  </button>
-                  <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'US')">
-                    <span class="audio-icon">🔊</span> US
-                  </button>
-                </div>
-                
-                <!-- Ví dụ -->
-                <div class="fc-example-section">
-                  <span class="fc-example-label">Example</span>
-                  <p class="fc-example-text">
-                    <strong>{{ currentCard.example }}</strong>
-                    <span class="fc-example-vi" *ngIf="currentCard.exampleVi"> ({{ currentCard.exampleVi }})</span>
-                    <span class="fc-example-vi" *ngIf="!currentCard.exampleVi && currentCard.defEn"> ({{ currentCard.defEn }})</span>
-                  </p>
+              <div class="flat-flashcard" [class.flipped]="cardFlipped" (click)="flipCard()" style="cursor: pointer;">
+                <div class="fc-inner-card">
+                  <!-- FRONT SIDE -->
+                  <div class="fc-front">
+                    <span class="flashcard__band" *ngIf="currentCard.band">Band {{ currentCard.band }}+</span>
+                    <h2 class="fc-word">{{ currentCard.word }}</h2>
+                    <h3 class="fc-def-vi">{{ currentCard.defVi }}</h3>
+                    
+                    <!-- Ghi chú cách dùng màu đỏ -->
+                    <p class="fc-note-text" *ngIf="currentCard.note">{{ currentCard.note }}</p>
+                    
+                    <!-- Phần âm thanh UK / US -->
+                    <div class="fc-audio-section" (click)="$event.stopPropagation()">
+                      <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'GB')">
+                        <span class="audio-icon">🔊</span> UK
+                      </button>
+                      <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'US')">
+                        <span class="audio-icon">🔊</span> US
+                      </button>
+                    </div>
+                    
+                    <!-- Ví dụ -->
+                    <div class="fc-example-section">
+                      <span class="fc-example-label">Example</span>
+                      <p class="fc-example-text">
+                        <strong>{{ currentCard.example }}</strong>
+                        <span class="fc-example-vi" *ngIf="currentCard.exampleVi"> ({{ currentCard.exampleVi }})</span>
+                        <span class="fc-example-vi" *ngIf="!currentCard.exampleVi && currentCard.defEn"> ({{ currentCard.defEn }})</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- BACK SIDE -->
+                  <div class="fc-back">
+                    <span class="flashcard__band" *ngIf="currentCard.band">Band {{ currentCard.band }}+</span>
+                    <h2 class="fc-word">{{ currentCard.word }}</h2>
+                    <h3 class="fc-phonetic" style="text-align: center; color: #4b5563; font-style: italic; margin-top: -10px; margin-bottom: 15px;">
+                      {{ currentCard.phonetic }}
+                    </h3>
+                    
+                    <!-- Phần âm thanh UK / US -->
+                    <div class="fc-audio-section" (click)="$event.stopPropagation()">
+                      <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'GB')">
+                        <span class="audio-icon">🔊</span> UK
+                      </button>
+                      <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'US')">
+                        <span class="audio-icon">🔊</span> US
+                      </button>
+                    </div>
+                    
+                    <!-- Collocation / Details -->
+                    <div class="fc-collocation-section" style="margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+                      <span class="fc-example-label" style="display: block; text-align: center; margin-bottom: 10px; color: #9ca3af; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Collocation</span>
+                      
+                      <div *ngIf="currentCard.collocations && currentCard.collocations.length; else defaultBackInfo" class="fc-collocations-list" style="text-align: center; font-size: 0.95rem; color: #1f2937;">
+                        <div *ngFor="let col of currentCard.collocations" style="margin-bottom: 8px;">
+                          <strong>{{ col.phrase }}</strong> <span style="color: #6b7280; font-size: 0.9rem;">({{ col.vi }})</span>
+                        </div>
+                      </div>
+                      
+                      <ng-template #defaultBackInfo>
+                        <p class="fc-example-text" style="text-align: center;">
+                          <strong>{{ currentCard.defEn }}</strong>
+                        </p>
+                      </ng-template>
+                    </div>
+                  </div>
                 </div>
               </div>
               
@@ -149,7 +190,7 @@
                 <button class="fc-nav-circle-btn" (click)="prevCard()" title="Từ trước">
                   <span>‹</span>
                 </button>
-                <button class="fc-nav-circle-btn fc-nav-reload" (click)="playWordAudio(currentCard.word, 'US')" title="Nghe lại">
+                <button class="fc-nav-circle-btn fc-nav-reload" (click)="flipCard()" title="Lật thẻ">
                   <span>↻</span>
                 </button>
                 <button class="fc-nav-circle-btn" (click)="nextCard()" title="Từ tiếp theo">
