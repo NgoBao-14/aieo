@@ -54,8 +54,33 @@
 .streak-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.streak-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-reset-progress {
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #ef4444;
+    background-color: #f3f4f6;
+  }
 }
 
 .streak-fire-icon {

@@ -9,11 +9,16 @@
     <!-- Khối Streak hàng ngày -->
     <div class="vocab-streak-card">
       <div class="streak-header">
-        <span class="streak-fire-icon" [class.active]="streakDays > 0">💧</span>
-        <div class="streak-info">
-          <span class="streak-number">{{ streakDays }}</span>
-          <span class="streak-lbl">NGÀY LIÊN TIẾP</span>
+        <div class="streak-header-left">
+          <span class="streak-fire-icon" [class.active]="streakDays > 0">💧</span>
+          <div class="streak-info">
+            <span class="streak-number">{{ streakDays }}</span>
+            <span class="streak-lbl">NGÀY LIÊN TIẾP</span>
+          </div>
         </div>
+        <!-- <button class="btn-reset-progress" (click)="resetProgress()" title="Reset tiến trình học">
+          🔄
+        </button> -->
       </div>
 
       <div class="streak-progress-section">
@@ -35,7 +40,7 @@
       <div class="streak-stats-row">
         <div class="stat-col">
           <strong>{{ totalLearnedCount }}</strong>
-          <span>TỪ TỔNG</span>
+          <span>TỔNG SỐ TỪ</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-col">
@@ -66,20 +71,22 @@
 
   <!-- NỘI DUNG CHÍNH BÊN PHẢI -->
   <main class="vocab-main-content">
-    
+
     <!-- GIAO DIỆN HỌC TẬP ĐA PHƯƠNG THỨC KHI ĐANG HỌC -->
     <ng-container *ngIf="flashcardMode && filteredWords.length">
       <div class="study-workspace">
-        
+
         <!-- SUBHEADER GIỐNG ẢNH MẪU -->
         <div class="study-subheader">
           <button class="btn-sub-back" (click)="toggleFlashcard()">
             ← Lộ trình
           </button>
-          <span class="study-day-badge">Day {{ selectedDayNumber }} - {{ selectedPos === 'noun' ? 'Noun' : selectedPos === 'verb' ? 'Verb' : selectedPos === 'adj' ? 'Adj' : 'Adv' }}</span>
-          
+          <span class="study-day-badge">Day {{ selectedDayNumber }} - {{ selectedPos === 'noun' ? 'Noun' : selectedPos
+            === 'verb' ? 'Verb' : selectedPos === 'adj' ? 'Adj' : 'Adv' }}</span>
+
           <div class="study-tabs">
-            <button class="study-tab-btn" [class.active]="currentStudyTab === 'flashcard'" (click)="changeStudyTab('flashcard')">
+            <button class="study-tab-btn" [class.active]="currentStudyTab === 'flashcard'"
+              (click)="changeStudyTab('flashcard')">
               <span class="tab-icon-custom">ΞA</span>
               FlashCard
             </button>
@@ -87,15 +94,18 @@
               <span class="tab-icon-emoji">💡</span>
               Quiz
             </button>
-            <button class="study-tab-btn" [class.active]="currentStudyTab === 'listening'" (click)="changeStudyTab('listening')">
+            <button class="study-tab-btn" [class.active]="currentStudyTab === 'listening'"
+              (click)="changeStudyTab('listening')">
               <span class="tab-icon-emoji">🎧</span>
               Nghe từ
             </button>
-            <button class="study-tab-btn" [class.active]="currentStudyTab === 'matching'" (click)="changeStudyTab('matching')">
+            <button class="study-tab-btn" [class.active]="currentStudyTab === 'matching'"
+              (click)="changeStudyTab('matching')">
               <span class="tab-icon-emoji">🧩</span>
               Ghép từ
             </button>
-            <button class="study-tab-btn" [class.active]="currentStudyTab === 'writing'" (click)="changeStudyTab('writing')">
+            <button class="study-tab-btn" [class.active]="currentStudyTab === 'writing'"
+              (click)="changeStudyTab('writing')">
               <span class="tab-icon-emoji">✏️</span>
               Viết từ
             </button>
@@ -105,11 +115,12 @@
         <!-- PROGRESS BAR HÀNG ĐẦU -->
         <div class="study-progress-header" *ngIf="currentStudyTab === 'flashcard'">
           <div class="study-progress-bar-bg">
-            <div class="study-progress-bar-fill" [style.width.%]="((currentCardIndex + 1) / filteredWords.length) * 100"></div>
+            <div class="study-progress-bar-fill"
+              [style.width.%]="((currentCardIndex + 1) / filteredWords.length) * 100"></div>
           </div>
           <span class="study-progress-text">{{ currentCardIndex + 1 }}/{{ filteredWords.length }} từ đã xem</span>
         </div>
-        
+
         <div class="study-tab-content">
           <!-- 1. FLASHCARD MODE (DÂN SONG SONG) -->
           <div *ngIf="currentStudyTab === 'flashcard'" class="flashcard-mode-container">
@@ -122,10 +133,10 @@
                     <span class="flashcard__band" *ngIf="currentCard.band">Band {{ currentCard.band }}+</span>
                     <h2 class="fc-word">{{ currentCard.word }}</h2>
                     <h3 class="fc-def-vi">{{ currentCard.defVi }}</h3>
-                    
+
                     <!-- Ghi chú cách dùng màu đỏ -->
                     <p class="fc-note-text" *ngIf="currentCard.note">{{ currentCard.note }}</p>
-                    
+
                     <!-- Phần âm thanh UK / US -->
                     <div class="fc-audio-section" (click)="$event.stopPropagation()">
                       <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'GB')">
@@ -135,14 +146,15 @@
                         <span class="audio-icon">🔊</span> US
                       </button>
                     </div>
-                    
+
                     <!-- Ví dụ -->
                     <div class="fc-example-section">
                       <span class="fc-example-label">Example</span>
                       <p class="fc-example-text">
                         <strong>{{ currentCard.example }}</strong>
                         <span class="fc-example-vi" *ngIf="currentCard.exampleVi"> ({{ currentCard.exampleVi }})</span>
-                        <span class="fc-example-vi" *ngIf="!currentCard.exampleVi && currentCard.defEn"> ({{ currentCard.defEn }})</span>
+                        <span class="fc-example-vi" *ngIf="!currentCard.exampleVi && currentCard.defEn"> ({{
+                          currentCard.defEn }})</span>
                       </p>
                     </div>
                   </div>
@@ -151,10 +163,11 @@
                   <div class="fc-back">
                     <span class="flashcard__band" *ngIf="currentCard.band">Band {{ currentCard.band }}+</span>
                     <h2 class="fc-word">{{ currentCard.word }}</h2>
-                    <h3 class="fc-phonetic" style="text-align: center; color: #4b5563; font-style: italic; margin-top: -10px; margin-bottom: 15px;">
+                    <h3 class="fc-phonetic"
+                      style="text-align: center; color: #4b5563; font-style: italic; margin-top: -10px; margin-bottom: 15px;">
                       {{ currentCard.phonetic }}
                     </h3>
-                    
+
                     <!-- Phần âm thanh UK / US -->
                     <div class="fc-audio-section" (click)="$event.stopPropagation()">
                       <button class="fc-audio-btn" (click)="playWordAudio(currentCard.word, 'GB')">
@@ -164,17 +177,21 @@
                         <span class="audio-icon">🔊</span> US
                       </button>
                     </div>
-                    
+
                     <!-- Collocation / Details -->
-                    <div class="fc-collocation-section" style="margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
-                      <span class="fc-example-label" style="display: block; text-align: center; margin-bottom: 10px; color: #9ca3af; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Collocation</span>
-                      
-                      <div *ngIf="currentCard.collocations && currentCard.collocations.length; else defaultBackInfo" class="fc-collocations-list" style="text-align: center; font-size: 0.95rem; color: #1f2937;">
+                    <div class="fc-collocation-section"
+                      style="margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+                      <span class="fc-example-label"
+                        style="display: block; text-align: center; margin-bottom: 10px; color: #9ca3af; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Collocation</span>
+
+                      <div *ngIf="currentCard.collocations && currentCard.collocations.length; else defaultBackInfo"
+                        class="fc-collocations-list" style="text-align: center; font-size: 0.95rem; color: #1f2937;">
                         <div *ngFor="let col of currentCard.collocations" style="margin-bottom: 8px;">
-                          <strong>{{ col.phrase }}</strong> <span style="color: #6b7280; font-size: 0.9rem;">({{ col.vi }})</span>
+                          <strong>{{ col.phrase }}</strong> <span style="color: #6b7280; font-size: 0.9rem;">({{ col.vi
+                            }})</span>
                         </div>
                       </div>
-                      
+
                       <ng-template #defaultBackInfo>
                         <p class="fc-example-text" style="text-align: center;">
                           <strong>{{ currentCard.defEn }}</strong>
@@ -184,7 +201,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- Nút điều khiển tròn bên dưới Card -->
               <div class="fc-flat-nav">
                 <button class="fc-nav-circle-btn" (click)="prevCard()" title="Từ trước">
@@ -198,15 +215,12 @@
                 </button>
               </div>
             </div>
-            
+
             <!-- Cột phải: Danh sách từ cuộn -->
             <div class="flashcard-right-pane">
               <div class="fc-sidebar-list">
-                <div 
-                  *ngFor="let w of filteredWords; let idx = index" 
-                  class="fc-sidebar-item" 
-                  [class.active]="idx === currentCardIndex"
-                  (click)="selectCardIndex(idx)">
+                <div *ngFor="let w of filteredWords; let idx = index" class="fc-sidebar-item"
+                  [class.active]="idx === currentCardIndex" (click)="selectCardIndex(idx)">
                   <span class="fc-sidebar-icon">ΞA</span>
                   <div class="fc-sidebar-word-info">
                     <strong class="fc-sidebar-word">{{ w.word }}</strong>
@@ -222,39 +236,39 @@
             <div *ngIf="!showQuizResult" class="quiz-container-card">
               <div class="quiz-card-header">
                 <div class="quiz-progress-bar-bg">
-                  <div class="quiz-progress-bar-fill" [style.width.%]="((currentQuizIndex) / quizQuestions.length) * 100"></div>
+                  <div class="quiz-progress-bar-fill"
+                    [style.width.%]="((currentQuizIndex) / quizQuestions.length) * 100"></div>
                 </div>
                 <span class="quiz-counter">{{ currentQuizIndex }}/{{ quizQuestions.length }}</span>
               </div>
-              
+
               <div class="quiz-question-body">
                 <p class="quiz-prompt">Từ nào có nghĩa sau?</p>
                 <h2 class="quiz-vietnamese-definition">{{ quizQuestions[currentQuizIndex]?.word?.defVi }}</h2>
-                
+
                 <div class="quiz-options-grid">
-                  <button 
-                    *ngFor="let option of quizQuestions[currentQuizIndex]?.options" 
-                    class="quiz-option-btn" 
+                  <button *ngFor="let option of quizQuestions[currentQuizIndex]?.options" class="quiz-option-btn"
                     [class.correct]="answerChecked && option === quizQuestions[currentQuizIndex]?.correctAnswer"
-                    [class.incorrect]="answerChecked && option === incorrectSelection"
-                    [class.disabled]="answerChecked"
+                    [class.incorrect]="answerChecked && option === incorrectSelection" [class.disabled]="answerChecked"
                     (click)="selectQuizOption(option)">
                     {{ option }}
                   </button>
                 </div>
-                
+
                 <div class="quiz-action-footer" *ngIf="answerChecked">
                   <button class="quiz-next-btn" (click)="nextQuizQuestion()">Tiếp tục →</button>
                 </div>
               </div>
             </div>
-            
+
             <div *ngIf="showQuizResult" class="quiz-result-card">
               <div class="result-icon">🏆</div>
               <h2>Hoàn thành bài Quiz!</h2>
               <p class="result-score">Kết quả: <strong>{{ quizScore }}</strong> / {{ quizQuestions.length }} từ</p>
-              <p class="result-message" *ngIf="quizScore >= quizQuestions.length / 2">Chúc mừng! Bạn đã đạt yêu cầu và hoàn thành bài ngày hôm nay!</p>
-              <p class="result-message warn" *ngIf="quizScore < quizQuestions.length / 2">Hãy làm lại để hoàn thành mục tiêu nhé!</p>
+              <p class="result-message" *ngIf="quizScore >= quizQuestions.length / 2">Chúc mừng! Bạn đã đạt yêu cầu và
+                hoàn thành bài ngày hôm nay!</p>
+              <p class="result-message warn" *ngIf="quizScore < quizQuestions.length / 2">Hãy làm lại để hoàn thành mục
+                tiêu nhé!</p>
               <button class="result-retry-btn" (click)="restartQuiz()">Làm lại</button>
             </div>
           </div>
@@ -265,52 +279,52 @@
               <!-- Hàng tiến trình -->
               <div class="listening-card-header">
                 <div class="listening-progress-bar-bg">
-                  <div class="listening-progress-bar-fill" [style.width.%]="((currentListeningIndex) / listeningQuestions.length) * 100"></div>
+                  <div class="listening-progress-bar-fill"
+                    [style.width.%]="((currentListeningIndex) / listeningQuestions.length) * 100"></div>
                 </div>
                 <span class="listening-counter">{{ currentListeningIndex }}/{{ listeningQuestions.length }}</span>
               </div>
-              
+
               <div class="listening-question-body">
                 <!-- Thẻ loa phát âm thanh lớn -->
-                <div class="speaker-large-card" (click)="playWordAudio(listeningQuestions[currentListeningIndex]?.word?.word)">
+                <div class="speaker-large-card"
+                  (click)="playWordAudio(listeningQuestions[currentListeningIndex]?.word?.word)">
                   <div class="speaker-waves-icon">
-                    <svg viewBox="0 0 24 24" width="72" height="72" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="72" height="72" fill="none" stroke="#2563eb" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
                       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                       <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                     </svg>
                   </div>
                   <p class="speaker-instruction-text">Nghe và chọn đáp án đúng</p>
                 </div>
-                
+
                 <!-- Lưới 6 đáp án nghĩa tiếng Việt -->
                 <div class="listening-options-grid">
-                  <button 
-                    *ngFor="let option of listeningQuestions[currentListeningIndex]?.options" 
-                    class="listening-option-btn" 
+                  <button *ngFor="let option of listeningQuestions[currentListeningIndex]?.options"
+                    class="listening-option-btn"
                     [class.correct]="listeningChecked && option === listeningQuestions[currentListeningIndex]?.correctAnswer"
                     [class.incorrect]="listeningChecked && option === incorrectListeningSelection"
-                    [class.disabled]="listeningChecked"
-                    (click)="selectListeningOption(option)">
+                    [class.disabled]="listeningChecked" (click)="selectListeningOption(option)">
                     {{ option }}
                   </button>
                 </div>
-                
+
                 <!-- Nút Tiếp tục căn giữa -->
                 <div class="listening-action-footer">
-                  <button 
-                    class="btn-listening-continue" 
-                    [disabled]="!listeningChecked"
+                  <button class="btn-listening-continue" [disabled]="!listeningChecked"
                     (click)="nextListeningQuestion()">
                     TIẾP TỤC
                   </button>
                 </div>
               </div>
             </div>
-            
+
             <div *ngIf="showListeningResult" class="quiz-result-card">
               <div class="result-icon">🎧</div>
               <h2>Hoàn thành phần Nghe!</h2>
-              <p class="result-score">Kết quả: <strong>{{ listeningScore }}</strong> / {{ listeningQuestions.length }} từ</p>
+              <p class="result-score">Kết quả: <strong>{{ listeningScore }}</strong> / {{ listeningQuestions.length }}
+                từ</p>
               <button class="result-retry-btn" (click)="restartListening()">Làm lại</button>
             </div>
           </div>
@@ -320,66 +334,55 @@
             <div *ngIf="!showScrambleResult" class="scramble-container-card">
               <h2 class="scramble-viet-title">{{ scrambleQuestions[currentScrambleIndex]?.word?.defVi }}</h2>
               <p class="scramble-subtitle-label">Dịch nghĩa</p>
-              
+
               <!-- Hàng chữ cái gợi ý (Pool) -->
               <div class="scramble-letters-pool">
-                <button 
-                  *ngFor="let item of scrambleLetters" 
-                  class="scramble-pool-btn"
-                  [class.used]="item.used"
-                  [disabled]="item.used || scrambleChecked"
-                  (click)="clickScrambleLetter(item)">
+                <button *ngFor="let item of scrambleLetters" class="scramble-pool-btn" [class.used]="item.used"
+                  [disabled]="item.used || scrambleChecked" (click)="clickScrambleLetter(item)">
                   {{ item.char }}
                 </button>
               </div>
-              
+
               <!-- Hàng các ô chứa từ đã ghép -->
               <div class="scramble-assembled-row">
-                <div 
-                  *ngFor="let charItem of assembledLetters; let idx = index" 
-                  class="scramble-input-box"
-                  [class.filled]="charItem !== null"
-                  [class.correct]="scrambleChecked && scrambleFeedback === 'correct'"
+                <div *ngFor="let charItem of assembledLetters; let idx = index" class="scramble-input-box"
+                  [class.filled]="charItem !== null" [class.correct]="scrambleChecked && scrambleFeedback === 'correct'"
                   [class.incorrect]="scrambleChecked && scrambleFeedback === 'incorrect'"
                   (click)="clickAssembledLetter(idx)">
                   {{ charItem?.char }}
                 </div>
               </div>
-              
+
               <!-- Các nút hành động: Kiểm tra, Đổi, Kết quả -->
               <div class="scramble-actions-row">
-                <button 
-                  class="btn-scramble-check" 
-                  [disabled]="isAssembledIncomplete() || scrambleChecked"
+                <button class="btn-scramble-check" [disabled]="isAssembledIncomplete() || scrambleChecked"
                   (click)="checkScrambleAnswer()">
                   Kiểm tra
                 </button>
-                <button 
-                  class="btn-scramble-change" 
-                  (click)="nextScrambleQuestion()">
+                <button class="btn-scramble-change" (click)="nextScrambleQuestion()">
                   Đổi
                 </button>
-                <button 
-                  class="btn-scramble-reveal" 
-                  [disabled]="scrambleChecked"
-                  (click)="revealScrambleAnswer()">
+                <button class="btn-scramble-reveal" [disabled]="scrambleChecked" (click)="revealScrambleAnswer()">
                   Kết quả
                 </button>
               </div>
-              
+
               <!-- Thông báo kết quả ngay bên dưới -->
               <div class="scramble-feedback-banner" *ngIf="scrambleChecked">
-                <p class="feedback-txt success" *ngIf="scrambleFeedback === 'correct'">🎉 Chính xác! Bạn đã ghép đúng từ!</p>
+                <p class="feedback-txt success" *ngIf="scrambleFeedback === 'correct'">🎉 Chính xác! Bạn đã ghép đúng
+                  từ!</p>
                 <p class="feedback-txt error" *ngIf="scrambleFeedback === 'incorrect'">
-                  ❌ Chưa chính xác! Đáp án đúng là: <strong>{{ scrambleQuestions[currentScrambleIndex]?.word?.word }}</strong>
+                  ❌ Chưa chính xác! Đáp án đúng là: <strong>{{ scrambleQuestions[currentScrambleIndex]?.word?.word
+                    }}</strong>
                 </p>
               </div>
             </div>
-            
+
             <div *ngIf="showScrambleResult" class="quiz-result-card">
               <div class="result-icon">🧩</div>
               <h2>Hoàn thành ghép từ!</h2>
-              <p class="result-score">Kết quả: <strong>{{ scrambleScore }}</strong> / {{ scrambleQuestions.length }} từ</p>
+              <p class="result-score">Kết quả: <strong>{{ scrambleScore }}</strong> / {{ scrambleQuestions.length }} từ
+              </p>
               <button class="result-retry-btn" (click)="restartScramble()">Làm lại</button>
             </div>
           </div>
@@ -397,67 +400,55 @@
                   <p>Đọc hiểu nghĩa và lắp ghép chính xác từng ký tự</p>
                 </div>
               </div>
-              
+
               <!-- Khung xám chính giữa -->
               <div class="writing-main-panel">
                 <span class="meaning-badge">NGHĨA CỦA TỪ</span>
                 <h2 class="writing-vietnamese-definition">{{ writingQuestions[currentWritingIndex]?.defVi }}</h2>
-                
+
                 <!-- Các ô nhập ký tự tự động chuyển tiếp -->
                 <div class="writing-char-boxes-row">
-                  <input 
-                    *ngFor="let charVal of writingInputs; let idx = index; trackBy: trackByIndex"
-                    type="text"
-                    maxlength="1"
-                    class="writing-char-box"
-                    [(ngModel)]="writingInputs[idx].val"
-                    (input)="onCharInput($event, idx)"
-                    (keydown)="onCharKeydown($event, idx)"
-                    id="writing-input-{{idx}}"
-                    [disabled]="writingChecked"
-                    autocomplete="off" />
+                  <input *ngFor="let charVal of writingInputs; let idx = index; trackBy: trackByIndex" type="text"
+                    maxlength="1" class="writing-char-box" [(ngModel)]="writingInputs[idx].val"
+                    (input)="onCharInput($event, idx)" (keydown)="onCharKeydown($event, idx)" id="writing-input-{{idx}}"
+                    [disabled]="writingChecked" autocomplete="off" />
                 </div>
               </div>
-              
+
               <!-- Hàng các nút hành động phía dưới -->
               <div class="writing-actions-row">
                 <!-- Bên trái: Xem kết quả -->
-                <button 
-                  class="btn-writing-reveal" 
-                  [disabled]="writingChecked"
-                  (click)="revealWritingAnswer()">
+                <button class="btn-writing-reveal" [disabled]="writingChecked" (click)="revealWritingAnswer()">
                   <span class="btn-icon">👁️</span> Xem KQ
                 </button>
-                
+
                 <!-- Bên phải: Kiểm tra & Chuyển từ -->
                 <div class="writing-actions-right">
-                  <button 
-                    class="btn-writing-check" 
-                    [disabled]="isWritingIncomplete() || writingChecked"
+                  <button class="btn-writing-check" [disabled]="isWritingIncomplete() || writingChecked"
                     (click)="checkWritingAnswer()">
                     <span class="btn-icon">✔️</span> Kiểm tra
                   </button>
-                  <button 
-                    class="btn-writing-next" 
-                    (click)="nextWritingQuestion()">
+                  <button class="btn-writing-next" (click)="nextWritingQuestion()">
                     Chuyển từ ➔
                   </button>
                 </div>
               </div>
-              
+
               <!-- Banner thông báo kết quả kiểm tra -->
               <div class="writing-feedback-banner" *ngIf="writingChecked">
-                <p class="feedback-txt success" *ngIf="writingFeedback === 'correct'">🎉 Tuyệt vời! Bạn đã viết chính xác!</p>
+                <p class="feedback-txt success" *ngIf="writingFeedback === 'correct'">🎉 Tuyệt vời! Bạn đã viết chính
+                  xác!</p>
                 <p class="feedback-txt error" *ngIf="writingFeedback === 'incorrect'">
                   ❌ Chưa chính xác! Đáp án đúng là: <strong>{{ writingQuestions[currentWritingIndex]?.word }}</strong>
                 </p>
               </div>
             </div>
-            
+
             <div *ngIf="showWritingResult" class="quiz-result-card">
               <div class="result-icon">✍️</div>
               <h2>Hoàn thành phần Viết!</h2>
-              <p class="result-score">Kết quả: <strong>{{ writingScore }}</strong> / {{ writingQuestions.length }} từ</p>
+              <p class="result-score">Kết quả: <strong>{{ writingScore }}</strong> / {{ writingQuestions.length }} từ
+              </p>
               <button class="result-retry-btn" (click)="restartWriting()">Làm lại</button>
             </div>
           </div>
@@ -474,11 +465,13 @@
             <span>TỪ VỰNG IELTS · 20 NGÀY HỌC</span>
             <span class="hero-badge-days">💧 {{ streakDays }} ngày</span>
           </div>
-          
+
           <h1 class="hero-title">
-            {{ selectedPos === 'noun' ? 'Danh từ' : selectedPos === 'verb' ? 'Động từ' : selectedPos === 'adj' ? 'Tính từ' : 'Trạng từ' }} · Ngày {{ getStartDayForPos(selectedPos) }}
+            {{ selectedPos === 'noun' ? 'Danh từ' : selectedPos === 'verb' ? 'Động từ' : selectedPos === 'adj' ? 'Tính
+            từ' : 'Trạng từ' }} · Ngày {{ getStartDayForPos(selectedPos) }}
           </h1>
-          <p class="hero-subtitle">TỪ {{ (getStartDayForPos(selectedPos) - 1) * 50 + 1 }}-{{ getStartDayForPos(selectedPos) * 50 }} · 50 từ</p>
+          <p class="hero-subtitle">TỪ {{ (getStartDayForPos(selectedPos) - 1) * 50 + 1 }}-{{
+            getStartDayForPos(selectedPos) * 50 }} · 50 từ</p>
 
           <!-- Tiến trình & Nút bấm -->
           <div class="hero-actions-row">
@@ -489,7 +482,7 @@
               </div>
               <span class="hero-progress-fraction">{{ learnedPercent }}%</span>
             </div>
-            
+
             <div class="hero-btn-group">
               <button class="btn-start-study" (click)="startLearning('default')">Bắt đầu học →</button>
               <button class="btn-dictation" (click)="triggerDictionary()">Nghe chép</button>
@@ -518,10 +511,7 @@
 
       <!-- THANH TABS TỪ LOẠI -->
       <nav class="vocab-tabs-bar">
-        <button
-          *ngFor="let tab of posTabs"
-          class="tab-btn"
-          [class.active]="selectedPos === tab.id"
+        <button *ngFor="let tab of posTabs" class="tab-btn" [class.active]="selectedPos === tab.id"
           (click)="selectPos(tab.id)">
           <span class="tab-icon">{{ tab.icon }}</span>
           <span class="tab-label">{{ tab.name }}</span>
@@ -531,12 +521,9 @@
 
       <!-- DANH SÁCH CÁC NGÀY HỌC -->
       <div class="vocab-days-list">
-        <div
-          class="day-card-row"
-          *ngFor="let day of getDaysForActivePos()"
-          [class.completed]="learnedDays.has(day.id)"
+        <div class="day-card-row" *ngFor="let day of getDaysForActivePos()" [class.completed]="learnedDays.has(day.id)"
           (click)="startLearning(day.id)">
-          
+
           <div class="day-left-section">
             <div class="day-badge-circle" (click)="markDayCompleted(day.id, $event)">
               <span class="day-number" *ngIf="!learnedDays.has(day.id)">{{ day.dayNumber }}</span>
@@ -550,7 +537,8 @@
 
           <div class="day-right-actions">
             <button class="btn-card-learn" (click)="startLearning(day.id)">Học</button>
-            <button class="btn-card-dictation" (click)="$event.stopPropagation(); triggerDictionary()">Nghe chép</button>
+            <button class="btn-card-dictation" (click)="$event.stopPropagation(); triggerDictionary()">Nghe
+              chép</button>
           </div>
         </div>
       </div>
@@ -564,4 +552,3 @@
   <span class="dict-icon">🕵️‍♂️</span>
   <span class="dict-txt">Tra từ</span>
 </div>
-

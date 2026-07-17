@@ -144,6 +144,41 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     await this.vocabProgressService.saveProgress(this.userId, progress);
   }
 
+  async resetProgress(): Promise<void> {
+    if (confirm('Bạn có chắc chắn muốn reset toàn bộ tiến trình học từ vựng về 0 không?')) {
+      this.streakDays = 0;
+      this.todayWordsLearned = 0;
+      this.totalLearnedCount = 0;
+      this.maxRecord = 0;
+      this.savedWords.clear();
+      this.learnedWords.clear();
+      this.learnedDays.clear();
+      this.lastStudyDate = '';
+      this.sessionHistoryIndex = [];
+      this.nounCount = 0;
+      this.verbCount = 0;
+      this.adjCount = 0;
+      this.advCount = 0;
+      
+      const progress = {
+        streakDays: 0,
+        todayWordsLearned: 0,
+        totalLearnedCount: 0,
+        maxRecord: 0,
+        savedWords: [],
+        learnedWords: [],
+        learnedDays: [],
+        lastStudyDate: '',
+        nounCount: 0,
+        verbCount: 0,
+        adjCount: 0,
+        advCount: 0,
+        index: []
+      };
+      await this.vocabProgressService.saveProgress(this.userId, progress);
+    }
+  }
+
   // State quản lý giao diện
   selectedPos = 'noun';
   streakDays = 0;
