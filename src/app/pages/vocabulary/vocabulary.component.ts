@@ -82,12 +82,12 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     this.totalLearnedCount = this.learnedWords.size;
     this.updatePosCounts();
     
-    // Tự động sửa chữa giá trị kỷ lục
+    // Tự động sửa chữa giá trị kỷ lục chuỗi ngày streak
     const oldMax = progress.maxRecord || 0;
-    if (oldMax <= this.learnedWords.size && this.learnedWords.size > 0) {
-      this.maxRecord = this.learnedWords.size;
+    if (oldMax === this.learnedWords.size && oldMax > this.streakDays) {
+      this.maxRecord = this.streakDays;
     } else {
-      this.maxRecord = oldMax;
+      this.maxRecord = Math.max(oldMax, this.streakDays);
     }
 
     // Kiểm tra reset ngày mới
@@ -122,8 +122,8 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   async saveCurrentProgress(): Promise<void> {
     if (!this.userId) return;
     this.totalLearnedCount = this.learnedWords.size;
-    if (this.totalLearnedCount > this.maxRecord) {
-      this.maxRecord = this.totalLearnedCount;
+    if (this.streakDays > this.maxRecord) {
+      this.maxRecord = this.streakDays;
     }
     this.updatePosCounts();
     const progress = {
@@ -203,6 +203,14 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   currentCardIndex = 0;
   cardFlipped = false;
 
+  // Tra từ nhanh Drawer State
+  showQuickDictDrawer = false;
+  quickSearchQuery = '';
+  quickSearchResult: VocabWord | null = null;
+  isQuickSearchLoading = false;
+  quickSearchError = false;
+  quickSuggestions = ['strategy', 'achieve', 'candidate', 'industry', 'brochure'];
+
   readonly posTabs: PosTab[] = [
     { id: 'noun', name: 'Danh từ', icon: '📝', totalDays: 6 },
     { id: 'verb', name: 'Động từ', icon: '⚡', totalDays: 6 },
@@ -211,6 +219,54 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   ];
 
   readonly words: VocabWord[] = [
+    {
+      word: 'strategy',
+      phonetic: "/'strætədʒi/",
+      pos: 'noun',
+      defVi: 'Chiến lược, kế hoạch phát triển',
+      defEn: 'a plan of action designed to achieve a long-term or overall aim',
+      example: 'The company needs a new marketing strategy to boost sales.',
+      exampleVi: 'Công ty cần một chiến lược tiếp thị mới để thúc đẩy doanh số.',
+      topic: 'business',
+      band: 5,
+      collocations: [
+        { phrase: 'develop/formulate a strategy', vi: 'phát triển/xây dựng chiến lược' },
+        { phrase: 'business/marketing strategy', vi: 'chiến lược kinh doanh/tiếp thị' }
+      ]
+    },
+    {
+      word: 'achieve',
+      phonetic: "/ə'tʃiːv/",
+      pos: 'verb',
+      defVi: 'Đạt được, giành được',
+      defEn: 'successfully bring about or reach a desired objective or result',
+      example: 'She worked hard to achieve her dream of becoming a doctor.',
+      exampleVi: 'Cô ấy đã làm việc chăm chỉ để đạt được ước mơ trở thành bác sĩ.',
+      topic: 'general',
+      band: 5
+    },
+    {
+      word: 'candidate',
+      phonetic: "/'kændɪdət/",
+      pos: 'noun',
+      defVi: 'Ứng viên, người dự tuyển',
+      defEn: 'a person who applies for a job or is nominated for election',
+      example: 'There are three candidates interviewing for the manager position today.',
+      exampleVi: 'Có ba ứng viên đang phỏng vấn cho vị trí quản lý hôm nay.',
+      topic: 'business',
+      band: 5
+    },
+    {
+      word: 'lead',
+      phonetic: "/liːd/",
+      pos: 'verb',
+      defVi: 'Dẫn dắt, lãnh đạo',
+      defEn: 'cause a group of people or an organization to go with one in a direction',
+      example: 'He will lead the project team starting next week.',
+      exampleVi: 'Anh ấy sẽ dẫn dắt đội ngũ dự án từ tuần tới.',
+      topic: 'business',
+      band: 4
+    },
     // Danh từ (noun) - 50 Words from screenshots
     {
       word: 'industry',
@@ -3694,8 +3750,8 @@ export class VocabularyComponent implements OnInit, OnDestroy {
       this.todayWordsLearned = Math.min(10, this.todayWordsLearned + 3);
     }
     this.totalLearnedCount = this.learnedWords.size;
-    if (this.totalLearnedCount > this.maxRecord) {
-      this.maxRecord = this.totalLearnedCount;
+    if (this.streakDays > this.maxRecord) {
+      this.maxRecord = this.streakDays;
     }
     this.saveCurrentProgress();
   }
@@ -3813,8 +3869,8 @@ export class VocabularyComponent implements OnInit, OnDestroy {
       if (this.quizScore >= this.quizQuestions.length / 2) {
         this.learnedDays.add(this.selectedDayId);
         this.totalLearnedCount = this.learnedWords.size;
-        if (this.totalLearnedCount > this.maxRecord) {
-          this.maxRecord = this.totalLearnedCount;
+        if (this.streakDays > this.maxRecord) {
+          this.maxRecord = this.streakDays;
         }
         const today = new Date().toISOString().slice(0, 10);
         if (this.lastStudyDate !== today) {
@@ -4204,7 +4260,85 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   }
 
   triggerDictionary(): void {
-    alert('Chức năng Tra từ nhanh đang được phát triển!');
+    this.openQuickDict();
+  }
+
+  openQuickDict(suggestedWord?: string): void {
+    this.showQuickDictDrawer = true;
+    if (suggestedWord) {
+      this.quickSearchQuery = suggestedWord;
+      this.searchQuickWord();
+    }
+  }
+
+  closeQuickDict(): void {
+    this.showQuickDictDrawer = false;
+  }
+
+  selectSuggestion(word: string): void {
+    this.quickSearchQuery = word;
+    this.searchQuickWord();
+  }
+
+  async searchQuickWord(): Promise<void> {
+    if (!this.quickSearchQuery || !this.quickSearchQuery.trim()) return;
+    const query = this.quickSearchQuery.trim().toLowerCase();
+    this.isQuickSearchLoading = true;
+    this.quickSearchError = false;
+
+    // 1. Tìm trong dữ liệu từ vựng nội bộ (chính xác)
+    const foundLocal = this.words.find(w => w.word.toLowerCase() === query);
+    if (foundLocal) {
+      this.quickSearchResult = foundLocal;
+      this.isQuickSearchLoading = false;
+      return;
+    }
+
+    // 2. Tìm khớp một phần trong dữ liệu nội bộ
+    const partialMatch = this.words.find(w => w.word.toLowerCase().includes(query));
+    if (partialMatch) {
+      this.quickSearchResult = partialMatch;
+      this.isQuickSearchLoading = false;
+      return;
+    }
+
+    // 3. Tra cứu từ Dictionary API nếu không có trong dữ liệu nội bộ
+    try {
+      const resp = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(query)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data && data.length > 0) {
+          const entry = data[0];
+          const phonetic = entry.phonetic || (entry.phonetics && entry.phonetics.find((p: any) => p.text)?.text) || '';
+          const meaningObj = entry.meanings ? entry.meanings[0] : null;
+          const pos = meaningObj ? meaningObj.partOfSpeech : 'vocabulary';
+          const defObj = meaningObj && meaningObj.definitions ? meaningObj.definitions[0] : null;
+          const defEn = defObj ? defObj.definition : '';
+          const example = defObj ? defObj.example : '';
+
+          this.quickSearchResult = {
+            word: entry.word,
+            phonetic: phonetic,
+            pos: pos,
+            defVi: defEn,
+            defEn: defEn,
+            example: example || `Use '${entry.word}' in a sentence.`,
+            exampleVi: '',
+            topic: 'general',
+            band: 5
+          };
+          this.isQuickSearchLoading = false;
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('Dictionary API error:', e);
+    }
+
+    this.quickSearchResult = null;
+    this.quickSearchError = true;
+    this.isQuickSearchLoading = false;
   }
 }
+
 

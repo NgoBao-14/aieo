@@ -59,6 +59,13 @@
           <span>20 ngày · 1000 từ</span>
         </div>
       </div>
+      <div class="menu-item" (click)="openQuickDict()">
+        <div class="menu-icon font-icon">🔍</div>
+        <div class="menu-txt">
+          <strong>Tra từ nhanh</strong>
+          <span>Tra cứu & lưu từ</span>
+        </div>
+      </div>
       <div class="menu-item">
         <div class="menu-icon font-icon tag-icon">🔖</div>
         <div class="menu-txt">
@@ -548,7 +555,124 @@
 </div>
 
 <!-- NÚT TRA TỪ NỔI Ở CẠNH PHẢI -->
-<div class="floating-dict-btn" (click)="triggerDictionary()">
-  <span class="dict-icon">🕵️‍♂️</span>
-  <span class="dict-txt">Tra từ</span>
+<div class="floating-dict-btn" (click)="openQuickDict()">
+  <span class="dict-icon">🔍</span>
+  <span class="dict-txt">Tra từ nhanh</span>
+</div>
+
+<!-- OVERLAY + DRAWER TRA TỪ NHANH BÊN PHẢI (SLIDE-OVER DRAWER) -->
+<div class="quick-dict-overlay" [class.show]="showQuickDictDrawer" (click)="closeQuickDict()"></div>
+
+<div class="quick-dict-drawer" [class.show]="showQuickDictDrawer">
+  <!-- DRAWER HEADER -->
+  <div class="quick-dict-header">
+    <h3 class="quick-dict-title">Tra từ nhanh</h3>
+    <button class="quick-dict-close-btn" (click)="closeQuickDict()" title="Đóng">✕</button>
+  </div>
+
+  <!-- DRAWER BODY -->
+  <div class="quick-dict-body">
+    <!-- KHỐI NHẬP TỪ CẦN TRA -->
+    <div class="quick-dict-search-box">
+      <input type="text"
+             class="quick-dict-input"
+             placeholder="Nhập từ cần tra (VD: strategy, lead...)"
+             [(ngModel)]="quickSearchQuery"
+             (keyup.enter)="searchQuickWord()" />
+      <button class="quick-dict-btn-tra" (click)="searchQuickWord()">Tra</button>
+    </div>
+
+    <!-- HÀNG GỢI Ý TỪ -->
+    <div class="quick-dict-suggestions">
+      <span class="suggestion-label">Gợi ý:</span>
+      <div class="suggestion-tags">
+        <button type="button" 
+                class="suggestion-pill" 
+                *ngFor="let sug of quickSuggestions" 
+                (click)="selectSuggestion(sug)">
+          {{ sug }}
+        </button>
+      </div>
+    </div>
+
+    <!-- TRẠNG THÁI LOADING -->
+    <div class="quick-dict-state-container" *ngIf="isQuickSearchLoading">
+      <div class="quick-dict-spinner"></div>
+      <p>Đang tra cứu từ vựng...</p>
+    </div>
+
+    <!-- TRẠNG THÁI KHÔNG TÌM THẤY TỪ -->
+    <div class="quick-dict-state-container error" *ngIf="!isQuickSearchLoading && quickSearchError">
+      <div class="state-icon">🔍</div>
+      <p class="error-msg">Không tìm thấy từ "<strong>{{ quickSearchQuery }}</strong>"</p>
+      <span class="error-tip">Thử kiểm tra lại chính tả hoặc chọn từ gợi ý ở trên.</span>
+    </div>
+
+    <!-- KẾT QUẢ TRA TỪ -->
+    <div class="quick-dict-result-card" *ngIf="!isQuickSearchLoading && quickSearchResult">
+      <div class="result-word-header">
+        <div class="word-main-info">
+          <h2 class="word-title">{{ quickSearchResult.word }}</h2>
+          <span class="word-phonetic" *ngIf="quickSearchResult.phonetic">{{ quickSearchResult.phonetic }}</span>
+        </div>
+        <button class="btn-audio-speak" (click)="playWordAudio(quickSearchResult.word)" title="Phát âm">
+          🔊
+        </button>
+      </div>
+
+      <div class="result-tags-row">
+        <span class="pos-badge" [class]="quickSearchResult.pos">
+          {{ quickSearchResult.pos === 'noun' ? 'Danh từ' : quickSearchResult.pos === 'verb' ? 'Động từ' : quickSearchResult.pos === 'adj' ? 'Tính từ' : quickSearchResult.pos === 'adv' ? 'Trạng từ' : quickSearchResult.pos }}
+        </span>
+        <span class="band-badge" *ngIf="quickSearchResult.band">Band {{ quickSearchResult.band }}</span>
+      </div>
+
+      <div class="result-section">
+        <span class="section-label">Nghĩa tiếng Việt:</span>
+        <p class="meaning-vi">{{ quickSearchResult.defVi }}</p>
+      </div>
+
+      <div class="result-section" *ngIf="quickSearchResult.defEn">
+        <span class="section-label">Định nghĩa tiếng Anh:</span>
+        <p class="meaning-en">{{ quickSearchResult.defEn }}</p>
+      </div>
+
+      <div class="result-section" *ngIf="quickSearchResult.example">
+        <span class="section-label">Ví dụ minh họa:</span>
+        <blockquote class="example-box">
+          <p class="ex-en">"{{ quickSearchResult.example }}"</p>
+          <p class="ex-vi" *ngIf="quickSearchResult.exampleVi">{{ quickSearchResult.exampleVi }}</p>
+        </blockquote>
+      </div>
+
+      <div class="result-section" *ngIf="quickSearchResult.collocations && quickSearchResult.collocations.length">
+        <span class="section-label">Cụm từ phổ biến (Collocations):</span>
+        <ul class="collocations-list">
+          <li *ngFor="let col of quickSearchResult.collocations">
+            <strong>{{ col.phrase }}</strong>: {{ col.vi }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="result-actions-row">
+        <button class="btn-action-save" 
+                [class.saved]="savedWords.has(quickSearchResult.word)"
+                (click)="toggleSave(quickSearchResult.word)">
+          {{ savedWords.has(quickSearchResult.word) ? '🔖 Đã lưu' : '🔖 Lưu từ' }}
+        </button>
+        <button class="btn-action-learn" 
+                [class.learned]="learnedWords.has(quickSearchResult.word)"
+                (click)="toggleLearned(quickSearchResult.word)">
+          {{ learnedWords.has(quickSearchResult.word) ? '✓ Đã học' : 'Đánh dấu đã học' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- HƯỚNG DẪN BAN ĐẦU KHI CHƯA CHỌN TỪ -->
+    <div class="quick-dict-placeholder" *ngIf="!isQuickSearchLoading && !quickSearchResult && !quickSearchError">
+      <div class="placeholder-icon">📚</div>
+      <h4>Tra cứu từ vựng IELTS / TOEIC</h4>
+      <p>Nhập từ vựng vào ô tìm kiếm hoặc bấm chọn các từ gợi ý để xem nghĩa, phiên âm và ví dụ nhanh chóng.</p>
+    </div>
+  </div>
 </div>
