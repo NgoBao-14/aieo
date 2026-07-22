@@ -117,8 +117,13 @@ export class VocabProgressService {
             totalLearnedCount: progress.totalLearnedCount,
             maxRecord: progress.maxRecord,
             savedWords: progress.savedWords,
+            learnedWords: progress.learnedWords,
             learnedDays: progress.learnedDays,
             lastStudyDate: progress.lastStudyDate || '',
+            nounCount: progress.nounCount,
+            verbCount: progress.verbCount,
+            adjCount: progress.adjCount,
+            advCount: progress.advCount,
             index: progress.index
           });
         } catch (err) {

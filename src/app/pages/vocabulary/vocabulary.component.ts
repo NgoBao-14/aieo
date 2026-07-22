@@ -78,17 +78,21 @@ export class VocabularyComponent implements OnInit, OnDestroy {
     this.lastStudyDate = progress.lastStudyDate || '';
     this.sessionHistoryIndex = progress.index || [];
 
-    // Tự động tính toán lại số từ tổng bằng số từ đã học thực tế
-    this.totalLearnedCount = this.learnedWords.size;
+    // Tự động tính toán lại số từ tổng bằng số từ đã học thực tế, lịch sử session index, hoặc tổng đã lưu
+    const indexTotal = (this.sessionHistoryIndex || []).reduce((sum, item) => sum + (item.total || 0), 0);
+    this.totalLearnedCount = Math.max(progress.totalLearnedCount || 0, this.learnedWords.size, indexTotal);
     this.updatePosCounts();
     
-    // Tự động sửa chữa giá trị kỷ lục chuỗi ngày streak
+    // Tự động sửa chữa giá trị kỷ lục chuỗi ngày streak (không để kỷ lục vượt quá số ngày thực tế đã từng học)
     const oldMax = progress.maxRecord || 0;
-    if (oldMax === this.learnedWords.size && oldMax > this.streakDays) {
-      this.maxRecord = this.streakDays;
+    const maxPossibleStreak = Math.max(this.streakDays, this.learnedDays.size);
+    if (oldMax > maxPossibleStreak) {
+      this.maxRecord = maxPossibleStreak;
     } else {
       this.maxRecord = Math.max(oldMax, this.streakDays);
     }
+
+    let needSave = oldMax !== this.maxRecord;
 
     // Kiểm tra reset ngày mới
     const today = new Date().toISOString().slice(0, 10);
@@ -99,6 +103,10 @@ export class VocabularyComponent implements OnInit, OnDestroy {
       }
       this.todayWordsLearned = 0;
       this.lastStudyDate = today;
+      needSave = true;
+    }
+
+    if (needSave) {
       await this.saveCurrentProgress();
     }
   }
@@ -121,7 +129,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
 
   async saveCurrentProgress(): Promise<void> {
     if (!this.userId) return;
-    this.totalLearnedCount = this.learnedWords.size;
+    this.totalLearnedCount = Math.max(this.totalLearnedCount, this.learnedWords.size);
     if (this.streakDays > this.maxRecord) {
       this.maxRecord = this.streakDays;
     }

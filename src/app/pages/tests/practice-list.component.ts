@@ -1,8 +1,17 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Test } from '../../models/app.models';
 import { EXERCISE_TYPES_BY_SKILL } from '../../models/exercise-types';
 import { TestDataService } from '../../core/services/test-data.service';
+
+export type PracticeCategory = 
+  | 'toeic' 
+  | 'predict' 
+  | 'stats' 
+  | 'writing_skills' 
+  | 'writing_history' 
+  | 'speaking_skills' 
+  | 'speaking_history';
 
 @Component({
   selector: 'app-practice-list',
@@ -16,6 +25,122 @@ export class PracticeListComponent implements OnInit {
   loading = true;
   seeding = false;
   showSeedBtn = true;
+
+  activeCategory: PracticeCategory = 'toeic';
+
+  readonly predictTests = [
+    { id: 1, num: '#1', title: 'Tuần 3 - Tháng 4', attempts: '2,271' },
+    { id: 2, num: '#2', title: 'Tuần 4 - Tháng 4', attempts: '2,170' },
+    { id: 3, num: '#3', title: 'Tuần 1 - Tháng 5', attempts: '2,372' },
+    { id: 4, num: '#4', title: 'Tuần 2 - Tháng 5', attempts: '2,473' }
+  ];
+
+  readonly foundationWriting = [
+    {
+      id: 'trans',
+      icon: '🌐',
+      bgColor: '#e6f4ea',
+      iconColor: '#137333',
+      title: 'Dịch Việt – Anh',
+      desc: 'Rèn cách chuyển ý chính xác và diễn đạt tự nhiên bằng tiếng Anh.'
+    },
+    {
+      id: 'two-words',
+      icon: 'T T',
+      bgColor: '#e0f2fe',
+      iconColor: '#0369a1',
+      title: 'Viết câu với hai từ',
+      desc: 'Luyện dạng từ, ngữ pháp và collocation qua từng câu ngắn.'
+    }
+  ];
+
+  readonly taskWriting = [
+    {
+      id: 'part1',
+      part: 'Part 1',
+      icon: '🖼️',
+      bgColor: '#f3e8ff',
+      title: 'Mô tả tranh',
+      desc: 'Viết một câu mô tả tranh, bắt buộc dùng đủ hai từ cho sẵn.'
+    },
+    {
+      id: 'part2',
+      part: 'Part 2',
+      icon: '✉️',
+      bgColor: '#e0f2fe',
+      title: 'Viết email',
+      desc: 'Phản hồi email đúng mục đích, đủ yêu cầu và phù hợp văn phong công việc.'
+    },
+    {
+      id: 'part3',
+      part: 'Part 3',
+      icon: '📝',
+      bgColor: '#ffedd5',
+      title: 'Viết bài luận',
+      desc: 'Trình bày quan điểm với lý do, ví dụ và bố cục mạch lạc.'
+    }
+  ];
+
+  readonly speakingTasksRow1 = [
+    {
+      part: 'PART 1',
+      icon: '📖',
+      accentColor: '#ea580c',
+      bgColor: '#fff7ed',
+      btnBg: '#ffedd5',
+      title: 'Đọc thành tiếng',
+      desc: 'Đọc rõ đoạn văn, giữ nhịp và ngữ điệu tự nhiên.',
+      questions: 'Câu 1–2',
+      time: '45 giây'
+    },
+    {
+      part: 'PART 2',
+      icon: '🖼️',
+      accentColor: '#10b981',
+      bgColor: '#ecfdf5',
+      btnBg: '#d1fae5',
+      title: 'Mô tả tranh',
+      desc: 'Tổ chức mô tả theo vị trí, chủ thể và hành động chính.',
+      questions: 'Câu 3–4',
+      time: '30 giây'
+    },
+    {
+      part: 'PART 3',
+      icon: '❓',
+      accentColor: '#2563eb',
+      bgColor: '#eff6ff',
+      btnBg: '#dbeafe',
+      title: 'Trả lời câu hỏi',
+      desc: 'Phản hồi trực tiếp, đúng trọng tâm và đủ chi tiết.',
+      questions: 'Câu 5–7',
+      time: '15–30 giây'
+    }
+  ];
+
+  readonly speakingTasksRow2 = [
+    {
+      part: 'PART 4',
+      icon: '📄',
+      accentColor: '#ea580c',
+      bgColor: '#fff7ed',
+      btnBg: '#ffedd5',
+      title: 'Dùng thông tin',
+      desc: 'Đọc bảng và trả lời chính xác tên, giờ, giá hoặc địa điểm.',
+      questions: 'Câu 8–10',
+      time: '15–30 giây'
+    },
+    {
+      part: 'PART 5',
+      icon: '💡',
+      accentColor: '#7c3aed',
+      bgColor: '#f5f3ff',
+      btnBg: '#ede9fe',
+      title: 'Trình bày quan điểm',
+      desc: 'Nêu lập trường, phát triển hai lý do và ví dụ rõ ràng.',
+      questions: 'Câu 11',
+      time: '60 giây'
+    }
+  ];
 
   readonly guideSteps = [
     { num: '1', title: 'Đọc kỹ đề bài', desc: 'Xem nhanh cấu trúc đề và câu hỏi trước khi đọc passage hoặc nghe audio.' },
@@ -34,6 +159,10 @@ export class PracticeListComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.applyFilter(params.get('skill') ?? '');
     });
+  }
+
+  selectCategory(cat: PracticeCategory): void {
+    this.activeCategory = cat;
   }
 
   applyFilter(skill: string): void {

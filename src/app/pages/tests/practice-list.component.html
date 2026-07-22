@@ -1,87 +1,322 @@
-﻿<div class="tests-page">
-  <section class="tests-hero">
-    <div>
-      <p class="tests-kicker">Listening & Reading</p>
-      <h1>Listening & Reading</h1>
+<div class="tests-page-container">
+  <!-- SIDEBAR BÊN TRÁI -->
+  <aside class="practice-sidebar">
+    <div class="sidebar-header">
+      <h2>Luyện tập</h2>
     </div>
 
-    <div class="tests-promo">
-      <div class="tests-promo__icon">📋</div>
-      <div>
-        <strong>Khoá giải đề cấp tốc 1 tháng</strong>
-        <span>Bứt tốc 1 tháng - Tự tin đi thi</span>
+    <nav class="sidebar-nav">
+      <!-- Group 1: Nghe & Đọc -->
+      <div class="nav-group" [class.active]="activeCategory === 'toeic' || activeCategory === 'predict' || activeCategory === 'stats'">
+        <div class="nav-group-title">
+          <span class="group-icon">📖</span>
+          <strong>Nghe & Đọc</strong>
+        </div>
+        <ul class="nav-sub-list">
+          <li class="sub-item" [class.active]="activeCategory === 'toeic'" (click)="selectCategory('toeic')">
+            <span class="sub-icon">📜</span> Đề IELTS
+          </li>
+          <li class="sub-item" [class.active]="activeCategory === 'predict'" (click)="selectCategory('predict')">
+            <span class="sub-icon">🔥</span> Đề dự đoán <span class="badge-hot">HOT</span>
+          </li>
+          <li class="sub-item" [class.active]="activeCategory === 'stats'" (click)="selectCategory('stats')">
+            <span class="sub-icon">📊</span> Thống kê
+          </li>
+        </ul>
       </div>
-      <b>1.990k</b>
-      <button type="button">Inbox Zalo</button>
-    </div>
-  </section>
 
-  <div class="tests-toolbar">
-    <div class="tests-filters" aria-label="Practice filters">
-      <button class="filter-btn filter-btn--quick" [class.active]="selectedSkill === ''" (click)="applyFilter('')">
-        Quick Test <span>✓</span>
-      </button>
-      <button class="filter-btn" [class.active]="selectedSkill === 'Reading'" (click)="applyFilter('Reading')">Reading</button>
-      <button class="filter-btn" [class.active]="selectedSkill === 'Listening'" (click)="applyFilter('Listening')">Listening</button>
-      <button class="filter-btn" type="button">2026</button>
-      <button class="filter-btn" type="button">2025</button>
-      <button class="filter-btn" type="button">2024</button>
-      <button class="filter-btn" type="button">2023</button>
-    </div>
+      <!-- Group 2: Viết -->
+      <div class="nav-group" [class.active]="activeCategory === 'writing_skills' || activeCategory === 'writing_history'">
+        <div class="nav-group-title">
+          <span class="group-icon">✏️</span>
+          <strong>Viết</strong>
+          <span class="badge-skill">4 kỹ năng</span>
+        </div>
+        <ul class="nav-sub-list">
+          <li class="sub-item" [class.active]="activeCategory === 'writing_skills'" (click)="selectCategory('writing_skills')">
+            <span class="sub-icon">🧪</span> Luyện kỹ năng
+          </li>
+          <li class="sub-item" [class.active]="activeCategory === 'writing_history'" (click)="selectCategory('writing_history')">
+            <span class="sub-icon">🕒</span> Lịch sử
+          </li>
+        </ul>
+      </div>
 
-    <button class="btn-seed" (click)="seedDemoTests()" [disabled]="seeding" *ngIf="showSeedBtn">
-      {{ seeding ? 'Đang tạo...' : '+ Tạo đề mẫu' }}
-    </button>
-  </div>
+      <!-- Group 3: Nói -->
+      <div class="nav-group" [class.active]="activeCategory === 'speaking_skills' || activeCategory === 'speaking_history'">
+        <div class="nav-group-title">
+          <span class="group-icon">🎙️</span>
+          <strong>Nói</strong>
+          <span class="badge-skill">4 kỹ năng</span>
+        </div>
+        <ul class="nav-sub-list">
+          <li class="sub-item" [class.active]="activeCategory === 'speaking_skills'" (click)="selectCategory('speaking_skills')">
+            <span class="sub-icon">🧪</span> Luyện kỹ năng
+          </li>
+          <li class="sub-item" [class.active]="activeCategory === 'speaking_history'" (click)="selectCategory('speaking_history')">
+            <span class="sub-icon">🕒</span> Lịch sử
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
 
-  <div class="tests-loading" *ngIf="loading">
-    <div class="tests-spinner"></div>
-    <p>Đang tải danh sách đề...</p>
-  </div>
-
-  <ng-container *ngIf="!loading">
-    <div class="tests-empty" *ngIf="!filteredTests.length">
-      <p class="tests-empty__icon">📂</p>
-      <p class="tests-empty__title">Chưa có đề cho bộ lọc này</p>
-      <p class="tests-empty__sub">Thử chọn Quick Test hoặc thêm đề mới từ Admin.</p>
-    </div>
-
-    <div class="tests-grid" *ngIf="filteredTests.length">
-      <article class="test-card" *ngFor="let test of filteredTests; let idx = index" [class.test-card--listening]="test.skill === 'Listening'">
-        <span class="test-card__attempts">{{ getAttemptCount(test, idx) | number }} lượt</span>
-
-        <div class="test-card__body">
-          <p class="test-card__eyebrow"><span>☰A</span> Đề thi IELTS</p>
-          <h2>{{ getDisplayTitle(test, idx) }}</h2>
-
-          <div class="test-card__meta">
-            <span>{{ getPrimaryCount(test) }}</span>
-            <span>{{ getSecondaryCount(test) }}</span>
+  <!-- NỘI DUNG CHÍNH BÊN PHẢI -->
+  <main class="practice-main-content">
+    <!-- VIEW 1: ĐỀ IELTS / TOEIC HỌC TẬP THƯỜNG -->
+    <ng-container *ngIf="activeCategory === 'toeic'">
+      <!-- TOOLBAR BỘ LỌC -->
+      <div class="tests-toolbar">
+        <div class="toolbar-left">
+          <span class="filter-label">Chọn bộ đề</span>
+          <div class="tests-filters" aria-label="Practice filters">
+            <button class="filter-btn filter-btn--quick" [class.active]="selectedSkill === ''" (click)="applyFilter('')">
+              Quick Test <span>✓</span>
+            </button>
+            <button class="filter-btn" [class.active]="selectedSkill === 'Reading'" (click)="applyFilter('Reading')">Reading</button>
+            <button class="filter-btn" [class.active]="selectedSkill === 'Listening'" (click)="applyFilter('Listening')">Listening</button>
+            <button class="filter-btn" type="button">2026</button>
+            <button class="filter-btn" type="button">2025</button>
+            <button class="filter-btn" type="button">2024</button>
+            <button class="filter-btn" type="button">2023</button>
           </div>
         </div>
 
-        <footer class="test-card__footer">
-          <a class="test-card__start" [routerLink]="['/tests', test.id]">
-            <span>📖</span> Làm Bài
+        <button class="btn-seed" (click)="seedDemoTests()" [disabled]="seeding" *ngIf="showSeedBtn">
+          {{ seeding ? 'Đang tạo...' : '+ Tạo đề mẫu' }}
+        </button>
+      </div>
+
+      <!-- LOADING STATE -->
+      <div class="tests-loading" *ngIf="loading">
+        <div class="tests-spinner"></div>
+        <p>Đang tải danh sách đề...</p>
+      </div>
+
+      <ng-container *ngIf="!loading">
+        <div class="tests-empty" *ngIf="!filteredTests.length">
+          <p class="tests-empty__icon">📂</p>
+          <p class="tests-empty__title">Chưa có đề cho bộ lọc này</p>
+          <p class="tests-empty__sub">Thử chọn Quick Test hoặc thêm đề mới từ Admin.</p>
+        </div>
+
+        <!-- GRID THI THỬ -->
+        <div class="tests-grid" *ngIf="filteredTests.length">
+          <article class="test-card" *ngFor="let test of filteredTests; let idx = index" [class.test-card--listening]="test.skill === 'Listening'">
+            <span class="test-card__attempts">{{ getAttemptCount(test, idx) | number }} lượt</span>
+
+            <div class="test-card__body">
+              <p class="test-card__eyebrow"><span>≡A</span> Đề thi IELTS</p>
+              <h2>{{ getDisplayTitle(test, idx) }}</h2>
+
+              <div class="test-card__meta">
+                <div class="meta-item">{{ getPrimaryCount(test) }}</div>
+                <div class="meta-item">{{ getSecondaryCount(test) }}</div>
+              </div>
+            </div>
+
+            <footer class="test-card__footer">
+              <a class="test-card__start" [routerLink]="['/tests', test.id]">
+                <span>📙</span> Làm Bài
+              </a>
+              <button class="test-card__review" type="button" disabled>
+                <span>👤</span> Review
+              </button>
+            </footer>
+          </article>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="tests-pagination" *ngIf="filteredTests.length">
+          <button class="page-btn page-nav" disabled>&lt;</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn page-nav">&gt;</button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- VIEW 2: TRANG ĐỀ DỰ ĐOÁN (PREDICT) -->
+    <ng-container *ngIf="activeCategory === 'predict'">
+      <!-- ĐỀ GẦN NHẤT (FEATURED CARD) -->
+      <div class="predict-featured-card">
+        <div class="predict-featured-accent"></div>
+        <div class="predict-featured-content">
+          <div class="predict-featured-header">
+            <span class="badge-latest">ĐỀ GẦN NHẤT</span>
+            <span class="attempts-count">2,675 lượt luyện</span>
+          </div>
+          <h2>Tuần 2 - Tháng 5</h2>
+          <p class="predict-desc">
+            Đề dự đoán Listening & Reading mới nhất. Làm bài để luyện sát trọng tâm, review lại để nắm bẫy và ma trận câu hỏi.
+          </p>
+        </div>
+        <div class="predict-featured-actions">
+          <a [routerLink]="filteredTests.length ? ['/tests', filteredTests[0].id] : []" class="btn-predict-start">
+            <span>▶</span> Làm bài
           </a>
-          <button class="test-card__review" type="button" disabled>
-            <span>👨‍🏫</span> Review
+          <button class="btn-predict-review" disabled>
+            <span>📖</span> Review
           </button>
-        </footer>
-      </article>
-    </div>
+        </div>
+      </div>
 
-    <section class="tests-guide" *ngIf="filteredTests.length">
-      <h2>Hướng dẫn luyện đề hiệu quả</h2>
-      <div class="tests-guide__steps">
-        <div class="tests-guide__step" *ngFor="let step of guideSteps">
-          <span>{{ step.num }}</span>
-          <div>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.desc }}</p>
+      <!-- SECTION KHO DỰ ĐOÁN CŨ -->
+      <div class="predict-section-header">
+        <div>
+          <span class="predict-kicker">KHO DỰ ĐOÁN</span>
+          <h2>Các đề dự đoán cũ</h2>
+        </div>
+        <span class="predict-total-meta">4 đề đã phát hành trước đó</span>
+      </div>
+
+      <!-- GRID CÁC ĐỀ DỰ ĐOÁN CŨ (3 CỘT) -->
+      <div class="predict-grid">
+        <article class="predict-card" *ngFor="let item of predictTests">
+          <div class="predict-card-header">
+            <span class="predict-badge-num">{{ item.num }}</span>
+            <span class="predict-card-attempts">{{ item.attempts }} lượt</span>
+          </div>
+          <h3 class="predict-card-title">{{ item.title }}</h3>
+          <div class="predict-card-tags">
+            <span class="skill-badge">🏫 Listening</span>
+            <span class="skill-badge">🏫 Reading</span>
+          </div>
+          <div class="predict-card-actions">
+            <a [routerLink]="filteredTests.length ? ['/tests', filteredTests[0].id] : []" class="btn-card-start">
+              <span>▶</span> Làm bài
+            </a>
+            <button class="btn-card-review" disabled>
+              <span>📖</span> Review
+            </button>
+          </div>
+        </article>
+      </div>
+    </ng-container>
+
+    <!-- VIEW 4: VIẾT - LUYỆN KỸ NĂNG (WRITING SKILLS) -->
+    <ng-container *ngIf="activeCategory === 'writing_skills'">
+      <!-- SECTION 1: LUYỆN NỀN TẢNG -->
+      <div class="skills-section">
+        <div class="skills-section-header">
+          <h2>Luyện nền tảng</h2>
+          <span class="badge-tag yellow">Nên luyện trước</span>
+        </div>
+
+        <div class="foundation-grid">
+          <div class="skill-card" *ngFor="let item of foundationWriting">
+            <div class="skill-icon-box" [style.background-color]="item.bgColor" [style.color]="item.iconColor">
+              {{ item.icon }}
+            </div>
+            <div class="skill-card-body">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.desc }}</p>
+            </div>
+            <button class="btn-skill-action" type="button">
+              Luyện ngay <span>→</span>
+            </button>
           </div>
         </div>
       </div>
-    </section>
-  </ng-container>
+
+      <!-- SECTION 2: LUYỆN THEO DẠNG BÀI -->
+      <div class="skills-section">
+        <div class="skills-section-header">
+          <h2>Luyện theo dạng bài</h2>
+          <span class="badge-tag yellow">TOEIC Writing</span>
+        </div>
+
+        <div class="task-grid">
+          <div class="task-card" *ngFor="let item of taskWriting">
+            <div class="task-card-top">
+              <div class="task-icon-box" [style.background-color]="item.bgColor">
+                {{ item.icon }}
+              </div>
+              <span class="task-part-badge">{{ item.part }}</span>
+            </div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc }}</p>
+            <button class="btn-skill-action" type="button">
+              Luyện ngay <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- VIEW 5: NÓI - LUYỆN KỸ NĂNG (SPEAKING SKILLS) -->
+    <ng-container *ngIf="activeCategory === 'speaking_skills'">
+      <div class="speaking-header">
+        <div>
+          <span class="speaking-kicker">TOEIC SPEAKING</span>
+          <h2>Chọn kỹ năng để luyện</h2>
+          <p class="speaking-sub">5 dạng bài theo cấu trúc đề thi, chấm trực tiếp từ bản thu.</p>
+        </div>
+        <span class="badge-total-skills">5 kỹ năng</span>
+      </div>
+
+      <!-- ROW 1 (3 CỘT: PART 1, PART 2, PART 3) -->
+      <div class="speaking-grid-row1">
+        <div class="speaking-card" *ngFor="let item of speakingTasksRow1" [style.border-top-color]="item.accentColor">
+          <div class="speaking-card-top">
+            <div class="speaking-icon-box" [style.background-color]="item.bgColor">
+              {{ item.icon }}
+            </div>
+            <span class="speaking-part-label" [style.color]="item.accentColor">{{ item.part }}</span>
+          </div>
+
+          <div class="speaking-card-body">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc }}</p>
+          </div>
+
+          <div class="speaking-card-bottom">
+            <div class="speaking-meta-tags">
+              <span class="meta-tag">{{ item.questions }}</span>
+              <span class="meta-tag">🕒 {{ item.time }}</span>
+            </div>
+            <button class="btn-speaking-arrow" [style.background-color]="item.btnBg" [style.color]="item.accentColor">
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2 (2 CỘT: PART 4, PART 5) -->
+      <div class="speaking-grid-row2">
+        <div class="speaking-card" *ngFor="let item of speakingTasksRow2" [style.border-top-color]="item.accentColor">
+          <div class="speaking-card-top">
+            <div class="speaking-icon-box" [style.background-color]="item.bgColor">
+              {{ item.icon }}
+            </div>
+            <span class="speaking-part-label" [style.color]="item.accentColor">{{ item.part }}</span>
+          </div>
+
+          <div class="speaking-card-body">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc }}</p>
+          </div>
+
+          <div class="speaking-card-bottom">
+            <div class="speaking-meta-tags">
+              <span class="meta-tag">{{ item.questions }}</span>
+              <span class="meta-tag">🕒 {{ item.time }}</span>
+            </div>
+            <button class="btn-speaking-arrow" [style.background-color]="item.btnBg" [style.color]="item.accentColor">
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- VIEW 3, 6, 7: FALLBACK FOR HISTORY & OTHER TABS -->
+    <ng-container *ngIf="activeCategory === 'stats' || activeCategory === 'writing_history' || activeCategory === 'speaking_history'">
+      <div class="tests-empty">
+        <p class="tests-empty__icon">✨</p>
+        <p class="tests-empty__title">Tính năng đang phát triển</p>
+        <p class="tests-empty__sub">Nội dung luyện tập này sẽ sớm có mặt trên hệ thống!</p>
+      </div>
+    </ng-container>
+  </main>
 </div>
