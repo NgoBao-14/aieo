@@ -106,7 +106,7 @@
             <span class="test-card__attempts">{{ getAttemptCount(test, idx) | number }} lượt</span>
 
             <div class="test-card__body">
-              <p class="test-card__eyebrow"><span>≡A</span> Đề thi IELTS</p>
+              <p class="test-card__eyebrow"><span>≡A</span> Đề thi TOEIC</p>
               <h2>{{ getDisplayTitle(test, idx) }}</h2>
 
               <div class="test-card__meta">
@@ -116,9 +116,9 @@
             </div>
 
             <footer class="test-card__footer">
-              <a class="test-card__start" [routerLink]="['/tests', test.id]">
+              <button class="test-card__start" (click)="openTestModal(test, idx)">
                 <span>📙</span> Làm Bài
-              </a>
+              </button>
               <button class="test-card__review" type="button" disabled>
                 <span>👤</span> Review
               </button>
@@ -319,4 +319,154 @@
       </div>
     </ng-container>
   </main>
+</div>
+
+<!-- MODAL CẤU HÌNH BÀI THI CHUẨN 2 BƯỚC (GIỐNG ẢNH MẪU UY TÍN) -->
+<div class="toeic-config-overlay" [class.show]="showConfigModal" (click)="closeTestModal()"></div>
+
+<div class="toeic-config-modal" [class.show]="showConfigModal">
+  <!-- NÚT ĐÓNG VÒNG TRÒN -->
+  <button class="btn-modal-close" (click)="closeTestModal()" title="Đóng">⊗</button>
+
+  <!-- TIÊU ĐỀ BÀI THI -->
+  <h2 class="modal-test-title">{{ selectedTestTitle }}</h2>
+
+  <div class="modal-scroll-body">
+    <!-- BƯỚC 1: CHỌN CHẾ ĐỘ LUYỆN TẬP -->
+    <div class="modal-step-section">
+      <h3 class="step-title">Bước 1: Chọn chế độ luyện tập</h3>
+
+      <div class="step-cards-grid">
+        <!-- CARD TRÁI: LÀM FULL TEST -->
+        <div class="mode-card" [class.active]="practiceMode === 'full'" (click)="practiceMode = 'full'">
+          <div class="mode-card-header">
+            <div class="mode-info">
+              <h4>Làm full test</h4>
+              <p>Làm toàn bộ bài {{ selectedTest?.skill || 'Reading' }}</p>
+            </div>
+            <div class="time-dropdown-wrap" (click)="$event.stopPropagation()">
+              <select class="time-select-pill" [(ngModel)]="selectedTime">
+                <option *ngFor="let t of timeOptions" [value]="t">{{ t }} phút</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mode-radio-row">
+            <div class="custom-radio" [class.checked]="practiceMode === 'full'">
+              <span class="radio-dot"></span>
+            </div>
+            <strong class="radio-label">Full test</strong>
+            <span class="count-badge">40 câu</span>
+          </div>
+        </div>
+
+        <!-- CARD PHẢI: LUYỆN TỪNG BÀI LẺ -->
+        <div class="mode-card" [class.active]="practiceMode === 'single'" (click)="practiceMode = 'single'">
+          <div class="mode-card-header">
+            <div class="mode-info">
+              <h4>Luyện từng bài lẻ</h4>
+              <p>Chọn bài bạn muốn luyện</p>
+            </div>
+          </div>
+
+          <div class="passages-sublist">
+            <div class="passage-item-row" [class.selected]="practiceMode === 'single' && selectedPassage === 'passage1'" (click)="$event.stopPropagation(); practiceMode = 'single'; selectedPassage = 'passage1'">
+              <div class="custom-radio" [class.checked]="practiceMode === 'single' && selectedPassage === 'passage1'">
+                <span class="radio-dot"></span>
+              </div>
+              <strong class="passage-name">Passage 1</strong>
+              <span class="count-badge">13 câu</span>
+            </div>
+
+            <div class="passage-item-row" [class.selected]="practiceMode === 'single' && selectedPassage === 'passage2'" (click)="$event.stopPropagation(); practiceMode = 'single'; selectedPassage = 'passage2'">
+              <div class="custom-radio" [class.checked]="practiceMode === 'single' && selectedPassage === 'passage2'">
+                <span class="radio-dot"></span>
+              </div>
+              <strong class="passage-name">Passage 2</strong>
+              <span class="count-badge">13 câu</span>
+            </div>
+
+            <div class="passage-item-row" [class.selected]="practiceMode === 'single' && selectedPassage === 'passage3'" (click)="$event.stopPropagation(); practiceMode = 'single'; selectedPassage = 'passage3'">
+              <div class="custom-radio" [class.checked]="practiceMode === 'single' && selectedPassage === 'passage3'">
+                <span class="radio-dot"></span>
+              </div>
+              <strong class="passage-name">Passage 3</strong>
+              <span class="count-badge">14 câu</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BƯỚC 2: CHỌN GIAO DIỆN LÀM BÀI -->
+    <div class="modal-step-section" style="margin-top: 28px;">
+      <h3 class="step-title">Bước 2: Chọn giao diện làm bài</h3>
+
+      <div class="step-cards-grid">
+        <!-- CARD TRÁI: GIAO DIỆN LUYỆN TẬP -->
+        <div class="interface-card" [class.active]="selectedInterface === 'practice'" (click)="selectedInterface = 'practice'">
+          <div class="interface-img-wrapper">
+            <div class="mockup-screen practice-screen">
+              <div class="mockup-top-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="mockup-body-preview">
+                <div class="preview-left">
+                  <div class="preview-line header"></div>
+                  <div class="preview-line short"></div>
+                  <div class="preview-block highlight"></div>
+                  <div class="preview-line"></div>
+                </div>
+                <div class="preview-right">
+                  <div class="preview-choice-matrix">
+                    <div class="matrix-row"><span></span><span></span><span></span></div>
+                    <div class="matrix-row"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="interface-card-body">
+            <h4>Giao diện Luyện tập</h4>
+            <p>Hỗ trợ tối đa các chức năng: Tra từ vựng, gợi ý viết bài,... Phù hợp để luyện tập</p>
+          </div>
+        </div>
+
+        <!-- CARD PHẢI: GIAO DIỆN THI THẬT -->
+        <div class="interface-card" [class.active]="selectedInterface === 'real'" (click)="selectedInterface = 'real'">
+          <div class="interface-img-wrapper">
+            <div class="mockup-screen real-screen">
+              <div class="mockup-top-bar dark">
+                <span class="title-txt">IELTS Computer Test Simulation</span>
+              </div>
+              <div class="mockup-body-preview">
+                <div class="preview-left">
+                  <div class="preview-line header"></div>
+                  <div class="preview-line"></div>
+                  <div class="preview-line"></div>
+                </div>
+                <div class="preview-right">
+                  <div class="preview-line"></div>
+                  <div class="preview-line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="interface-card-body">
+            <h4>Giao diện Thi thật <span class="badge-real-match">Giống 100%</span></h4>
+            <p>Mô phỏng 100% giao diện thi máy, giúp các bạn quen với chức năng khi thi thật</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER ACTION BUTTON CAM SÁNG CĂN GIỮA -->
+  <div class="modal-footer-action-center">
+    <button class="btn-start-test-orange" (click)="startSelectedTest()">
+      Bắt đầu làm bài
+    </button>
+  </div>
 </div>

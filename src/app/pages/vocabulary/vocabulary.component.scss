@@ -3148,4 +3148,105 @@
   }
 }
 
+/* GIAO DIỆN TỪ VỰNG CỦA TÔI (MY VOCAB) */
+.my-vocab-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.my-vocab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .my-vocab-title-group {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .created-count {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  }
+
+  .btn-create-topic {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #1e293b;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.my-vocab-empty-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px dashed #cbd5e1;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+  .empty-book-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 24px 0;
+  }
+
+  .btn-create-first-topic {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+
+    &:hover {
+      background-color: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+    }
+  }
+}
+
 

@@ -1067,3 +1067,425 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   MODAL CẤU HÌNH BÀI THI CHUẨN 2 BƯỚC (ELEGANT 2-STEP MODAL)
+   ========================================================================== */
+
+.toeic-config-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.toeic-config-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) scale(0.96);
+  width: 840px;
+  max-width: 95vw;
+  max-height: 92vh;
+  background: #f8fafc;
+  border-radius: 20px;
+  z-index: 9999;
+  padding: 28px 32px 24px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.22);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .btn-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #0f172a;
+      transform: scale(1.1);
+    }
+  }
+
+  .modal-test-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.4px;
+  }
+}
+
+.modal-scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.modal-step-section {
+  .step-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+  }
+}
+
+.step-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* CHẾ ĐỘ LUYỆN TẬP CARD */
+.mode-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #22c55e;
+  }
+
+  &.active {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    box-shadow: 0 4px 16px rgba(22, 163, 74, 0.08);
+  }
+}
+
+.mode-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  .mode-info {
+    h4 {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+    }
+
+    p {
+      font-size: 13.5px;
+      color: #64748b;
+      margin: 0;
+    }
+  }
+}
+
+.time-select-pill {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 99px;
+  padding: 6px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    border-color: #16a34a;
+  }
+}
+
+.mode-radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+
+  .radio-label {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .count-badge {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 700;
+    color: #334155;
+  }
+}
+
+/* CUSTOM RADIO BUTTON */
+.custom-radio {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  .radio-dot {
+    width: 10px;
+    height: 10px;
+    background: #16a34a;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+  }
+
+  &.checked {
+    border-color: #16a34a;
+    .radio-dot {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+.passages-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.passage-item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+
+  .passage-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .count-badge {
+    margin-left: auto;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #475569;
+  }
+
+  &:hover {
+    background: #f1f5f9;
+  }
+
+  &.selected {
+    background: #e8f5e9;
+  }
+}
+
+/* GIAO DIỆN LÀM BÀI CARD (INTERFACE CARD) */
+.interface-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    border-color: #22c55e;
+  }
+
+  &.active {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.1);
+  }
+}
+
+.interface-img-wrapper {
+  padding: 16px 16px 0 16px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+}
+
+.mockup-screen {
+  width: 100%;
+  height: 140px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-top-bar {
+  height: 18px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    &.red { background: #ef4444; }
+    &.yellow { background: #f59e0b; }
+    &.green { background: #10b981; }
+  }
+
+  &.dark {
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 8px;
+    justify-content: center;
+  }
+}
+
+.mockup-body-preview {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 8px;
+  padding: 10px;
+
+  .preview-left, .preview-right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .preview-line {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    &.header { width: 70%; background: #94a3b8; }
+    &.short { width: 40%; }
+  }
+
+  .preview-block.highlight {
+    height: 24px;
+    background: #fef08a;
+    border-radius: 4px;
+  }
+
+  .preview-choice-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+
+    .matrix-row {
+      display: flex;
+      gap: 4px;
+      span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid #cbd5e1;
+      }
+    }
+  }
+}
+
+.interface-card-body {
+  padding: 16px 20px;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.45;
+  }
+}
+
+.badge-real-match {
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+/* FOOTER ACTION BUTTON CAM SÁNG CĂN GIỮA */
+.modal-footer-action-center {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+
+  .btn-start-test-orange {
+    background-color: #ff5722;
+    color: #ffffff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 54px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.35);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f4511e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 87, 34, 0.45);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

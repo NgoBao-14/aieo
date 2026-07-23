@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Test } from '../../models/app.models';
 import { EXERCISE_TYPES_BY_SKILL } from '../../models/exercise-types';
 import { TestDataService } from '../../core/services/test-data.service';
@@ -12,6 +12,12 @@ export type PracticeCategory =
   | 'writing_history' 
   | 'speaking_skills' 
   | 'speaking_history';
+
+export interface ToeicPartOption {
+  id: string;
+  name: string;
+  selected: boolean;
+}
 
 @Component({
   selector: 'app-practice-list',
@@ -27,6 +33,30 @@ export class PracticeListComponent implements OnInit {
   showSeedBtn = true;
 
   activeCategory: PracticeCategory = 'toeic';
+
+  // MODAL TOIEC CONFIG STATE
+  showConfigModal = false;
+  selectedTest: Test | null = null;
+  selectedTestTitle = '';
+  selectedTime = 60;
+  timeOptions = [15, 30, 45, 60, 75, 90, 120];
+
+  practiceMode: 'full' | 'single' = 'full';
+  selectedPassage: 'passage1' | 'passage2' | 'passage3' = 'passage1';
+  selectedInterface: 'practice' | 'real' = 'practice';
+
+  listeningParts: ToeicPartOption[] = [
+    { id: 'part1', name: 'Part 1: Mô tả tranh', selected: true },
+    { id: 'part2', name: 'Part 2: Hỏi-Đáp', selected: true },
+    { id: 'part3', name: 'Part 3: Hội thoại', selected: true },
+    { id: 'part4', name: 'Part 4: Bài nói', selected: true }
+  ];
+
+  readingParts: ToeicPartOption[] = [
+    { id: 'part5', name: 'Part 5: Hoàn thành câu', selected: true },
+    { id: 'part6', name: 'Part 6: Hoàn thành đoạn văn', selected: true },
+    { id: 'part7', name: 'Part 7: Đọc hiểu', selected: true }
+  ];
 
   readonly predictTests = [
     { id: 1, num: '#1', title: 'Tuần 3 - Tháng 4', attempts: '2,271' },
@@ -151,7 +181,8 @@ export class PracticeListComponent implements OnInit {
 
   constructor(
     private testDataService: TestDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -159,6 +190,39 @@ export class PracticeListComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.applyFilter(params.get('skill') ?? '');
     });
+  }
+
+  openTestModal(test: Test, index: number): void {
+    this.selectedTest = test;
+    const skillName = test.skill || 'Reading';
+    this.selectedTestTitle = `${skillName} - Test ${index + 1}`;
+    this.practiceMode = 'full';
+    this.selectedPassage = 'passage1';
+    this.selectedInterface = 'practice';
+    this.showConfigModal = true;
+  }
+
+  closeTestModal(): void {
+    this.showConfigModal = false;
+    this.selectedTest = null;
+  }
+
+  isAllSelected(): boolean {
+    return this.listeningParts.every(p => p.selected) && this.readingParts.every(p => p.selected);
+  }
+
+  toggleSelectAll(): void {
+    const targetState = !this.isAllSelected();
+    this.listeningParts.forEach(p => p.selected = targetState);
+    this.readingParts.forEach(p => p.selected = targetState);
+  }
+
+  startSelectedTest(): void {
+    if (this.selectedTest) {
+      const testId = this.selectedTest.id;
+      this.closeTestModal();
+      this.router.navigate(['/tests', testId]);
+    }
   }
 
   selectCategory(cat: PracticeCategory): void {

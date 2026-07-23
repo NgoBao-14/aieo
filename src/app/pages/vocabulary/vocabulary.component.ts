@@ -188,6 +188,7 @@ export class VocabularyComponent implements OnInit, OnDestroy {
   }
 
   // State quản lý giao diện
+  activeSidebarTab: 'roadmap' | 'my-vocab' = 'roadmap';
   selectedPos = 'noun';
   streakDays = 0;
   todayWordsLearned = 0;
