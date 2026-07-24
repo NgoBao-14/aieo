@@ -7,6 +7,8 @@ import { UserProfileService } from './user-profile.service';
 import { CloudTestService } from './cloud-test.service';
 import { getFirebaseDb } from '../firebase/firebase.client';
 
+import { isAnswerCorrect } from '../utils/answer-checker';
+
 const SUBMISSIONS_KEY = 'ielts9s-submissions';
 
 @Injectable({ providedIn: 'root' })
@@ -64,6 +66,19 @@ export class TestDataService {
   }
 
   async submitTest(userId: string, test: Test, answers: Record<string, string>): Promise<Submission> {
+    console.group('%c [SUBMISSION LOG] 📥 FULL CHI TIẾT NỘP BÀI THI & NƠI LƯU TRỮ', 'color: #2563eb; font-size: 15px; font-weight: bold;');
+    
+    console.group('%c 📦 1. THÔNG TIN BÀI THI (TEST OBJECT)', 'color: #0d9488; font-weight: bold;');
+    console.log('• ID Bài thi:', test.id);
+    console.log('• Tiêu đề:', test.title);
+    console.log('• Kỹ năng:', test.skill);
+    console.log('• Nguồn đề:', test.source);
+    console.log('• Số phần (Parts):', test.partsCount ?? test.parts?.length);
+    console.log('• Danh sách câu hỏi & nhóm:', test.parts);
+    console.log('• Bảng đáp án gốc (Answer Key):', test.answerKey);
+    console.log('• Bảng giải thích chi tiết (Explanations):', test.explanations);
+    console.groupEnd();
+
     const score = this.calculateScore(test, answers);
     const bandScore = this.getBandScore(score);
     const submission: Submission = {
@@ -77,6 +92,43 @@ export class TestDataService {
       bandScore,
       createdAt: new Date().toISOString()
     };
+
+    console.group('%c 📑 2. CHI TIẾT KẾT QUẢ TỪNG CÂU HỎI (ALL QUESTIONS TABLE)', 'color: #8b5cf6; font-weight: bold;');
+    const detailedComparison: any[] = [];
+    (test.parts || []).forEach((part, pIdx) => {
+      const partName = `Part ${part.number || (pIdx + 1)}: ${part.title || ''}`;
+      (part.questionGroups || []).forEach((group) => {
+        (group.questions || []).forEach((q) => {
+          const qIdStr = String(q.id);
+          const actual = answers[qIdStr] ?? '';
+          const expected = (test.answerKey || {})[qIdStr] ?? '';
+          const explanation = (test.explanations || {})[qIdStr] ?? 'N/A';
+          const correct = isAnswerCorrect(actual, expected);
+
+          detailedComparison.push({
+            'Câu #': q.id,
+            'Phần thi': partName,
+            'Dạng câu hỏi': group.type || 'N/A',
+            'Đáp án học viên': actual || '(Bỏ qua)',
+            'Đáp án chuẩn': expected || '(Chưa có)',
+            'Trạng thái': correct ? '✅ ĐÚNG' : (actual ? '❌ SAI' : '⚪ BỎ QUA'),
+            'Giải thích': explanation
+          });
+        });
+      });
+    });
+    console.table(detailedComparison);
+    console.groupEnd();
+
+    console.group('%c 💾 3. NƠI LƯU TRỮ DỮ LIỆU BÀI NỘP (STORAGE LOCATIONS)', 'color: #ea580c; font-weight: bold;');
+    console.log('📍 [LOCALSTORAGE 1] Lịch sử làm bài: Key = "ielts9s-submissions"');
+    console.log('   👉 Xem dữ liệu: JSON.parse(localStorage.getItem("ielts9s-submissions"))');
+    console.log('📍 [LOCALSTORAGE 2] Thống kê học viên: Key = "ielts9s_user_profile"');
+    console.log('   👉 Xem dữ liệu: JSON.parse(localStorage.getItem("ielts9s_user_profile"))');
+    console.log('📍 [FIREBASE FIRESTORE 1] Collection = "history" / Document ID = "' + submission.id + '"');
+    console.log('📍 [FIREBASE FIRESTORE 2] Collection = "users" / Document ID = "' + userId + '"');
+    console.log('📄 Submssion Payload đầy đủ:', submission);
+    console.groupEnd();
 
     const submissions = this.readSubmissions();
     submissions.unshift(submission);
@@ -105,8 +157,8 @@ export class TestDataService {
             part.questionGroups.forEach((group) => {
               group.questions.forEach((question) => {
                 const answer = answers[String(question.id)] ?? '';
-                const expected = (test.answerKey[String(question.id)] ?? '').trim().toLowerCase();
-                const isCorrect = answer.trim().toLowerCase() === expected;
+                const expected = test.answerKey[String(question.id)] ?? '';
+                const isCorrect = isAnswerCorrect(answer, expected);
                 questionsList.push({
                   id: question.id,
                   score: isCorrect ? 1 : 0,
@@ -117,6 +169,8 @@ export class TestDataService {
             historyDoc[partKey] = questionsList;
           });
 
+          console.log('🔥 [FIRESTORE PAYLOAD] history/' + submission.id + ':', historyDoc);
+
           setDoc(doc(db, 'history', submission.id), historyDoc)
             .then(() => console.log('[TestDataService] Saved structured submission to Firestore history:', submission.id))
             .catch((error) => console.error('[TestDataService] Failed to save submission to Firestore:', error));
@@ -125,6 +179,8 @@ export class TestDataService {
         });
       }
     }
+
+    console.groupEnd();
 
     this.userProfileService.updateUserStats(userId, test, answers, bandScore)
       .catch((error) => console.error('[TestDataService] Failed to update user stats:', error));
@@ -144,10 +200,13 @@ export class TestDataService {
   }
 
   private calculateScore(test: Test, answers: Record<string, string>): number {
+    if (!test || !test.answerKey) {
+      return 0;
+    }
     return Object.keys(test.answerKey).reduce((total, questionId) => {
-      const expected = (test.answerKey[questionId] ?? '').trim().toLowerCase();
-      const actual = (answers[questionId] ?? '').trim().toLowerCase();
-      return total + (expected === actual ? 1 : 0);
+      const expected = test.answerKey[questionId];
+      const actual = answers[questionId];
+      return total + (isAnswerCorrect(actual, expected) ? 1 : 0);
     }, 0);
   }
 

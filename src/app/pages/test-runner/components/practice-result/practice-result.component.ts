@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Submission, Test } from '../../../../models/app.models';
+import { isAnswerCorrect } from '../../../../core/utils/answer-checker';
 
 interface QuestionTypeStat {
   type: string;
@@ -55,15 +56,20 @@ export class PracticeResultComponent implements OnInit {
     const answerKey = this.test.answerKey || {};
     const typeMap: Record<string, QuestionTypeStat> = {};
 
+    this.correctCount = 0;
+    this.wrongCount = 0;
+    this.skippedCount = 0;
+    this.totalQuestions = 0;
+
     this.test.parts.forEach((part) => {
       part.questionGroups.forEach((group) => {
         group.questions.forEach((question) => {
           const qType = question.type || group.type || 'Other';
-          const expected = (answerKey[String(question.id)] ?? '').trim().toLowerCase();
-          const actual = (answers[String(question.id)] ?? '').trim().toLowerCase();
+          const expected = answerKey[String(question.id)] ?? '';
+          const actual = answers[String(question.id)] ?? '';
 
-          const isCorrect = actual === expected && expected !== '';
-          const isSkipped = !actual;
+          const isCorrect = isAnswerCorrect(actual, expected);
+          const isSkipped = !actual || !actual.trim();
 
           if (!typeMap[qType]) {
             typeMap[qType] = {
@@ -93,5 +99,12 @@ export class PracticeResultComponent implements OnInit {
     });
 
     this.stats = Object.values(typeMap);
+
+    console.group('%c [RESULT OVERLAY LOG] 📈 Bảng kết quả hiển thị cho học viên', 'color: #10b981; font-size: 14px; font-weight: bold;');
+    console.log('📌 Submission ID:', this.submission.id);
+    console.log('📌 Thời gian làm bài (giây):', this.timeSpent);
+    console.log(`✅ Đúng: ${this.correctCount} / ❌ Sai: ${this.wrongCount} / ⚪ Bỏ qua: ${this.skippedCount} / 📚 Tổng: ${this.totalQuestions}`);
+    console.table(this.stats);
+    console.groupEnd();
   }
 }
