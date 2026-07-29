@@ -84,8 +84,10 @@ export interface Submission {
   testId: string;
   testTitle: string;
   skill: 'Reading' | 'Listening';
-  answers: Record<string, string>;
   score: number;
   bandScore: number;
   createdAt: string;
+  test?: Test;
+  answers?: Record<string, any>;
+  [key: string]: any;
 }

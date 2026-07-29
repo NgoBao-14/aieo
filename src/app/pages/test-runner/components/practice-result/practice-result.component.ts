@@ -52,7 +52,20 @@ export class PracticeResultComponent implements OnInit {
       return;
     }
 
-    const answers = this.submission.answers || {};
+    const answers: Record<string, string> = {};
+    if (this.submission.answers) {
+      Object.assign(answers, this.submission.answers);
+    }
+    Object.keys(this.submission).forEach((key) => {
+      if (key.startsWith('part') && Array.isArray(this.submission[key])) {
+        this.submission[key].forEach((item: any) => {
+          if (item && item.id !== undefined && item.userAnswer !== undefined) {
+            answers[String(item.id)] = item.userAnswer;
+          }
+        });
+      }
+    });
+
     const answerKey = this.test.answerKey || {};
     const typeMap: Record<string, QuestionTypeStat> = {};
 

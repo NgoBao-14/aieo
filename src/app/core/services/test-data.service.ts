@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, firstValueFrom, forkJoin, from, map, of, shareReplay, switchMap } from 'rxjs';
 import { doc, setDoc } from 'firebase/firestore';
-import { Submission, Test } from '../../models/app.models';
+import { Question, QuestionGroup, Submission, Test } from '../../models/app.models';
 import { UserProfileService } from './user-profile.service';
 import { CloudTestService } from './cloud-test.service';
 import { getFirebaseDb } from '../firebase/firebase.client';
@@ -67,7 +67,6 @@ export class TestDataService {
 
   async submitTest(userId: string, test: Test, answers: Record<string, string>): Promise<Submission> {
     console.group('%c [SUBMISSION LOG] 📥 FULL CHI TIẾT NỘP BÀI THI & NƠI LƯU TRỮ', 'color: #2563eb; font-size: 15px; font-weight: bold;');
-    
     console.group('%c 📦 1. THÔNG TIN BÀI THI (TEST OBJECT)', 'color: #0d9488; font-weight: bold;');
     console.log('• ID Bài thi:', test.id);
     console.log('• Tiêu đề:', test.title);
@@ -81,16 +80,42 @@ export class TestDataService {
 
     const score = this.calculateScore(test, answers);
     const bandScore = this.getBandScore(score);
+
+    // CẤU TRÚC CHI TIẾT CÂU HỎI THEO PART (ĐÚNG THEO ẢNH CHỤP MẪU FIRESTORE CỦA NGƯỜI DÙNG)
+    const structuredParts: Record<string, Array<{ id: number; question: string; score: number; userAnswer: string }>> = {};
+    (test.parts || []).forEach((part, index) => {
+      const partKey = `part${part.number || (index + 1)}`;
+      const questionsList: Array<{ id: number; question: string; score: number; userAnswer: string }> = [];
+      (part.questionGroups || []).forEach((group) => {
+        (group.questions || []).forEach((question) => {
+          const userAnswer = answers[String(question.id)] ?? '';
+          const expected = (test.answerKey || {})[String(question.id)] ?? '';
+          const isCorrect = isAnswerCorrect(userAnswer, expected);
+
+          const questionText = this.extractQuestionText(question, group);
+
+          questionsList.push({
+            id: question.id,
+            question: questionText,
+            score: isCorrect ? 1 : 0,
+            userAnswer: userAnswer
+          });
+        });
+      });
+      structuredParts[partKey] = questionsList;
+    });
+
     const submission: Submission = {
       id: `${Date.now()}`,
       userId,
       testId: test.id,
       testTitle: test.title,
       skill: test.skill,
-      answers,
       score,
       bandScore,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      test,
+      ...structuredParts
     };
 
     console.group('%c 📑 2. CHI TIẾT KẾT QUẢ TỪNG CÂU HỎI (ALL QUESTIONS TABLE)', 'color: #8b5cf6; font-weight: bold;');
@@ -148,7 +173,8 @@ export class TestDataService {
             testTitle: submission.testTitle,
             skill: submission.skill,
             score: submission.score,
-            bandScore: submission.bandScore
+            bandScore: submission.bandScore,
+            ...structuredParts
           };
 
           test.parts.forEach((part, index) => {
@@ -236,6 +262,58 @@ export class TestDataService {
     }
 
     return this.localTests$;
+  }
+
+  private extractQuestionText(question: Question, group: QuestionGroup): string {
+    if (question.text && question.text.trim()) {
+      return question.text.trim();
+    }
+
+    if (group && group.template) {
+      const qIdStr = String(question.id);
+      const template = group.template;
+
+      const blocks = template.split(/<\/?(?:li|p|div|tr|h\d)[^>]*>/i).filter((b) => b.trim());
+      for (const block of blocks) {
+        if (
+          block.includes(`((${qIdStr}))`) ||
+          block.includes(`[[${qIdStr}]]`) ||
+          block.includes(`[${qIdStr}]`)
+        ) {
+          let cleanText = block.replace(/<[^>]*>/g, '').trim();
+          cleanText = cleanText
+            .replace(new RegExp(`\\(\\(${qIdStr}\\)\\)`, 'g'), '[...]')
+            .replace(new RegExp(`\\[\\[${qIdStr}\\]\\]`, 'g'), '[...]')
+            .replace(new RegExp(`\\[${qIdStr}\\]`, 'g'), '[...]');
+          cleanText = cleanText.replace(/\s+/g, ' ').trim();
+          if (cleanText) {
+            return cleanText;
+          }
+        }
+      }
+
+      if (
+        template.includes(`((${qIdStr}))`) ||
+        template.includes(`[[${qIdStr}]]`) ||
+        template.includes(`[${qIdStr}]`)
+      ) {
+        let cleanText = template.replace(/<[^>]*>/g, ' ').trim();
+        cleanText = cleanText
+          .replace(new RegExp(`\\(\\(${qIdStr}\\)\\)`, 'g'), '[...]')
+          .replace(new RegExp(`\\[\\[${qIdStr}\\]\\]`, 'g'), '[...]')
+          .replace(new RegExp(`\\[${qIdStr}\\]`, 'g'), '[...]');
+        cleanText = cleanText.replace(/\s+/g, ' ').trim();
+        if (cleanText) {
+          return cleanText;
+        }
+      }
+    }
+
+    if (group && group.instructions) {
+      return `[${group.type || 'Question'}] ${group.instructions} (#${question.id})`;
+    }
+
+    return `Question #${question.id}`;
   }
 
   private readSubmissions(): Submission[] {
