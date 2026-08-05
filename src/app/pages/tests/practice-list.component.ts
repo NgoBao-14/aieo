@@ -194,8 +194,7 @@ export class PracticeListComponent implements OnInit {
 
   openTestModal(test: Test, index: number): void {
     this.selectedTest = test;
-    const skillName = test.skill || 'Reading';
-    this.selectedTestTitle = `${skillName} - Test ${index + 1}`;
+    this.selectedTestTitle = test.title || `${test.skill || 'Reading'} - Test ${index + 1}`;
     this.practiceMode = 'full';
     this.selectedPassage = 'passage1';
     this.selectedInterface = 'practice';
@@ -235,14 +234,7 @@ export class PracticeListComponent implements OnInit {
   }
 
   getDisplayTitle(test: Test, index: number): string {
-    const quickNumber = index + 1;
-    const normalized = test.title.replace(/^IELTS Academic\s+/i, '').replace(/\s+-\s+/g, ' - ');
-
-    if (/practice test|sample test/i.test(normalized)) {
-      return `${test.skill} Quick Test #${quickNumber}`;
-    }
-
-    return normalized || `${test.skill} Quick Test #${quickNumber}`;
+    return test.title || `${test.skill} Test #${index + 1}`;
   }
 
   getPrimaryCount(test: Test): string {
@@ -251,25 +243,20 @@ export class PracticeListComponent implements OnInit {
       return `🎧 ${total} câu nghe - Điền khuyết`;
     }
 
-    return `📄 ${test.partsCount ?? test.parts.length} passages`;
+    return `📄 ${test.partsCount ?? test.parts?.length ?? 1} passages`;
   }
 
   getSecondaryCount(test: Test): string {
     const total = this.getQuestionCount(test);
     if (test.skill === 'Listening') {
-      return `📚 ${test.partsCount ?? test.parts.length} sections - Chi tiết`;
+      return `📚 ${test.partsCount ?? test.parts?.length ?? 1} sections - Chi tiết`;
     }
 
     return `📚 ${total} câu đọc - Chi tiết`;
   }
 
   getAttemptCount(test: Test, index: number): number {
-    if (test.attempts !== undefined) {
-      return test.attempts;
-    }
-
-    const base = [20328, 14186, 6331, 4580, 3400, 2604, 2436, 2329, 2257, 1877, 1842, 1816];
-    return base[index % base.length];
+    return test.attempts ?? 0;
   }
 
   getQuestionTypes(test: Test): string[] {
@@ -278,7 +265,7 @@ export class PracticeListComponent implements OnInit {
     }
     const order = EXERCISE_TYPES_BY_SKILL[test.skill] ?? [];
     const types = [...new Set(
-      test.parts.flatMap(p => (p.questionGroups ?? []).map(g => g.type))
+      (test.parts || []).flatMap(p => (p.questionGroups ?? []).map(g => g.type))
     )];
     return types.sort((a, b) => {
       const ai = order.indexOf(a as never);
@@ -291,8 +278,8 @@ export class PracticeListComponent implements OnInit {
     if (test.questionCount !== undefined) {
       return test.questionCount;
     }
-    return test.parts.reduce(
-      (sum, p) => sum + p.questionGroups.reduce((s, g) => s + g.questions.length, 0), 0
+    return (test.parts || []).reduce(
+      (sum, p) => sum + (p.questionGroups || []).reduce((s, g) => s + (g.questions || []).length, 0), 0
     );
   }
 
@@ -326,8 +313,8 @@ export class PracticeListComponent implements OnInit {
 
   private loadTests(): void {
     this.loading = true;
-    this.testDataService.getTests().subscribe(tests => {
-      this.tests = tests.filter(t => t.partsCount === undefined || t.partsCount > 0 || t.parts.some(p => (p.questionGroups ?? []).length > 0));
+    this.testDataService.getTests({ preferCloud: true }).subscribe(tests => {
+      this.tests = tests;
       this.applyFilter(this.route.snapshot.queryParamMap.get('skill') ?? '');
       this.loading = false;
     });

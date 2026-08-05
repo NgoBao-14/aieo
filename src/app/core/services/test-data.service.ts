@@ -10,6 +10,7 @@ import { getFirebaseDb } from '../firebase/firebase.client';
 import { isAnswerCorrect } from '../utils/answer-checker';
 
 const SUBMISSIONS_KEY = 'ielts9s-submissions';
+const CUSTOM_TESTS_KEY = 'ielts9s-custom-tests';
 
 @Injectable({ providedIn: 'root' })
 export class TestDataService {
@@ -26,7 +27,16 @@ export class TestDataService {
 
     const source$ = filters?.preferCloud && this.cloudTestService.isEnabled()
       ? from(this.cloudTestService.getTests(filters?.skill as Test['skill'] | undefined)).pipe(
-          switchMap((cloudTests) => cloudTests.length ? of(cloudTests) : localTests$),
+          switchMap((cloudTests) => {
+            const customLocal = this.getCustomTestsFromStorage();
+            const merged = [...cloudTests];
+            customLocal.forEach((ct) => {
+              if (!merged.some(m => m.id === ct.id)) {
+                merged.push(ct);
+              }
+            });
+            return merged.length ? of(merged) : localTests$;
+          }),
           catchError((err) => {
             console.error('Firebase failed to fetch tests, falling back to local files:', err);
             return localTests$;
@@ -44,6 +54,12 @@ export class TestDataService {
   }
 
   getTestById(testId: string): Observable<Test | null> {
+    const customLocal = this.getCustomTestsFromStorage();
+    const foundCustom = customLocal.find(t => t.id === testId);
+    if (foundCustom) {
+      return of(foundCustom);
+    }
+
     return this.getLocalTests().pipe(
       switchMap((tests) => {
         const localTest = tests.find((test) => test.id === testId) ?? null;
@@ -314,6 +330,22 @@ export class TestDataService {
     }
 
     return `Question #${question.id}`;
+  }
+
+  saveCustomTestLocally(test: Test): void {
+    const current = this.getCustomTestsFromStorage();
+    const index = current.findIndex(t => t.id === test.id);
+    if (index >= 0) {
+      current[index] = test;
+    } else {
+      current.push(test);
+    }
+    localStorage.setItem(CUSTOM_TESTS_KEY, JSON.stringify(current));
+  }
+
+  getCustomTestsFromStorage(): Test[] {
+    const raw = localStorage.getItem(CUSTOM_TESTS_KEY);
+    return raw ? JSON.parse(raw) as Test[] : [];
   }
 
   private readSubmissions(): Submission[] {

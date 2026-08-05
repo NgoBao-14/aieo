@@ -142,7 +142,7 @@ import { Test } from '../../../models/app.models';
 
           <!-- Actions -->
           <div class="form-actions">
-            <button type="submit" class="btn btn--primary" [disabled]="testForm.invalid || !parsedTest">
+            <button type="submit" class="btn btn--primary" [disabled]="testForm.invalid">
               {{ isNewTest ? 'Tạo đề thi' : 'Cập nhật' }}
             </button>
             <button type="button" class="btn btn--ghost" (click)="goBack()">Hủy</button>
@@ -197,6 +197,21 @@ export class TestFormComponent implements OnInit {
         this.isNewTest = false;
         this.currentTestId = params['testId'];
         this.loadTest(params['testId']);
+      }
+    });
+
+    this.testForm.get('title')?.valueChanges.subscribe(title => {
+      if (this.isNewTest && title) {
+        const idControl = this.testForm.get('id');
+        if (!idControl?.dirty) {
+          const slug = title
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+          idControl?.setValue(slug);
+        }
       }
     });
   }
@@ -286,21 +301,38 @@ export class TestFormComponent implements OnInit {
   async onSubmit() {
     if (this.testForm.valid) {
       const formVal = this.testForm.getRawValue();
-      const testToSave = this.parsedTest;
+      let testToSave = this.parsedTest;
       
       if (!testToSave) {
-        alert('Vui lòng nhập file Excel hoặc JSON trước.');
-        return;
+        // Build initial test object structure if no Excel/JSON file uploaded
+        testToSave = {
+          id: formVal.id,
+          title: formVal.title,
+          skill: formVal.skill || 'Reading',
+          source: formVal.source || 'IELTS9s Original',
+          parts: [
+            {
+              id: `${formVal.id}-p1`,
+              number: 1,
+              title: 'Part 1',
+              passageHtml: '',
+              questionGroups: []
+            }
+          ],
+          answerKey: {},
+          explanations: {},
+          createdAt: new Date().toISOString()
+        };
+      } else {
+        // Update test metadata with form values
+        testToSave.id = formVal.id;
+        testToSave.title = formVal.title;
+        testToSave.skill = formVal.skill;
+        testToSave.source = formVal.source;
       }
 
-      // Update test metadata with form values
-      testToSave.id = formVal.id;
-      testToSave.title = formVal.title;
-      testToSave.skill = formVal.skill;
-      testToSave.source = formVal.source;
-
-      // Update Reading Passages from textareas
-      if (testToSave.skill === 'Reading') {
+      // Update Reading Passages from textareas if available
+      if (testToSave.skill === 'Reading' && testToSave.parts) {
         testToSave.parts.forEach((part, i) => {
           if (this.partPassages[i] !== undefined) {
             part.passageHtml = this.partPassages[i];
@@ -308,18 +340,23 @@ export class TestFormComponent implements OnInit {
         });
       }
 
+      // Always save to local storage as fallback/cache
+      this.testDataService.saveCustomTestLocally(testToSave);
+
       try {
         if (this.isNewTest) {
           await this.cloudTestService.createTest(testToSave);
-          alert('Đã tạo đề thi thành công trên Cloud Firestore!');
+          alert('Đã tạo đề thi thành công và đồng bộ lên Cloud Firestore!');
         } else {
           await this.cloudTestService.updateTest(testToSave.id, testToSave);
           alert('Đã cập nhật đề thi thành công trên Cloud Firestore!');
         }
-        this.router.navigate(['/admin/tests']);
       } catch (error: any) {
-        alert('Lỗi lưu đề thi lên Cloud: ' + error.message);
+        console.warn('Lỗi lưu đề thi lên Cloud (đã lưu tạm dưới Local):', error);
+        alert('Đã tạo đề thi thành công dưới bộ nhớ Local (Offline)!');
       }
+
+      this.router.navigate(['/admin/tests']);
     }
   }
 

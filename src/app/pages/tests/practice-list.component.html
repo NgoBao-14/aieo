@@ -71,7 +71,7 @@
           <span class="filter-label">Chọn bộ đề</span>
           <div class="tests-filters" aria-label="Practice filters">
             <button class="filter-btn filter-btn--quick" [class.active]="selectedSkill === ''" (click)="applyFilter('')">
-              Quick Test <span>✓</span>
+              Tất cả đề <span>✓</span>
             </button>
             <button class="filter-btn" [class.active]="selectedSkill === 'Reading'" (click)="applyFilter('Reading')">Reading</button>
             <button class="filter-btn" [class.active]="selectedSkill === 'Listening'" (click)="applyFilter('Listening')">Listening</button>
@@ -97,7 +97,7 @@
         <div class="tests-empty" *ngIf="!filteredTests.length">
           <p class="tests-empty__icon">📂</p>
           <p class="tests-empty__title">Chưa có đề cho bộ lọc này</p>
-          <p class="tests-empty__sub">Thử chọn Quick Test hoặc thêm đề mới từ Admin.</p>
+          <p class="tests-empty__sub">Thử chọn Tất cả đề hoặc thêm đề mới từ Admin.</p>
         </div>
 
         <!-- GRID THI THỬ -->
@@ -106,7 +106,7 @@
             <span class="test-card__attempts">{{ getAttemptCount(test, idx) | number }} lượt</span>
 
             <div class="test-card__body">
-              <p class="test-card__eyebrow"><span>≡A</span> Đề thi TOEIC</p>
+              <p class="test-card__eyebrow"><span>≡A</span> {{ test.source || 'Đề thi IELTS' }}</p>
               <h2>{{ getDisplayTitle(test, idx) }}</h2>
 
               <div class="test-card__meta">
@@ -223,7 +223,7 @@
       <div class="skills-section">
         <div class="skills-section-header">
           <h2>Luyện theo dạng bài</h2>
-          <span class="badge-tag yellow">TOEIC Writing</span>
+          <span class="badge-tag yellow">IELTS Writing</span>
         </div>
 
         <div class="task-grid">
@@ -248,7 +248,7 @@
     <ng-container *ngIf="activeCategory === 'speaking_skills'">
       <div class="speaking-header">
         <div>
-          <span class="speaking-kicker">TOEIC SPEAKING</span>
+          <span class="speaking-kicker">IELTS SPEAKING</span>
           <h2>Chọn kỹ năng để luyện</h2>
           <p class="speaking-sub">5 dạng bài theo cấu trúc đề thi, chấm trực tiếp từ bản thu.</p>
         </div>
