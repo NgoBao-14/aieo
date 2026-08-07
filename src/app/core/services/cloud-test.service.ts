@@ -102,7 +102,7 @@ export class CloudTestService {
     await this.upsertTest({ ...test, id });
   }
 
-  async deleteTest(id: string, skill: Test['skill']): Promise<void> {
+  async deleteTest(id: string, skill?: Test['skill']): Promise<void> {
     if (!this.isEnabled()) {
       return;
     }
@@ -113,22 +113,27 @@ export class CloudTestService {
         return;
       }
 
-      const skillKey = this.getSkillDocKey(skill);
-      const skillDocRef = doc(db, this.collectionName, skillKey);
-      const skillDocSnap = await getDoc(skillDocRef);
+      console.log(`[CloudTestService] Deleting testId=${id} from Cloud Firestore...`);
+      const docKeys: SkillDocKey[] = skill ? [this.getSkillDocKey(skill)] : ['reading', 'listening'];
+      for (const docKey of docKeys) {
+        const skillDocRef = doc(db, this.collectionName, docKey);
+        const skillDocSnap = await getDoc(skillDocRef);
 
-      if (skillDocSnap.exists() && Array.isArray(skillDocSnap.data()['data'])) {
-        const current = skillDocSnap.data()['data'] as CloudTestMetadata[];
-        const item = current.find((test) => test.id === id);
-        if (item) {
-          await updateDoc(skillDocRef, {
-            data: arrayRemove(item)
-          });
+        if (skillDocSnap.exists() && Array.isArray(skillDocSnap.data()['data'])) {
+          const current = skillDocSnap.data()['data'] as CloudTestMetadata[];
+          const updated = current.filter((test) => test.id !== id);
+          if (updated.length !== current.length) {
+            console.log(`[CloudTestService] Updating ${this.collectionName}/${docKey} without testId=${id}`);
+            await setDoc(skillDocRef, { data: updated }, { merge: true });
+          }
         }
       }
 
+      console.log(`[CloudTestService] Deleting detail doc ${this.detailsCollectionName}/${id}`);
       await deleteDoc(doc(db, this.detailsCollectionName, id));
+      console.log(`[CloudTestService] Successfully deleted testId=${id} from Firestore`);
     } catch (error) {
+      console.error('[CloudTestService] Error in deleteTest:', error);
       handleFirestoreError(error, OperationType.DELETE, `${this.collectionName}/${id}`);
     }
   }

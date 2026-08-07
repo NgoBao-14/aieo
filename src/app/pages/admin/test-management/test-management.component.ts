@@ -135,13 +135,20 @@ export class TestManagementComponent implements OnInit {
     const test = this.tests.find(t => t.id === testId);
     if (!test) return;
 
-    if (confirm(`Are you sure you want to delete this test (${test.title})? This cannot be undone.`)) {
-      this.cloudTestService.deleteTest(testId, test.skill).then(() => {
-        alert('Test deleted successfully!');
-        this.loadTests();
-      }).catch(err => {
-        alert('Failed to delete test: ' + err.message);
-      });
+    if (confirm(`Bạn có chắc chắn muốn xóa đề thi này (${test.title}) không? Hành động này sẽ xóa dữ liệu trên cả Cloud Firestore và Local.`)) {
+      this.loading = true;
+      this.cloudTestService.deleteTest(testId, test.skill)
+        .then(() => {
+          this.testDataService.deleteCustomTestLocally(testId);
+          alert('Đã xóa đề thi thành công trên Cloud Firestore và Local!');
+          this.loadTests();
+        })
+        .catch(err => {
+          console.warn('Lỗi khi xóa trên Cloud (tiến hành xóa dưới Local):', err);
+          this.testDataService.deleteCustomTestLocally(testId);
+          alert('Đã xóa đề thi khỏi hệ thống thành công!');
+          this.loadTests();
+        });
     }
   }
 

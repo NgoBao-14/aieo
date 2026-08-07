@@ -11,6 +11,7 @@ import { isAnswerCorrect } from '../utils/answer-checker';
 
 const SUBMISSIONS_KEY = 'ielts9s-submissions';
 const CUSTOM_TESTS_KEY = 'ielts9s-custom-tests';
+const DELETED_TESTS_KEY = 'ielts9s-deleted-tests';
 
 @Injectable({ providedIn: 'root' })
 export class TestDataService {
@@ -24,6 +25,7 @@ export class TestDataService {
 
   getTests(filters?: { skill?: string; source?: string; preferCloud?: boolean }): Observable<Test[]> {
     const localTests$ = this.getLocalTests();
+    const deletedIds = this.getDeletedTestIds();
 
     const source$ = filters?.preferCloud && this.cloudTestService.isEnabled()
       ? from(this.cloudTestService.getTests(filters?.skill as Test['skill'] | undefined)).pipe(
@@ -46,6 +48,9 @@ export class TestDataService {
 
     return source$.pipe(
       map((tests) => tests.filter((test) => {
+        if (deletedIds.includes(test.id)) {
+          return false;
+        }
         const bySkill = filters?.skill ? test.skill === filters.skill : true;
         const bySource = filters?.source ? test.source === filters.source : true;
         return bySkill && bySource;
@@ -54,6 +59,11 @@ export class TestDataService {
   }
 
   getTestById(testId: string): Observable<Test | null> {
+    const deletedIds = this.getDeletedTestIds();
+    if (deletedIds.includes(testId)) {
+      return of(null);
+    }
+
     const customLocal = this.getCustomTestsFromStorage();
     const foundCustom = customLocal.find(t => t.id === testId);
     if (foundCustom) {
@@ -330,6 +340,25 @@ export class TestDataService {
     }
 
     return `Question #${question.id}`;
+  }
+
+  deleteCustomTestLocally(testId: string): void {
+    // 1. Remove from custom local tests
+    const current = this.getCustomTestsFromStorage();
+    const updated = current.filter(t => t.id !== testId);
+    localStorage.setItem(CUSTOM_TESTS_KEY, JSON.stringify(updated));
+
+    // 2. Track in deleted test IDs list
+    const deletedIds = this.getDeletedTestIds();
+    if (!deletedIds.includes(testId)) {
+      deletedIds.push(testId);
+      localStorage.setItem(DELETED_TESTS_KEY, JSON.stringify(deletedIds));
+    }
+  }
+
+  getDeletedTestIds(): string[] {
+    const raw = localStorage.getItem(DELETED_TESTS_KEY);
+    return raw ? JSON.parse(raw) as string[] : [];
   }
 
   saveCustomTestLocally(test: Test): void {
